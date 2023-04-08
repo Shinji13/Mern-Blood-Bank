@@ -1,0 +1,79 @@
+.about {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: var(--primary-color-600);
+
+  & > div {
+    width: 45%;
+    height: 100%;
+    overflow: hidden;
+  }
+  & > .aboutHeader {
+    position: relative;
+    z-index: 2;
+    & > div:last-child {
+      position: absolute;
+      top: 39.6%;
+      left: 4.5%;
+      width: 42%;
+      aspect-ratio: 1.05;
+      z-index: -1;
+      & > .circle1 {
+        width: 100%;
+        height: 100%;
+        background-color: var(--primary-white);
+        border-radius: 50%;
+        filter: blur(4px);
+        opacity: 0.9;
+      }
+    }
+
+    & > div:first-child {
+      position: absolute;
+      width: 100%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-family: metafiz-bold;
+      font-size: var(--font-size-xxl);
+      color: var(--primary-white);
+      & > span {
+        padding-bottom: 3px;
+
+        & span {
+          color: var(--primary-black);
+        }
+      }
+      & i {
+        color: var(--primary-black);
+        font-size: 3rem;
+      }
+    }
+  }
+  & > .aboutParg {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 25px;
+    & > p {
+      font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+      font-size: var(--font-size-md);
+      font-weight: 550;
+      color: var(--primary-white);
+      white-space: pre-wrap;
+      & span {
+        color: var(--primary-black);
+        font-weight: bold;
+      }
+    }
+  }
+}

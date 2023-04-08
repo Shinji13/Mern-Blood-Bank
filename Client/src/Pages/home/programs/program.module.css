@@ -1,0 +1,184 @@
+.programV2 {
+  background-color: var(--primary-white);
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  & div {
+    overflow: hidden;
+  }
+  & > .header {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 40px;
+    padding-left: 40px;
+    gap: 20px;
+    color: var(--primary-black);
+
+    & h3 {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: var(--font-size-lg);
+      color: #d52816;
+    }
+    & h1 {
+      padding-bottom: 3px;
+      font-family: metafiz-bold;
+      font-size: var(--font-size-xl);
+    }
+  }
+  & > .Program:nth-child(4) {
+    & > div:nth-child(3) {
+      & img {
+        width: 80% !important;
+        aspect-ratio: 1/1.1 !important;
+        border-radius: 5px !important;
+        object-position: left !important;
+      }
+    }
+  }
+  & > .Program:nth-child(3) {
+    & .readMore {
+      background-color: var(--primary-color-600) !important;
+      color: var(--primary-white) !important;
+    }
+    & > div:nth-child(3) {
+      & img {
+        clip-path: polygon(
+          100% 1%,
+          100% 66%,
+          59% 67%,
+          38% 100%,
+          1% 100%,
+          0% 33%,
+          30% 32%,
+          51% 2%
+        );
+        border-radius: 5px !important;
+      }
+    }
+    & > .title {
+      & h1:last-child {
+        -webkit-text-fill-color: var(--primary-color-600);
+        -webkit-text-stroke-color: transparent;
+      }
+    }
+  }
+
+  & > .Program {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    display: grid;
+    grid-template-columns: repeat(3, 30%);
+    gap: 3%;
+    & > div:nth-child(3) {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      & img {
+        width: 90%;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center;
+      }
+    }
+
+    .title {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 10px;
+      padding-left: 40px;
+
+      & div:first-child h1 {
+        padding-bottom: 3px;
+        font-family: metafiz-bold;
+        font-size: var(--font-size-xl);
+        text-transform: capitalize;
+      }
+      & > h1:last-child {
+        padding-bottom: 3px;
+        font-family: metafiz-bold;
+        font-size: 120px;
+        -webkit-text-fill-color: transparent;
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: var(--primary-black);
+      }
+    }
+    & > .content {
+      height: 100%;
+      width: 100%;
+
+      & > div {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 50px;
+
+        & > .close {
+          cursor: pointer;
+          border: none;
+          font-size: var(--font-size-md);
+          background-color: transparent;
+          border: 3px solid var(--primary-color-600);
+          color: var(--primary-black);
+          font-weight: bolder;
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+
+          &:hover {
+            color: var(--primary-white);
+            background-color: var(--primary-color-600);
+            border: none;
+          }
+        }
+        & p {
+          margin-top: 10px;
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: var(--font-size-base);
+          font-weight: 550;
+          color: hsla(0, 0%, 7%, 0.589);
+        }
+        & > .readMore {
+          width: 60%;
+          height: fit-content;
+          display: flex;
+          align-items: center;
+          letter-spacing: 0.5px;
+          justify-content: center;
+          position: relative;
+          font-family: metafiz-regular;
+          font-size: 0.9rem;
+          font-weight: bold;
+          color: var(--primary-black);
+          cursor: pointer;
+          z-index: 2;
+          padding-inline: 0.2rem;
+          padding-block: 0.4rem;
+          background-color: transparent;
+          border: 3px solid var(--primary-color-600);
+          font-size: var(--font-size-base);
+        }
+      }
+    }
+    & > .margin {
+      position: absolute;
+      bottom: 0;
+      left: 10%;
+      width: 80%;
+      height: 1px;
+      opacity: 0.3;
+      background-color: var(--primary-black);
+    }
+  }
+}
