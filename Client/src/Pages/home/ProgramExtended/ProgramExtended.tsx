@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./ProgramExtended.module.css";
 import { motion as m } from "framer-motion";
-import img from "../../../assets/images/image_7.jpg";
-import img3 from "../../../assets/images/image_1.jpg";
-import img2 from "../../../assets/images/image_2.jpg";
+import img from "../../../assets/images/managerImg.jpg";
+import img2 from "../../../assets/images/doctorImg.jpg";
+import img3 from "../../../assets/images/donorImg.jpg";
 import backArrow from "../../../assets/images/arrow-left-solid.svg";
 import { useEffect } from "react";
 import { animateScroll } from "react-scroll";
@@ -17,7 +17,7 @@ type program = {
 const programs: program[] = [
   {
     title: "Service Managers program",
-    img: img3,
+    img: img,
     useCases: [
       {
         title: "Managing service doctors",
@@ -69,7 +69,7 @@ const programs: program[] = [
   },
   {
     title: "Donors program",
-    img: img,
+    img: img3,
     useCases: [
       {
         title: "See Personal Donations",

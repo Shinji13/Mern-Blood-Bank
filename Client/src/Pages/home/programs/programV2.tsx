@@ -1,7 +1,7 @@
 import styles from "./program.module.css";
-import img from "../../../assets/images/image_7.jpg";
-import img3 from "../../../assets/images/image_1.jpg";
-import img2 from "../../../assets/images/image_2.jpg";
+import img from "../../../assets/images/managerImg.jpg";
+import img2 from "../../../assets/images/doctorImg.jpg";
+import img3 from "../../../assets/images/donorImg.jpg";
 import { motion as m } from "framer-motion";
 import { appear, textUp } from "../../../functions/variants";
 import { useNavigate } from "react-router";
