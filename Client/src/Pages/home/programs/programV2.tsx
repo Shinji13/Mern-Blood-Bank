@@ -1,50 +1,45 @@
-import { useState } from "react";
 import styles from "./program.module.css";
 import img from "../../../assets/images/image_7.jpg";
 import img3 from "../../../assets/images/image_1.jpg";
 import img2 from "../../../assets/images/image_2.jpg";
 import { motion as m } from "framer-motion";
 import { appear, textUp } from "../../../functions/variants";
+import { useNavigate } from "react-router";
+import { useSearchParams } from "react-router-dom";
 
 type program = {
   title: string;
   intialContent: string;
-  extendedContent: string;
   image: string;
 };
 
 const programs: program[] = [
   {
-    title: "Blood Bank Management",
+    title: "Service Manager program",
     intialContent: `Blood bank management can be done either by adding new bloodexchanges or manuplating the bank storage directly`,
-    extendedContent: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam
-porro fuga dicta perspiciatis exercitationem aspernatur
-laudantium sit, unde obcaecati quia! Saepe itaque nisi iusto
-incidunt ab obcaecati nostrum, corrupti doloremque.`,
     image: img,
   },
   {
-    title: "Browsing users informations",
+    title: "Doctors program",
     intialContent: `Regular users can check their profie while hospital can browse users information `,
-    extendedContent: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam
-porro fuga dicta perspiciatis exercitationem aspernatur
-laudantium sit, unde obcaecati quia! Saepe itaque nisi iusto
-incidunt ab obcaecati nostrum, corrupti doloremque.`,
-    image: img3,
+    image: img2,
   },
   {
-    title: "Making Blood Requests",
+    title: "Donors program",
     intialContent: `Blood bank management can be done either by adding new bloodexchanges or manuplating the bank storage directly`,
-    extendedContent: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam
-porro fuga dicta perspiciatis exercitationem aspernatur
-laudantium sit, unde obcaecati quia! Saepe itaque nisi iusto
-incidunt ab obcaecati nostrum, corrupti doloremque.`,
-    image: img2,
+    image: img3,
   },
 ];
 
 export default function ProgramV2() {
-  const [ProgramReadMore, toggle] = useState<number[]>([0, 0, 0]);
+  const navigate = useNavigate();
+  const [, SetSearchParams] = useSearchParams();
+  const extendProgram = (index: number) => {
+    SetSearchParams({ scrollY: window.pageYOffset.toString() });
+    const to = index == 0 ? "manager" : index == 1 ? "doctor" : "donor";
+    navigate("/home/" + to);
+  };
+
   return (
     <div className={styles.programV2} id="Our_Program">
       <div className={styles.header}>
@@ -86,71 +81,15 @@ export default function ProgramV2() {
               <h1>{"0" + (index + 1)}</h1>
             </div>
             <m.div className={styles.content}>
-              {ProgramReadMore[index] === 0 ? (
-                <div>
-                  <m.p
-                    variants={appear}
-                    initial={"hidden"}
-                    whileInView={"visible"}
-                    viewport={{ once: false, amount: 0.3 }}
-                  >
-                    {program.intialContent}
-                  </m.p>
-                  <m.button
-                    variants={appear}
-                    initial={"hidden"}
-                    whileInView={"visible"}
-                    viewport={{ once: false, amount: 0.3 }}
-                    onClick={() =>
-                      toggle((prev) => {
-                        let arr = prev;
-                        arr[index] = 1;
-                        return [...arr];
-                      })
-                    }
-                    className={styles.readMore}
-                  >
-                    Read More
-                  </m.button>
-                </div>
-              ) : (
-                <div>
-                  <div>
-                    <m.p
-                      variants={appear}
-                      initial={"hidden"}
-                      whileInView={"visible"}
-                      viewport={{ once: false, amount: 0.3 }}
-                    >
-                      {program.intialContent}
-                    </m.p>
-                    <m.p
-                      variants={appear}
-                      initial={"hidden"}
-                      whileInView={"visible"}
-                      viewport={{ once: false, amount: 0.3 }}
-                    >
-                      {program.extendedContent}
-                    </m.p>
-                  </div>
-                  <m.button
-                    variants={appear}
-                    initial={"hidden"}
-                    whileInView={"visible"}
-                    viewport={{ once: false, amount: 0.3 }}
-                    className={styles.close}
-                    onClick={() =>
-                      toggle((prev) => {
-                        let arr = prev;
-                        arr[index] = 0;
-                        return [...arr];
-                      })
-                    }
-                  >
-                    X
-                  </m.button>
-                </div>
-              )}
+              <div>
+                <p>{program.intialContent}</p>
+                <m.button
+                  onClick={() => extendProgram(index)}
+                  className={styles.readMore}
+                >
+                  Read More
+                </m.button>
+              </div>
             </m.div>
             <div>
               <img src={program.image} alt="cant be loaded" />

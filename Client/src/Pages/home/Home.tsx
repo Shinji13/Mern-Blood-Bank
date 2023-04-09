@@ -1,13 +1,29 @@
 import styles from "./Home.module.css";
 import { motion as m } from "framer-motion";
-import { Link as ScrollLink } from "react-scroll";
-import { Link as RouteLink } from "react-router-dom";
+import { Link as ScrollLink, animateScroll } from "react-scroll";
+import { Link as RouteLink, useSearchParams } from "react-router-dom";
 import img4 from "../../assets/images/Image_4.jpg";
 import About from "./about/about";
 import Program from "./programs/programV2";
 import Contact from "./contact/Contact";
+import { useEffect } from "react";
 
-export default function Main() {
+export default function Home() {
+  const [searchParams, SetSearchParams] = useSearchParams();
+
+  useEffect(() => {
+    if (
+      +searchParams.get("scrollY")! !== 0 &&
+      searchParams.get("scrollY") != null
+    ) {
+      animateScroll.scrollTo(+searchParams.get("scrollY")!, {
+        duration: 0,
+        smooth: true,
+      });
+      SetSearchParams({ scrollY: "0" });
+    }
+  }, []);
+
   return (
     <div className={styles.home}>
       <div className={styles.main}>

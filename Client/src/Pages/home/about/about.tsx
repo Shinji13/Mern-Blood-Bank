@@ -43,15 +43,17 @@ export default function About() {
         </m.p>
         <m.p variants={appear}>
           <span>Bloodify</span> is web application constructed for the purpose
-          of helping hospitals managing there blood banks and recording blood
-          donations in much more easier way than typical paper work.
+          of helping blood services managing there blood banks and recording
+          blood donations in much more easier way than typical paper work.
         </m.p>
         <m.p variants={appear}>
-          For regular user living nearby hospitals using bloodify we allow
-          <span> fluent communicatations</span> with blood services remotely.
+          Bloodify also let donors sign in to check their medical records and
+          see blood demand posts and have many more features check
+          <span> our programs section</span>.
         </m.p>
         <m.p variants={appear}>
-          Bloodify only support hospitals of <span>setif algeria</span> for now.
+          Bloodify only support blood services of setif algeria for now,try{" "}
+          <span>contact us</span> to get your services started with bloodify.
         </m.p>
       </m.div>
     </div>

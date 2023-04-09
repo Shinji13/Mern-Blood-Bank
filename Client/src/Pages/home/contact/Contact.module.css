@@ -5,7 +5,7 @@
   position: relative;
   box-sizing: content-box;
   padding-bottom: 50px;
-  background-color: var(--primary-color-100);
+  background-color: var(--primary-color-600);
   display: grid;
   grid-template-columns: 60% 40%;
 
@@ -35,7 +35,7 @@
         font-family: metafiz-bold;
         font-size: var(--font-size-lg);
         letter-spacing: 1px;
-        color: var(--primary-color-600);
+        color: var(--primary-white);
       }
       & > span {
         font-family: Arial, Helvetica, sans-serif;
@@ -64,7 +64,7 @@
 
         & i {
           width: 20px;
-          color: var(--primary-color-600);
+          color: var(--primary-white);
           aspect-ratio: 1/1;
         }
       }
@@ -98,11 +98,13 @@
       font-family: metafiz-bold;
       font-size: var(--font-size-xxxl);
       letter-spacing: 10px;
-      color: var(--primary-color-600);
+      color: var(--primary-white);
     }
+
     & img {
       width: 140px;
       aspect-ratio: 1.169;
+      cursor: pointer;
       object-fit: cover;
       object-position: center;
     }

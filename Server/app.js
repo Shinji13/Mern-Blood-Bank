@@ -23,6 +23,7 @@ dotenv.config({
 });
 const app = express();
 
+// database connection
 mongoose
   .connect("mongodb://127.0.0.1:27017", {
     useNewUrlParser: true,
