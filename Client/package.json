@@ -21,6 +21,7 @@
     "react-router": "^6.9.0",
     "react-router-dom": "^6.9.0",
     "react-scroll": "^1.8.9",
+    "react-select": "^5.7.2",
     "valtio": "^1.10.4"
   },
   "devDependencies": {

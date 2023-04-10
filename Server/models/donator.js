@@ -44,6 +44,10 @@ const donatorSchema = new mongoose.Schema({
     type: [mongoose.Types.ObjectId],
     default: [],
   },
+  appointments: {
+    type: [mongoose.Types.ObjectId],
+    default: [],
+  },
 });
 
 export default mongoose.model("donator", donatorSchema);

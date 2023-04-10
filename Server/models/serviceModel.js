@@ -70,6 +70,10 @@ const serviceSchema = new mongoose.Schema({
     type: [patient],
     default: [],
   },
+  appointments: {
+    type: [mongoose.Types.ObjectId],
+    default: [],
+  },
 });
 
 export default mongoose.model("services", serviceSchema);

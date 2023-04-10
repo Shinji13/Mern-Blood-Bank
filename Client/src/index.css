@@ -17,7 +17,7 @@
   --font-size-xxxl: clamp(44px, 54px + 4vw, 120px);
   --primary-white: #f9f9f9;
   --primary-black: #121212;
-  --primary-color-600: rgb(213, 40, 22);
+  --primary-color-600: #d52816;
   --primary-color-400: #dd5244;
   --primary-color-200: #ebaca4;
   --primary-color-100: #f6d4d085;
@@ -32,6 +32,8 @@ body {
   list-style: none;
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
   text-decoration: none;
+}
+html {
+  overflow-x: hidden;
 }

@@ -3,16 +3,14 @@ import express, { json } from "express";
 import helmet from "helmet";
 import morgan from "morgan";
 import donatorModel from "./models/donator.js";
-import interactionModerl from "./models/interaction.js";
-import requestModerl from "./models/serviceRequests.js";
+import interactionModel from "./models/interaction.js";
+import requestModel from "./models/serviceRequests.js";
 import serviceModel from "./models/serviceModel.js";
-import serviceStuff from "./models/serviceStuff.js";
+import serviceStuffModel from "./models/serviceStuff.js";
+import appointmentModel from "./models/appointment.js";
 import { writeFileSync } from "fs";
 
-import {
-  getUserInteraction,
-  getServiceInteractions,
-} from "./utils/globalApiHandlers.js";
+import { getUserInteraction, getDonators } from "./utils/globalApiHandlers.js";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 
@@ -60,6 +58,5 @@ app.use(morgan("dev"));
 
 // app.use("/api/manager", managerRoute);
 
-// app.get("/api/serviceInteraction/:serviceName", getServiceInteractions);
-
 // app.get("/api/userInteraction/:nationalId", getUserInteraction);
+// app.get("/api/donators/all", getDonators);

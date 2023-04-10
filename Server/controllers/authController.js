@@ -4,7 +4,6 @@ import { createAccessToken, createRefreshToken } from "./jwtToken.js";
 import donorModel from "../models/donator.js";
 import ServiceStuffModel from "../models/serviceStuff.js";
 import dotenv from "dotenv";
-import serviceStuff from "../models/serviceStuff.js";
 
 dotenv.config({
   path: "C:/Users/hp/Documents/study/OwnStudy/Projects/NoteApp/server/.env",
@@ -18,47 +17,65 @@ const userResponse = async (res, payload) => {
     secure: true,
   });
   res.set("authentication", access);
-  res.status(200).send({ message: "authentication successful" });
+  res.status(200).send(payload);
 };
 
 const register = async (req, res) => {
-  const isExist = await userModel.findOne({ username: req.body.username });
-  if (isExist) return res.status(404).send({ message: "user already exists" });
-  const hashedPassword = await bcrypt.hash(req.body.password, 10);
-  let newUser = null;
-  try {
-    newUser = await userModel.create({
-      ...req.body,
-      password: hashedPassword,
-    });
-  } catch (error) {
-    return res.status(503).send();
-  }
-  userResponse(res, newUser._id);
+  donorModel
+    .findOne({ nationalId: req.body.nationalId })
+    .then((user) => {
+      if (!user || user.email == "default") {
+        bcrypt.hash(req.body.password, 10).then((hash) => {
+          donorModel
+            .create({ ...req.body, password: hash })
+            .then((user) => {
+              userResponse(res, {
+                userid: user._id,
+                userType: "donor",
+              });
+            })
+            .catch((err) => res.status(503).send());
+        });
+      }
+    })
+    .catch((err) => res.status(503).send());
 };
 const login = async (req, res) => {
-  try {
-    let oldDonor = await donorModel.find({ email: req.body.email });
-    if (oldDonor) {
-      let isValid = bcrypt.compare(req.body.password, oldDonor.password);
-      if (isValid)
-        return userResponse(res, { userid: oldDonor._id, userType: 2 });
-      return res.status(401).send();
-    }
-    let oldStuff = await serviceStuff.find({ email: req.body.email });
-    if (oldStuff) {
-      let isValid = bcrypt.compare(req.body.password, oldStuff.password);
-      if (isValid)
-        return userResponse(res, {
-          userid: oldStuff._id,
-          userType: oldStuff.stuffType,
-        });
-      return res.status(401).send();
-    }
-    return res.status(404).send();
-  } catch (error) {
-    res.status(503).send();
-  }
+  donorModel
+    .findOne({ email: req.body.email })
+    .then(async (oldDonor) => {
+      if (oldDonor) {
+        bcrypt.compare(req.body.password, oldDonor.password).then((isValid) =>
+          isValid
+            ? userResponse(res, {
+                userid: oldDonor._id,
+                userType: "donor",
+              })
+            : res.status(401).send()
+        );
+      } else {
+        ServiceStuffModel.find({ email: req.body.email })
+          .then((oldStuff) => {
+            if (oldStuff) {
+              bcrypt
+                .compare(req.body.password, oldStuff.password)
+                .then((isValid) =>
+                  isValid
+                    ? userResponse(res, {
+                        userid: oldStuff._id,
+                        userType:
+                          oldStuff.stuffType == 0 ? "manager" : "doctor",
+                      })
+                    : res.status(401).send()
+                );
+            } else {
+              res.status(404).send();
+            }
+          })
+          .catch((err) => res.status(503).send());
+      }
+    })
+    .catch((err) => res.status(503).send());
 };
 
 const refresh = async (req, res) => {

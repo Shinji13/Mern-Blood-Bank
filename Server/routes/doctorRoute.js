@@ -23,6 +23,6 @@ doctorRoute.put(
 
 doctorRoute.get("/patient/:nationalId", doctorController.getMedicalFile);
 
-doctorRoute.get("/donators", doctorController.getDonators);
+doctorRoute.get("/interactions/:serviceName", doctorController.getInteractions);
 
 export default doctorRoute;

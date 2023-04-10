@@ -44,6 +44,11 @@ const programs: program[] = [
         description:
           "The manager can update the quantities of the blood bank manually for plasma ,red cells ,platelets ,full blood and also they can set minimal quantity for each and that will alert them to make post to donors or requests to other services.",
       },
+      {
+        title: "Appointments management",
+        description:
+          "Browsing to donors appointments to make a donation and respond by rejection or acception",
+      },
     ],
   },
   {
@@ -81,6 +86,11 @@ const programs: program[] = [
         description:
           "Blood services can post to demand donations of blood,you as donor can browse these posts filter them by name or address and that help will to make decision to whether you donate or not ",
       },
+      {
+        title: "Making appointments",
+        description:
+          "Creating blood donations appointments and sending it to services and they respond with rejection or acception.",
+      },
     ],
   },
 ];
@@ -91,7 +101,6 @@ export default function ProgramExtended({
   whichProgram: 2 | 1 | 0;
 }) {
   const navigate = useNavigate();
-
   useEffect(() => {
     animateScroll.scrollToTop({
       duration: 0,

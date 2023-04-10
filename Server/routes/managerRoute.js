@@ -11,8 +11,6 @@ managerRoute.put("/", upload.single("image"), managerController.updateProfile);
 
 managerRoute.post("/", managerController.addPost);
 
-managerRoute.get("/donators", managerController.getDonators);
-
 managerRoute.get("/doctors", managerController.getDoctors);
 
 managerRoute.post(
@@ -39,6 +37,8 @@ managerRoute.put("bank/redCells", managerController.updateRedCellsQuantity);
 
 managerRoute.put("bank/redCells", managerController.updatefullBloodQuantity);
 
-managerRoute.get("/service", managerController.getServices);
+managerRoute.get("/appointment/:serviceName", managerController.getAppointment);
+
+managerRoute.put("/appointment", managerController.updateAppointmentStatus);
 
 export default managerRoute;

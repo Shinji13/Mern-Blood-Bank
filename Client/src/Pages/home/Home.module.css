@@ -41,6 +41,7 @@
         align-items: center;
         border-radius: 5rem;
         font-weight: bold;
+        overflow: hidden;
         color: var(--primary-black);
         cursor: pointer;
         z-index: 2;
