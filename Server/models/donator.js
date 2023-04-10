@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const donatorSchema = new mongoose.Schema({
-  FullName: {
+  fullName: {
     type: String,
     require: true,
   },
@@ -9,7 +9,11 @@ const donatorSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
-  Email: {
+  email: {
+    type: String,
+    require: true,
+  },
+  address: {
     type: String,
     require: true,
   },

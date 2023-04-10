@@ -2,6 +2,8 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./Pages/home/Home";
 import { AnimatePresence } from "framer-motion";
 import ProgramExtended from "./Pages/home/ProgramExtended/ProgramExtended";
+import Login from "./Pages/auth/login/login";
+import Sign from "./Pages/auth/signup/sign";
 
 function App() {
   let location = useLocation();
@@ -21,6 +23,8 @@ function App() {
           path="/home/donor"
           element={<ProgramExtended whichProgram={2} />}
         />
+        <Route path="/login" element={<Login />} />
+        <Route path="/sign" element={<Sign />} />
       </Routes>
     </AnimatePresence>
   );

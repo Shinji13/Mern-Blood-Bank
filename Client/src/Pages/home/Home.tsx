@@ -1,7 +1,11 @@
 import styles from "./Home.module.css";
 import { motion as m } from "framer-motion";
 import { Link as ScrollLink, animateScroll } from "react-scroll";
-import { Link as RouteLink, useSearchParams } from "react-router-dom";
+import {
+  Link as RouteLink,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import img4 from "../../assets/images/Image_4.jpg";
 import About from "./about/about";
 import Program from "./programs/programV2";
@@ -9,6 +13,7 @@ import Contact from "./contact/Contact";
 import { useEffect } from "react";
 
 export default function Home() {
+  const navegate = useNavigate();
   const [searchParams, SetSearchParams] = useSearchParams();
 
   useEffect(() => {
@@ -85,10 +90,10 @@ export default function Home() {
             </div>
             <div>
               <p>
-                We provide blood bank management system for hospitals and
-                flawless communication with patients and donators
+                We provide blood bank management system for blood services and
+                flawless way to keep track of blood exchanges.
               </p>
-              <button>Sign In</button>
+              <button onClick={() => navegate("/sign")}>Sign In</button>
             </div>
           </div>
           <div className={styles.rightPart}>

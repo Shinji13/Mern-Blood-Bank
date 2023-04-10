@@ -62,7 +62,7 @@
         color: var(--primary-black);
         cursor: pointer;
 
-        & i {
+        & a {
           width: 20px;
           color: var(--primary-white);
           aspect-ratio: 1/1;

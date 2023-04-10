@@ -1,5 +1,7 @@
 import { motion as m } from "framer-motion";
-import { appear } from "../../../functions/variants";
+import { appear } from "../../../utils/variants";
+import { Link as ScrollLink } from "react-scroll";
+
 import styles from "./about.module.css";
 
 export default function About() {
@@ -48,12 +50,21 @@ export default function About() {
         </m.p>
         <m.p variants={appear}>
           Bloodify also let donors sign in to check their medical records and
-          see blood demand posts and have many more features check
-          <span> our programs section</span>.
+          see blood demand posts for more information check{" "}
+          <span>
+            <ScrollLink spy={true} smooth={true} to="Our_Program">
+              our programs.
+            </ScrollLink>
+          </span>
         </m.p>
         <m.p variants={appear}>
-          Bloodify only support blood services of setif algeria for now,try{" "}
-          <span>contact us</span> to get your services started with bloodify.
+          Bloodify only support blood services of setif algeria for now.Try{" "}
+          <span>
+            <ScrollLink spy={true} smooth={true} to="Contact_Us">
+              Contact us
+            </ScrollLink>
+          </span>{" "}
+          to get your services started with bloodify.
         </m.p>
       </m.div>
     </div>

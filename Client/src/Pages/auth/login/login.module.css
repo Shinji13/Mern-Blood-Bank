@@ -1,0 +1,154 @@
+@keyframes moveUpdown {
+  from {
+    background-position: 0% -100%;
+  }
+  to {
+    background-position: 0% 0%;
+  }
+}
+
+.login {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 35% 65%;
+
+  & > .rightSide {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+
+    & > div:first-child {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+
+      & > h1 {
+        font-family: metafiz-bold;
+        font-size: var(--font-size-xxl);
+        color: var(--primary-color-600);
+      }
+      & > h3 {
+        text-align: center;
+        padding: 10px;
+        font-family: metafiz-bold;
+        font-size: var(--font-size-lg);
+        color: var(--primary-color-black);
+      }
+    }
+    & > div:last-child {
+      width: 100%;
+      overflow: visible;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+
+      & > input {
+        height: 45px;
+        width: 76%;
+        background-color: var(--primary-white);
+        border: 2px solid #121212;
+        border-radius: 22px;
+        color: #121212;
+        margin: 0 0 8px 0;
+        padding-left: 0.4rem;
+        font-weight: 600;
+        font-size: clamp(6px, 2.5vw, 18px);
+        font-family: Arial, Helvetica, sans-serif;
+        letter-spacing: 0.8px;
+        transition: 0.3s ease-in-out;
+
+        &:focus {
+          background-color: var(--primary-color-200);
+        }
+
+        &::placeholder {
+          font-size: 16px;
+          font-weight: 600;
+          color: #121212;
+        }
+      }
+
+      & > button {
+        width: 50%;
+        height: fit-content;
+        display: flex;
+        align-items: center;
+        letter-spacing: 0.5px;
+        justify-content: center;
+        position: relative;
+        font-size: 0.9rem;
+        font-weight: bold;
+        font-family: versus;
+        color: #121212;
+        padding-inline: 0.2rem;
+        padding-block: 0.4rem;
+        background-color: transparent;
+        border: 0.5px solid #121212;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: clamp(16px, calc(12px+0.46vw), 18px);
+        box-shadow: 4px 8px 12px #121212;
+        z-index: 2;
+
+        &:hover {
+          border: 0.5px solid #121212;
+          color: white;
+          &::before {
+            width: 100%;
+          }
+        }
+
+        &::before {
+          content: "";
+          display: inline-block;
+          width: 0;
+          height: 100%;
+          position: absolute;
+          left: 0;
+          top: 0;
+          transition: all 300ms 0s ease;
+          background-color: var(--primary-color-600);
+          border-radius: 0.5px;
+          z-index: -1;
+        }
+      }
+    }
+  }
+
+  & > .leftSide {
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+    & > .img {
+      width: 100%;
+      height: 100%;
+      background-image: url("C:/Users/hp/Documents/study/OwnStudy/Projects/BloodBank/Client/src/assets/images/loginImg.jpg");
+      background-position: center;
+      background-size: cover;
+    }
+    & > .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        to bottom,
+        transparent,
+        var(--primary-color-200)
+      );
+      background-size: 100% 1.5%;
+      background-repeat: repeat;
+      animation: moveUpdown 16s forwards linear infinite;
+      opacity: 0.8;
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import styles from "./Contact.module.css";
 import { motion as m } from "framer-motion";
-import { textUp } from "../../../functions/variants";
+import { textUp } from "../../../utils/variants";
 import eye from "../../../assets/images/eye2.png";
 
 export default function Contact() {
@@ -43,16 +43,28 @@ export default function Contact() {
           </div>
           <ul>
             <li>
-              <span>Facebook</span>
-              <i className="fas fa-external-link-alt"></i>
+              <span>Twitter</span>
+              <a
+                className="fas fa-external-link-alt"
+                href="https://twitter.com/soskue_aizen"
+                target="_blank"
+              ></a>
             </li>
             <li>
               <span>Github</span>
-              <i className="fas fa-external-link-alt"></i>
+              <a
+                className="fas fa-external-link-alt"
+                href="https://github.com/Shinji13"
+                target="_blank"
+              ></a>
             </li>
             <li>
-              <span>Twitter</span>
-              <i className="fas fa-external-link-alt"></i>
+              <span>Linkedin</span>
+              <a
+                className="fas fa-external-link-alt"
+                href="https://www.linkedin.com/in/aymen-keskas-750b96260/"
+                target="_blank"
+              ></a>
             </li>
           </ul>
         </div>

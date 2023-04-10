@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const serviceStuffSchema = new mongoose.Schema({
-  FullName: {
+  fullName: {
     type: String,
     require: true,
   },
@@ -9,7 +9,7 @@ const serviceStuffSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
-  Email: {
+  email: {
     type: String,
     require: true,
   },

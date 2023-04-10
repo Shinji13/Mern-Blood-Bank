@@ -3,7 +3,7 @@ import img from "../../../assets/images/managerImg.jpg";
 import img2 from "../../../assets/images/doctorImg.jpg";
 import img3 from "../../../assets/images/donorImg.jpg";
 import { motion as m } from "framer-motion";
-import { appear, textUp } from "../../../functions/variants";
+import { textUp } from "../../../utils/variants";
 import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router-dom";
 
@@ -16,17 +16,17 @@ type program = {
 const programs: program[] = [
   {
     title: "Service Manager program",
-    intialContent: `Blood bank management can be done either by adding new bloodexchanges or manuplating the bank storage directly`,
+    intialContent: `Managers control their service blood-bank from managing quantities to managing posts and requests furthermore they manage doctors accounts of his service.`,
     image: img,
   },
   {
     title: "Doctors program",
-    intialContent: `Regular users can check their profie while hospital can browse users information `,
+    intialContent: ` Doctors has responsibility to manage blood exchange in the service and contol patient accounts`,
     image: img2,
   },
   {
     title: "Donors program",
-    intialContent: `Blood bank management can be done either by adding new bloodexchanges or manuplating the bank storage directly`,
+    intialContent: `Donors has ability to use see blood services posts and check their history of donations.`,
     image: img3,
   },
 ];

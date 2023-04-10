@@ -73,6 +73,7 @@
       & span {
         color: var(--primary-black);
         font-weight: bold;
+        cursor: pointer;
       }
     }
   }

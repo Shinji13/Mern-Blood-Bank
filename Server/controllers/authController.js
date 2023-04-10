@@ -1,14 +1,18 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { createAccessToken, createRefreshToken } from "./jwtToken.js";
+import donorModel from "../models/donator.js";
+import ServiceStuffModel from "../models/serviceStuff.js";
 import dotenv from "dotenv";
+import serviceStuff from "../models/serviceStuff.js";
+
 dotenv.config({
   path: "C:/Users/hp/Documents/study/OwnStudy/Projects/NoteApp/server/.env",
 });
 
-const userResponse = async (res, userid) => {
-  const refresh = createRefreshToken({ userid: userid });
-  const access = createAccessToken({ userid: userid });
+const userResponse = async (res, payload) => {
+  const refresh = createRefreshToken(payload);
+  const access = createAccessToken(payload);
   res.cookie("apiauth", refresh, {
     httpOnly: true,
     secure: true,
@@ -33,18 +37,27 @@ const register = async (req, res) => {
   userResponse(res, newUser._id);
 };
 const login = async (req, res) => {
-  let oldUser = null;
   try {
-    oldUser = await userModel.findOne({ email: req.body.email });
+    let oldDonor = await donorModel.find({ email: req.body.email });
+    if (oldDonor) {
+      let isValid = bcrypt.compare(req.body.password, oldDonor.password);
+      if (isValid)
+        return userResponse(res, { userid: oldDonor._id, userType: 2 });
+      return res.status(401).send();
+    }
+    let oldStuff = await serviceStuff.find({ email: req.body.email });
+    if (oldStuff) {
+      let isValid = bcrypt.compare(req.body.password, oldStuff.password);
+      if (isValid)
+        return userResponse(res, {
+          userid: oldStuff._id,
+          userType: oldStuff.stuffType,
+        });
+      return res.status(401).send();
+    }
+    return res.status(404).send();
   } catch (error) {
-    return res.status(503).send();
-  }
-  if (!oldUser) return res.status(404).send();
-  const isValid = await bcrypt.compare(req.body.password, oldUser.password);
-  if (isValid) {
-    userResponse(res, oldUser._id);
-  } else {
-    res.status(403).send();
+    res.status(503).send();
   }
 };
 
@@ -57,7 +70,7 @@ const refresh = async (req, res) => {
   } catch (err) {
     return res.status(401).send();
   }
-  userResponse(res, payload.userid);
+  userResponse(res, payload);
 };
 
 export { login, register, refresh };

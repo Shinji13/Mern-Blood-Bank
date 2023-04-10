@@ -20,7 +20,8 @@
     "react-dom": "^18.2.0",
     "react-router": "^6.9.0",
     "react-router-dom": "^6.9.0",
-    "react-scroll": "^1.8.9"
+    "react-scroll": "^1.8.9",
+    "valtio": "^1.10.4"
   },
   "devDependencies": {
     "@types/node": "^18.15.3",
