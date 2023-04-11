@@ -2,13 +2,9 @@ import cookieParser from "cookie-parser";
 import express, { json } from "express";
 import helmet from "helmet";
 import morgan from "morgan";
-import donatorModel from "./models/donator.js";
-import interactionModel from "./models/interaction.js";
-import requestModel from "./models/serviceRequests.js";
-import serviceModel from "./models/serviceModel.js";
-import serviceStuffModel from "./models/serviceStuff.js";
-import appointmentModel from "./models/appointment.js";
 import { writeFileSync } from "fs";
+import authRoute from "./routes/authenticateRoute.js";
+import { verify } from "./middlewares/verify.js";
 
 import { getUserInteraction, getDonators } from "./utils/globalApiHandlers.js";
 import dotenv from "dotenv";
@@ -52,11 +48,13 @@ app.use(helmet());
 //morgan display of requests in terminal
 app.use(morgan("dev"));
 
-// app.use("/api/donator", donatorRoute);
+app.use("/api/auth", authRoute);
 
-// app.use("/api/doctors", doctorRoute);
+// app.use("/api/donator",verify, donatorRoute);
 
-// app.use("/api/manager", managerRoute);
+// app.use("/api/doctors",verify, doctorRoute);
 
-// app.get("/api/userInteraction/:nationalId", getUserInteraction);
-// app.get("/api/donators/all", getDonators);
+// app.use("/api/manager",verify, managerRoute);
+
+// app.get("/api/userInteraction",verify, getUserInteraction);
+// app.get("/api/donators/all",verify, getDonators);

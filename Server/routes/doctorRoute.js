@@ -9,6 +9,10 @@ doctorRoute.put("/", upload.single("image"), doctorController.updateProfile);
 
 doctorRoute.post("/interactions", doctorController.addInteraction);
 
+doctorRoute.get("/interactions/:serviceName", doctorController.getInteractions);
+
+doctorRoute.get("/patient/:serviceName", doctorController.getPatients);
+
 doctorRoute.post(
   "/patient",
   upload.single("image"),
@@ -22,7 +26,5 @@ doctorRoute.put(
 );
 
 doctorRoute.get("/patient/:nationalId", doctorController.getMedicalFile);
-
-doctorRoute.get("/interactions/:serviceName", doctorController.getInteractions);
 
 export default doctorRoute;

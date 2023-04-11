@@ -37,7 +37,10 @@ managerRoute.put("bank/redCells", managerController.updateRedCellsQuantity);
 
 managerRoute.put("bank/redCells", managerController.updatefullBloodQuantity);
 
-managerRoute.get("/appointment/:serviceName", managerController.getAppointment);
+managerRoute.get(
+  "/appointment/:serviceName",
+  managerController.getAppointments
+);
 
 managerRoute.put("/appointment", managerController.updateAppointmentStatus);
 

@@ -10,12 +10,24 @@ const interactionsSchema = new mongoose.Schema({
     require: true,
   },
   EndNationalId: {
-    type: String,
-    require: true,
+    name: {
+      type: String,
+      require: true,
+    },
+    nationalId: {
+      type: String,
+      require: true,
+    },
   },
-  doctorNationalId: {
-    type: String,
-    require: true,
+  doctor: {
+    name: {
+      type: String,
+      require: true,
+    },
+    nationalId: {
+      type: String,
+      require: true,
+    },
   },
   Quantity: {
     type: Number,

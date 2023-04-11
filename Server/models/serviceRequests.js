@@ -2,24 +2,12 @@ import mongoose from "mongoose";
 
 const requestSchema = new mongoose.Schema({
   senderService: {
-    name: {
-      type: String,
-      require: true,
-    },
-    id: {
-      type: mongoose.Types.ObjectId,
-      require: true,
-    },
+    type: String,
+    require: true,
   },
   recieverService: {
-    name: {
-      type: String,
-      require: true,
-    },
-    id: {
-      type: mongoose.Types.ObjectId,
-      require: true,
-    },
+    type: String,
+    require: true,
   },
   requestMessage: {
     type: String,

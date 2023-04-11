@@ -1,17 +1,11 @@
 import mongoose from "mongoose";
 
 const appointmentSchema = new mongoose.Schema({
-  ServiceId: {
-    name: {
-      type: String,
-      require: true,
-    },
-    id: {
-      type: mongoose.Types.ObjectId,
-      require: true,
-    },
+  Service: {
+    type: String,
+    require: true,
   },
-  donorNationalId: {
+  donor: {
     type: String,
     require: true,
   },

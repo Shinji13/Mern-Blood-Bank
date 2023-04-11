@@ -15,5 +15,6 @@ export const verify = (req, res, next) => {
     return res.status(401).send("expired");
   }
   req.userid = payload.userid;
+  req.userType = payload.userType;
   next();
 };
