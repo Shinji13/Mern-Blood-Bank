@@ -32,7 +32,6 @@ const donatorSchema = new mongoose.Schema({
   bloodtype: {
     type: String,
     require: true,
-    enum: ["a+", "a-", "b+", "b-", "o+", "o-", "ab+", "ab-"],
   },
   age: {
     type: Number,

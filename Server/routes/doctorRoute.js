@@ -1,30 +1,29 @@
 import { Router } from "express";
 import { upload } from "../middlewares/multer.js";
+import * as doctorController from "../controllers/doctorController.js";
 
 const doctorRoute = Router();
 
-doctorRoute.get("/", doctorController.getDoctorInfo);
+doctorRoute.get("/", doctorController.getDoctorInfo); //done
 
-doctorRoute.put("/", upload.single("image"), doctorController.updateProfile);
+doctorRoute.put("/", upload.single("image"), doctorController.updateProfile); //done
+
+doctorRoute.get("/interactions/:serviceName", doctorController.getInteractions); //done
+
+doctorRoute.get("/patient/:serviceName", doctorController.getPatients); //done
 
 doctorRoute.post("/interactions", doctorController.addInteraction);
 
-doctorRoute.get("/interactions/:serviceName", doctorController.getInteractions);
-
-doctorRoute.get("/patient/:serviceName", doctorController.getPatients);
-
 doctorRoute.post(
-  "/patient",
+  "/patient/:serviceName",
   upload.single("image"),
   doctorController.addPatient
-);
+); //done
 
 doctorRoute.put(
-  "/patient/:id",
+  "/patient/:serviceName",
   upload.single("image"),
   doctorController.modifeyPatient
-);
-
-doctorRoute.get("/patient/:nationalId", doctorController.getMedicalFile);
+); //done
 
 export default doctorRoute;

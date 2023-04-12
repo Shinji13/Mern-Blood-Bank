@@ -6,7 +6,7 @@ import ServiceStuffModel from "../models/serviceStuff.js";
 import dotenv from "dotenv";
 
 dotenv.config({
-  path: "C:/Users/hp/Documents/study/OwnStudy/Projects/NoteApp/server/.env",
+  path: "C:/Users/hp/Documents/study/OwnStudy/Projects/BloodBank/Server/.env",
 });
 
 const userResponse = async (res, payload) => {
@@ -14,7 +14,8 @@ const userResponse = async (res, payload) => {
   const access = createAccessToken(payload);
   res.cookie("apiauth", refresh, {
     httpOnly: true,
-    secure: true,
+    secure: false,
+    maxAge: 24 * 60 * 60 * 7,
   });
   res.set("authentication", access);
   res.status(200).send(payload);
@@ -30,7 +31,7 @@ const register = async (req, res) => {
             .create({ ...req.body, password: hash })
             .then((user) => {
               userResponse(res, {
-                userid: user._id,
+                userId: user._id,
                 userType: "donor",
               });
             })
@@ -40,13 +41,13 @@ const register = async (req, res) => {
         user.email = req.body.email;
         user.password = bcrypt.hashSync(req.body.password, 12);
         user.tel = req.body.tel || "";
-        user.address = req.body.address || "";
+        user.address = req.body.address;
         user.age = req.body.age;
         user.bloodtype = req.body.bloodtype;
         user.fullName = req.body.fullName;
         user.save();
         userResponse(res, {
-          userid: user._id,
+          userId: user._id,
           userType: "donor",
         });
       } else res.status(401).send({ message: "user already exists" });
@@ -61,7 +62,7 @@ const login = async (req, res) => {
         bcrypt.compare(req.body.password, oldDonor.password).then((isValid) =>
           isValid
             ? userResponse(res, {
-                userid: oldDonor._id,
+                userId: oldDonor._id,
                 userType: "donor",
               })
             : res.status(401).send({ message: "forgot password" })
@@ -75,7 +76,7 @@ const login = async (req, res) => {
                 .then((isValid) =>
                   isValid
                     ? userResponse(res, {
-                        userid: oldStuff._id,
+                        userId: oldStuff._id,
                         userType:
                           oldStuff.stuffType == 0 ? "manager" : "doctor",
                       })
@@ -98,9 +99,9 @@ const refresh = async (req, res) => {
   try {
     payload = jwt.verify(clientToken, process.env.REFRESH_TOKEN_KEY);
   } catch (err) {
-    return res.status(401).send("token expired");
+    return res.status(401).send("token is forged");
   }
-  userResponse(res, payload);
+  userResponse(res, { userId: payload.userId, userType: payload.userType });
 };
 
 export { login, register, refresh };

@@ -1,5 +1,5 @@
 import donorModel from "../models/donator.js";
-import interactionModel from "../models/interactionModel.js";
+import interactionModel from "../models/interaction.js";
 import serviceModel from "../models/serviceModel.js";
 
 const doctorInteractions = (serviceName, doctorName, res) => {

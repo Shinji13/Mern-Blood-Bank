@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config({
-  path: "C:/Users/hp/Documents/study/OwnStudy/Projects/NoteApp/server/.env",
+  path: "C:/Users/hp/Documents/study/OwnStudy/Projects/BloodBank/Server/.env",
 });
 
 export const verify = (req, res, next) => {

@@ -71,7 +71,7 @@ export const post = new mongoose.Schema(
 
 export const patient = mongoose.Schema(
   {
-    FullName: {
+    fullName: {
       type: String,
       require: true,
     },
@@ -81,7 +81,7 @@ export const patient = mongoose.Schema(
     },
     tel: {
       type: String,
-      default: "0x1",
+      default: "default",
     },
     address: {
       type: String,
@@ -94,7 +94,6 @@ export const patient = mongoose.Schema(
     bloodtype: {
       type: String,
       require: true,
-      enum: ["a+", "a-", "b+", "b-", "o+", "o-", "ab+", "ab-"],
     },
     profileImgPath: {
       type: String,
@@ -109,5 +108,5 @@ export const patient = mongoose.Schema(
       default: [],
     },
   },
-  { versionKey: false }
+  { versionKey: false, autoIndex: false }
 );

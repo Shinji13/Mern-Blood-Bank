@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config({
-  path: "C:/Users/hp/Documents/study/OwnStudy/Projects/NoteApp/server/.env",
+  path: "C:/Users/hp/Documents/study/OwnStudy/Projects/BloodBank/Server/.env",
 });
 
 export const createAccessToken = (playload) => {
@@ -10,7 +10,5 @@ export const createAccessToken = (playload) => {
   });
 };
 export const createRefreshToken = (playload) => {
-  return jwt.sign(playload, process.env.REFRESH_TOKEN_KEY, {
-    expiresIn: "5d",
-  });
+  return jwt.sign(playload, process.env.REFRESH_TOKEN_KEY);
 };
