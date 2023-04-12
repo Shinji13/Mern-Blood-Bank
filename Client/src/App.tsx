@@ -37,11 +37,13 @@ function App() {
         />
         <Route
           path="/doctor"
-          element={<SecureRoute dashBoardName="donor" children={<Doctor />} />}
+          element={<SecureRoute dashBoardName="doctor" children={<Doctor />} />}
         />
         <Route
           path="/manager"
-          element={<SecureRoute dashBoardName="donor" children={<Manager />} />}
+          element={
+            <SecureRoute dashBoardName="manager" children={<Manager />} />
+          }
         />
       </Routes>
     </AnimatePresence>

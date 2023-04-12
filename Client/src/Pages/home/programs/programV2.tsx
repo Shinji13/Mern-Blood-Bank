@@ -66,7 +66,7 @@ export default function ProgramV2() {
       </div>
       {programs.map((program, index) => {
         return (
-          <div className={styles.Program}>
+          <div className={styles.Program} key={program.title}>
             <div className={styles.title}>
               <div>
                 <m.h1

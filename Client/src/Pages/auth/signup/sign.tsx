@@ -1,9 +1,10 @@
-import { useState, useRef } from "react";
 import makeAnimated from "react-select/animated";
 import styles from "./sign.module.css";
 import Select from "react-select";
 import { SignHandler } from "../../../utils/apiFunctions";
 import { useSignUp } from "../../../utils/hooks";
+import { useState } from "react";
+import axios from "axios";
 const bloodTypes = [
   { value: "A+", label: "A+" },
   { value: "A-", label: "A-" },
@@ -17,6 +18,8 @@ const bloodTypes = [
 
 export default function Sign() {
   const [phase, changePhase, current, error, setError, navegate] = useSignUp();
+  const [AddressOptions, SetOptions] = useState<string[]>([]);
+  const [address, changeAddress] = useState<string>("");
   const onCreate = async () => {
     const status = await SignHandler(current);
     status === 401
@@ -132,10 +135,46 @@ export default function Sign() {
       </div>
       <div>
         <span>Address</span>
-        <textarea
-          defaultValue={current.address}
-          onChange={(evt) => (current.address = evt.target.value)}
-        />
+        <div className={styles.address}>
+          <input
+            value={address}
+            onChange={(evt) => {
+              changeAddress(evt.target.value);
+              axios
+                .get(
+                  `https://api.geoapify.com/v1/geocode/autocomplete?text=${
+                    evt.target.value
+                  }&apiKey=${
+                    import.meta.env.VITE_ADDRESS_AUTO_COMPLETE_API_KEY
+                  }`
+                )
+                .then((res) => {
+                  const options = [];
+
+                  for (let i = 0; i < 4; i++) {
+                    if (res.data.features.length <= i) break;
+                    options.push(res.data.features[i]?.properties.formatted);
+                  }
+                  SetOptions(options);
+                })
+                .catch((err) => SetOptions([]));
+            }}
+          />
+          <ul>
+            {AddressOptions.map((el) => (
+              <li
+                onClick={(evt) => {
+                  current.address = evt.currentTarget.textContent || "";
+                  changeAddress(evt.currentTarget.textContent || "");
+                  SetOptions([]);
+                }}
+                key={el}
+              >
+                {el}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
       <div className={styles.middleMan}>
         <button onClick={() => changePhase((phase - 1) as 0 | 1 | 2)}>

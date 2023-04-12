@@ -1,12 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import Home from "./Pages/home/Home";
 import { sessionInfo } from "./utils/valtioStore";
+import { Navigate } from "react-router-dom";
 import Loading from "./Pages/Redirect/Loading";
-import Doctor from "./Pages/DoctorDashBoard/Doctor";
-import Donor from "./Pages/DonorDashBoard/Donor";
-import Manager from "./Pages/ManagerDashBoard/Manager";
+
 export default function Intial() {
   const [isError, SetError] = useState(false);
   const [isLoading, SetLoading] = useState(true);
@@ -31,11 +29,11 @@ export default function Intial() {
     else intialFetch();
   }, []);
 
-  if (isError) return <Home />;
+  if (isError) return <Navigate to={"/home"} />;
   if (isLoading) return <Loading />;
   else {
-    if (sessionInfo.userType === "manager") return <Manager />;
-    if (sessionInfo.userType === "doctor") return <Doctor />;
-    else return <Donor />;
+    if (sessionInfo.userType === "manager") return <Navigate to={"/manager"} />;
+    if (sessionInfo.userType === "doctor") return <Navigate to={"/doctor"} />;
+    else return <Navigate to={"/donor"} />;
   }
 }
