@@ -4,26 +4,26 @@ import * as doctorController from "../controllers/doctorController.js";
 
 const doctorRoute = Router();
 
-doctorRoute.get("/", doctorController.getDoctorInfo); //done
+doctorRoute.get("/", doctorController.getDoctorInfo); //done tested
 
-doctorRoute.put("/", upload.single("image"), doctorController.updateProfile); //done
+doctorRoute.put("/", upload.single("image"), doctorController.updateProfile); //done tested
 
-doctorRoute.get("/interactions/:serviceName", doctorController.getInteractions); //done
+doctorRoute.get("/interactions/:serviceName", doctorController.getInteractions); //done tested
 
-doctorRoute.get("/patient/:serviceName", doctorController.getPatients); //done
+doctorRoute.get("/patient/:serviceName", doctorController.getPatients); //done tested
 
-doctorRoute.post("/interactions", doctorController.addInteraction);
+doctorRoute.post("/interactions", doctorController.addInteraction); //done tested
 
 doctorRoute.post(
   "/patient/:serviceName",
   upload.single("image"),
   doctorController.addPatient
-); //done
+); //done tested
 
 doctorRoute.put(
   "/patient/:serviceName",
   upload.single("image"),
   doctorController.modifeyPatient
-); //done
+); //done tested
 
 export default doctorRoute;

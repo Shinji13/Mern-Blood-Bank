@@ -15,7 +15,7 @@ const userResponse = async (res, payload) => {
   res.cookie("apiauth", refresh, {
     httpOnly: true,
     secure: false,
-    maxAge: 24 * 60 * 60 * 7,
+    maxAge: 24 * 60 * 60 * 7 * 1000,
   });
   res.set("authentication", access);
   res.status(200).send(payload);

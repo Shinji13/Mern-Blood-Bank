@@ -6,6 +6,7 @@ import { writeFileSync } from "fs";
 import authRoute from "./routes/authenticateRoute.js";
 import { verify } from "./middlewares/verify.js";
 import donatorRoute from "./routes/donatorRoute.js";
+import doctorRoute from "./routes/doctorRoute.js";
 import { getUserInteraction, getDonators } from "./utils/globalApiHandlers.js";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
@@ -50,12 +51,12 @@ app.use(morgan("dev"));
 
 app.use("/api/auth", authRoute);
 
-app.use("/api/donator", verify, donatorRoute);
+app.use("/api/donator", verify, donatorRoute); //tested
 
-// app.use("/api/doctors",verify, doctorRoute);
+app.use("/api/doctor", verify, doctorRoute); //tested
 
 // app.use("/api/manager",verify, managerRoute);
 
-app.get("/api/userInteraction", verify, getUserInteraction);
+app.get("/api/userInteraction", verify, getUserInteraction); //tested
 
-app.get("/api/donators/all", verify, getDonators);
+app.get("/api/donators/all", verify, getDonators); //tested

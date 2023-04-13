@@ -110,3 +110,8 @@ export const patient = mongoose.Schema(
   },
   { versionKey: false, autoIndex: false }
 );
+
+patient.set("autoIndex", false);
+post.set("autoIndex", false);
+quantity.set("autoIndex", false);
+bloodTypesQunatity.set("autoIndex", false);

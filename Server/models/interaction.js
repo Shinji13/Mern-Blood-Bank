@@ -33,7 +33,7 @@ const interactionsSchema = new mongoose.Schema({
     type: Number,
     require: true,
   },
-  donationType: {
+  bloodtype: {
     type: String,
     require: true,
   },

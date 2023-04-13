@@ -1,14 +1,13 @@
 import stuffModel from "../models/serviceStuff.js";
-import interactionModel from "../models/interactionModel.js";
+import interactionModel from "../models/interaction.js";
 import serviceModel from "../models/serviceModel.js";
 import donorModel from "../models/donator.js";
-import interaction from "../models/interaction.js";
 
 export const getDoctorInfo = (req, res) => {
   const userId = req.userId;
   stuffModel
     .findById(userId, { stuffType: 0, password: 0, _id: 0 })
-    .then((user) => res.status(201).send(user))
+    .then((user) => res.status(200).send(user))
     .catch((err) => res.status(503).send(err));
 };
 export const updateProfile = (req, res) => {
@@ -16,31 +15,32 @@ export const updateProfile = (req, res) => {
   const parsedUpdate = JSON.parse(update);
   const userId = req.userId;
   stuffModel
-    .findByIdAndUpdate(userId, {
-      $set: parsedUpdate,
-    })
+    .findByIdAndUpdate(
+      userId,
+      {
+        $set: {
+          fullName: parsedUpdate.fullName,
+          tel: parsedUpdate.tel,
+          profileImgPath: parsedUpdate.profileImgPath,
+        },
+      },
+      { new: true }
+    )
     .then((user) => res.status(200).send(user))
     .catch((err) => res.status(503).send(err));
 };
 export const getInteractions = (req, res) => {
   const serviceName = req.params.serviceName;
-  serviceModel
-    .findOne({ name: serviceName }, { interactions: 1, _id: 0 })
-    .then(async (service) => {
-      let isError = false;
-      let interactions = [];
-      for (let interaction of service.interactions) {
-        try {
-          let inter = await interactionModel.findById(interaction);
-          interaction.push(inter);
-        } catch (error) {
-          isError = true;
-          break;
+  interactionModel
+    .find({})
+    .then((interactions) => {
+      const filterdInteractions = [];
+      for (let int of interactions) {
+        if (int.serviceName === serviceName) {
+          filterdInteractions.push(int);
         }
       }
-      !isError
-        ? res.status(200).send({ interactions })
-        : res.status(503).send(err);
+      res.status(200).send({ interactions: filterdInteractions });
     })
     .catch((err) => res.status(503).send(err));
 };
@@ -58,14 +58,18 @@ export const getPatients = (req, res) => {
 export const modifeyPatient = (req, res) => {
   const update = req.body.update || "{}";
   const parsedUpdate = JSON.parse(update);
-  const serviceName = req.para.serviceName;
+  const serviceName = req.params.serviceName;
   serviceModel
     .findOneAndUpdate(
       { name: serviceName },
       {
         $set: { "patients.$[element]": parsedUpdate },
       },
-      { arrayFilters: [{ "element.nationalId": parsedUpdate.nationalId }] }
+      {
+        arrayFilters: [
+          { "element.nationalId": { $eq: parsedUpdate.nationalId } },
+        ],
+      }
     )
     .then((service) => res.status(200).send(service))
     .catch((err) => res.status(503).send(err));
@@ -74,7 +78,8 @@ export const modifeyPatient = (req, res) => {
 export const addPatient = (req, res) => {
   const newPatient = req.body.newPatient || "{}";
   const parsedPatient = JSON.parse(newPatient);
-  const serviceName = req.para.serviceName;
+  console.log(parsedPatient);
+  const serviceName = req.params.serviceName;
   serviceModel
     .findOneAndUpdate(
       { name: serviceName },
@@ -87,19 +92,29 @@ export const addPatient = (req, res) => {
 };
 
 export const addInteraction = (req, res) => {
-  interaction
-    .create(req.body.interaction)
+  interactionModel
+    .create(req.body)
     .then((interaction) => {
-      if (interaction.exchangeType === 0) {
-        addInteractionToDonor(interaction);
-      } else {
-        addInteractionToPatient(interaction);
-      }
+      serviceModel
+        .findOneAndUpdate(
+          { name: req.body.serviceName },
+          {
+            $push: { interactions: interaction._id },
+          }
+        )
+        .then((service) => {
+          if (interaction.exchangeType === 0) {
+            addInteractionToDonor(interaction, res);
+          } else {
+            addInteractionToPatient(interaction, res);
+          }
+        })
+        .catch((err) => res.status(503).send(err));
     })
     .catch((err) => res.status(503).send(err));
 };
 
-const addInteractionToDonor = (interaction) => {
+const addInteractionToDonor = (interaction, res) => {
   donorModel
     .findOne({ nationalId: interaction.EndNationalId.nationalId })
     .then((donor) => {
@@ -128,9 +143,9 @@ const addInteractionToDonor = (interaction) => {
     .catch((err) => res.status(503).send(err));
 };
 
-const addInteractionToPatient = (interaction) => {
+const addInteractionToPatient = (interaction, res) => {
   serviceModel.findOne({ name: interaction.serviceName }).then((service) => {
-    const exist = false;
+    let exist = false;
     for (let i = 0; i < service.patients.length; i++) {
       if (
         service.patients[i].nationalId === interaction.EndNationalId.nationalId

@@ -6,7 +6,7 @@ dotenv.config({
 
 export const createAccessToken = (playload) => {
   return jwt.sign(playload, process.env.ACCESS_TOKEN_KEY, {
-    expiresIn: "10m",
+    expiresIn: "1d",
   });
 };
 export const createRefreshToken = (playload) => {

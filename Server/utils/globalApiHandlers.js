@@ -2,50 +2,49 @@ import donorModel from "../models/donator.js";
 import interactionModel from "../models/interaction.js";
 import serviceModel from "../models/serviceModel.js";
 
-const doctorInteractions = (serviceName, doctorName, res) => {
+const doctorInteractions = (serviceName, doctorId, res) => {
+  console.log(serviceName, doctorId);
   serviceModel
     .findOne({ name: serviceName }, { interactions: 1, _id: 0 })
     .then(async (service) => {
-      let isError = false;
-      let interactions = [];
-      for (let interaction of service.interactions) {
-        try {
-          let inter = await interactionModel.findById(interaction);
-          inter.doctor.name == doctorName && interaction.push(inter);
-        } catch (error) {
-          isError = true;
-          break;
-        }
-      }
-      !isError
-        ? res.status(200).send({ interactions })
-        : res.status(503).send(err);
+      interactionModel
+        .find({})
+        .then((interactions) => {
+          const filterdInteractions = [];
+          for (let int of interactions) {
+            if (
+              service.interactions.includes(int._id) &&
+              int.doctor.nationalId == doctorId
+            ) {
+              filterdInteractions.push(int);
+            }
+          }
+          res.status(200).send({ interactions: filterdInteractions });
+        })
+        .catch((err) => res.status(503).send(err));
     })
     .catch((err) => res.status(503).send(err));
 };
 
 export const getUserInteraction = async (req, res) => {
   const userType = req.userType;
-  if (userType == "manager") {
+  if (userType == "doctor") {
     const serviceName = req.body.serviceName;
-    const doctorName = req.body.doctorName;
-    doctorInteractions(serviceName, doctorName, res);
-  } else {
-    let isError = false;
-    let interactions = [];
-    for (let interaction of req.body.interactions) {
-      try {
-        let inter = await interactionModel.findById(interaction);
-        interaction.push(inter);
-      } catch (error) {
-        isError = true;
-        break;
-      }
-    }
-    !isError
-      ? res.status(200).send({ interactions })
-      : res.status(503).send(err);
-  }
+    const doctorId = req.body.doctorId;
+    doctorInteractions(serviceName, doctorId, res);
+  } else
+    interactionModel
+      .find({})
+      .then((interactions) => {
+        const filterdInteractions = [];
+        for (let int of interactions) {
+          if (req.body.interactions.includes(int._id)) {
+            filterdInteractions.push(int);
+          }
+        }
+        res.status(200).send({ interactions: filterdInteractions });
+      })
+      .catch((err) => res.status(503).send(err));
 };
 export const getDonators = async (req, res) => {
   donorModel
