@@ -1,0 +1,49 @@
+.entry {
+  width: 100vw;
+  height: fit-content;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: var(--primary-white);
+
+  & > .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 15px;
+    margin-top: 20px;
+    width: 80%;
+    height: 50px;
+    border: 2px solid var(--primary-black);
+    border-radius: 25px;
+    background-color: var(--primary-color-100);
+
+    & > div:first-child {
+      font-family: metafiz-bold;
+      font-size: var(--font-size-base);
+      color: var(--primary-color-600);
+      font-weight: bolder;
+      overflow: hidden;
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+    & > .activities {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      gap: 10px;
+      & span {
+        color: var(--primary-black);
+        cursor: pointer;
+        font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+        font-size: var(--font-size-small);
+        font-weight: 600;
+        &:hover {
+          color: var(--primary-color-600);
+        }
+      }
+    }
+  }
+}

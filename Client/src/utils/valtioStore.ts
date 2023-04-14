@@ -1,6 +1,7 @@
 import { proxy } from "valtio";
 import jwtDecode from "jwt-decode";
 import { sessionIF, donor } from "./types";
+import { QueryClient } from "@tanstack/react-query";
 
 export const sessionInfo = proxy<sessionIF>({
   userType: "undefined",

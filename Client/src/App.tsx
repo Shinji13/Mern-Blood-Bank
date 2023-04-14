@@ -7,8 +7,11 @@ import Sign from "./Pages/auth/signup/sign";
 import Intial from "./intial";
 import Doctor from "./Pages/DoctorDashBoard/Doctor";
 import Manager from "./Pages/ManagerDashBoard/Manager";
-import SecureRoute from "./Pages/Redirect/SecureRoute";
-import DonorProxy from "./Pages/DonorDashBoard/DonorProxy";
+import SecureRoute from "./Pages/ReUseComponents/SecureRoute";
+import DonorProxy from "./Pages/DonorDashBoard/entry/DonorProxy";
+import DonorProfile from "./Pages/DonorDashBoard/profile/DonorProfile";
+import { Donations } from "./Pages/DonorDashBoard/donations/donation";
+import Interaction from "./Pages/ReUseComponents/interaction";
 
 function App() {
   let location = useLocation();
@@ -17,6 +20,7 @@ function App() {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Intial />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/interactions/:id" element={<Interaction />} />
         <Route
           path="/home/manager"
           element={<ProgramExtended whichProgram={0} />}
@@ -36,7 +40,10 @@ function App() {
           element={
             <SecureRoute dashBoardName="donor" children={<DonorProxy />} />
           }
-        />
+        >
+          <Route index element={<DonorProfile />} />
+          <Route path="/donor/donations" element={<Donations />} />
+        </Route>
         <Route
           path="/doctor"
           element={<SecureRoute dashBoardName="doctor" children={<Doctor />} />}

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import Loading from "../Redirect/Loading";
+import Loading from "../../ReUseComponents/Loading";
 import Donor from "./Donor";
-import { getDonorInfo } from "../../utils/apiFunctions";
+import { getDonorInfo } from "../../../utils/apiFunctions";
 
 export default function DonorProxy() {
   const navigate = useNavigate();
