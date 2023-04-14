@@ -21,10 +21,12 @@ export default function Sign() {
   const [AddressOptions, SetOptions] = useState<string[]>([]);
   const [address, changeAddress] = useState<string>("");
   const onCreate = async () => {
-    const status = await SignHandler(current);
-    status === 401
+    const data = await SignHandler(current);
+    data.status === 201
+      ? navegate(`/${data.userType}`)
+      : data.status === 401
       ? setError(401)
-      : status === 404
+      : data.status === 404
       ? setError(404)
       : navegate("/home");
   };
@@ -110,7 +112,7 @@ export default function Sign() {
       <div>
         <span>Password</span>
         <input
-          type="text"
+          type="password"
           defaultValue={current.password}
           onChange={(evt) => (current.password = evt.target.value)}
         />
@@ -192,13 +194,7 @@ export default function Sign() {
           <h3>Your journey to help people start here</h3>
         </div>
         {phasesUi[phase]}
-        {error == 401 ? (
-          <div>Password incorrect</div>
-        ) : error == 404 ? (
-          <div>user not found</div>
-        ) : (
-          ""
-        )}
+        {error == 401 && <div>user already exist</div>}
       </div>
       <div className={styles.leftSide}>
         <div className={styles.img}></div>

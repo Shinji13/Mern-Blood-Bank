@@ -18,6 +18,10 @@ const interactionsSchema = new mongoose.Schema({
       type: String,
       require: true,
     },
+    bloodtype: {
+      type: String,
+      require: true,
+    },
   },
   doctor: {
     name: {

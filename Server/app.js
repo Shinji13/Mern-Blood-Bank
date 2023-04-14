@@ -40,6 +40,12 @@ mongoose
     console.log(`${err} unable to connect`);
   });
 
+app.use(
+  "/api/static/images",
+  express.static(
+    "C:/Users/hp/Documents/study/OwnStudy/Projects/BloodBank/Server/images"
+  )
+);
 //json parser global middleware
 app.use(json());
 //cookie parser global middleware
@@ -57,6 +63,6 @@ app.use("/api/doctor", verify, doctorRoute); //tested
 
 // app.use("/api/manager",verify, managerRoute);
 
-app.get("/api/userInteraction", verify, getUserInteraction); //tested
+app.post("/api/userInteraction", verify, getUserInteraction); //tested
 
 app.get("/api/donators/all", verify, getDonators); //tested

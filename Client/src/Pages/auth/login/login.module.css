@@ -40,10 +40,10 @@
         padding: 10px;
         font-family: metafiz-bold;
         font-size: var(--font-size-lg);
-        color: var(--primary-color-black);
+        color: var(--primary-black);
       }
     }
-    & > div:last-child {
+    & > div:nth-child(2) {
       width: 100%;
       overflow: visible;
       display: flex;

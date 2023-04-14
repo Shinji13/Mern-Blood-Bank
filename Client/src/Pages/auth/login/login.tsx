@@ -10,13 +10,15 @@ export default function Login() {
     password: "",
   });
   const onLoginHandler = async () => {
-    const status = await LoginHandler(
+    const data = await LoginHandler(
       loginFields.current.email,
       loginFields.current.password
     );
-    status === 401
+    data.status === 201
+      ? navegate(`/${data.userType}`)
+      : data.status === 401
       ? setError(401)
-      : status === 404
+      : data.status === 404
       ? setError(404)
       : navegate("/home");
   };

@@ -6,9 +6,9 @@ import Login from "./Pages/auth/login/login";
 import Sign from "./Pages/auth/signup/sign";
 import Intial from "./intial";
 import Doctor from "./Pages/DoctorDashBoard/Doctor";
-import Donor from "./Pages/DonorDashBoard/Donor";
 import Manager from "./Pages/ManagerDashBoard/Manager";
 import SecureRoute from "./Pages/Redirect/SecureRoute";
+import DonorProxy from "./Pages/DonorDashBoard/DonorProxy";
 
 function App() {
   let location = useLocation();
@@ -33,7 +33,9 @@ function App() {
         <Route path="/sign" element={<Sign />} />
         <Route
           path="/donor"
-          element={<SecureRoute dashBoardName="donor" children={<Donor />} />}
+          element={
+            <SecureRoute dashBoardName="donor" children={<DonorProxy />} />
+          }
         />
         <Route
           path="/doctor"

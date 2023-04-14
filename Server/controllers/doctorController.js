@@ -132,7 +132,7 @@ const addInteractionToDonor = (interaction, res) => {
             password: "default",
             nationalId: interaction.EndNationalId.nationalId,
             address: "default",
-            bloodtype: "default",
+            bloodtype: interaction.EndNationalId.bloodtype,
             age: 21,
             interactions: [interaction._id],
           })

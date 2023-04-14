@@ -1,8 +1,5 @@
-import Intial from "../../intial";
 import { sessionInfo } from "../../utils/valtioStore";
-import Doctor from "../DoctorDashBoard/Doctor";
-import Donor from "../DonorDashBoard/Donor";
-import Manager from "../ManagerDashBoard/Manager";
+import { Navigate } from "react-router-dom";
 
 export default function SecureRoute({
   children,
@@ -11,11 +8,11 @@ export default function SecureRoute({
   children: JSX.Element;
   dashBoardName: string;
 }) {
-  if (sessionInfo.accessToken === "") return <Intial />;
+  if (sessionInfo.accessToken === "") return <Navigate to="/" />;
   if (dashBoardName === sessionInfo.userType) return children;
   else {
-    if (sessionInfo.userType === "manager") return <Manager />;
-    if (sessionInfo.userType === "doctor") return <Doctor />;
-    else return <Donor />;
+    if (sessionInfo.userType === "manager") return <Navigate to="/manager" />;
+    if (sessionInfo.userType === "doctor") return <Navigate to="/doctor" />;
+    else return <Navigate to="/donor" />;
   }
 }

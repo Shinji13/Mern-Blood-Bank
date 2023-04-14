@@ -38,7 +38,7 @@ export const getUserInteraction = async (req, res) => {
       .then((interactions) => {
         const filterdInteractions = [];
         for (let int of interactions) {
-          if (req.body.interactions.includes(int._id)) {
+          if (req.body.interactions.includes(int._id.toString())) {
             filterdInteractions.push(int);
           }
         }

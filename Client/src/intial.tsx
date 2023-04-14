@@ -15,7 +15,6 @@ export default function Intial() {
         withCredentials: true,
       });
       sessionInfo.accessToken = res.headers["authentication"];
-      sessionInfo.userId = res.data.userId;
       sessionInfo.userType = res.data.userType;
     } catch (error) {
       return SetError(true);
