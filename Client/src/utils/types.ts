@@ -46,3 +46,11 @@ export type interaction = {
   interactionNotice: string;
   _id: string;
 };
+
+export type ServicePosts = {
+  posts: post[];
+  name: string;
+  address: string;
+};
+
+export type post = { message: string; date: string; _id: string };

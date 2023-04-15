@@ -65,3 +65,8 @@ export const fetchInteractions = async (
     }
   );
 };
+export const fetchPosts = async (navigate: any) => {
+  return CustomAxios.get("/api/donator/posts", {
+    navigate: navigate,
+  });
+};

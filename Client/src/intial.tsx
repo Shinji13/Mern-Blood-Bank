@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { sessionInfo } from "./utils/valtioStore";
 import { Navigate } from "react-router-dom";
-import Loading from "./Pages/ReUseComponents/Loading";
+import Loading from "./Pages/ReUseComponents/Loading/Loading";
 
 export default function Intial() {
   const [isError, SetError] = useState(false);

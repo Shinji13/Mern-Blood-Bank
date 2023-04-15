@@ -1,4 +1,4 @@
-.interactions {
+.posts {
   width: 100%;
   height: fit-content;
   overflow-y: scroll;
@@ -9,7 +9,7 @@
   margin-top: 30px;
   margin-bottom: 40px;
 
-  & > div:first-child {
+  & > .intro {
     width: 100%;
     display: grid;
     grid-template-columns: 40% 60%;

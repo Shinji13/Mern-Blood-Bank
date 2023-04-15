@@ -6,6 +6,8 @@ import { useSnapshot } from "valtio";
 import { fetchInteractions } from "../../../utils/apiFunctions";
 import { interaction } from "../../../utils/types";
 import { donorInfo } from "../../../utils/valtioStore";
+import { LineChart } from "../../../assets/Components/Charts";
+import Loading from "../../ReUseComponents/Loading/Loading";
 
 export const Donations = () => {
   const user = useSnapshot(donorInfo);
@@ -25,7 +27,22 @@ export const Donations = () => {
       cacheTime: Infinity,
     }
   );
-
+  const chartData = {
+    labels: data?.data.interactions.map((int: interaction) =>
+      int.date.substring(0, 15)
+    ),
+    datasets: [
+      {
+        label: "Donation rate",
+        fill: true,
+        lineTension: 0.5,
+        backgroundColor: "#d52816",
+        borderColor: "rgba(0,0,0,1)",
+        borderWidth: 2,
+        data: data?.data.interactions.map((int: interaction) => int.Quantity),
+      },
+    ],
+  };
   const serviceFilterRef = useRef<HTMLInputElement>(null);
   const dateFilterRef = useRef<HTMLInputElement>(null);
   const filterByServiceName = (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,30 +72,34 @@ export const Donations = () => {
       changeInteractions(filteredInteractions);
     }
   };
-  return (
-    <div className={styles.interactions}>
-      <div className={styles.middleLayer}>
-        <h1>Donations</h1>
-      </div>
-      <div className={styles.filter}>
-        <div>
-          <span>Search wih service name</span>
-          <input
-            ref={serviceFilterRef}
-            type="text"
-            onChange={filterByServiceName}
-          />
+  if (isLoading) return <Loading />;
+  else if (isError) return <h1>sorry error occured</h1>;
+  else
+    return (
+      <div className={styles.interactions}>
+        <div className={styles.intro}>
+          <div>
+            <h1>Donations</h1>
+            <h1>History</h1>
+          </div>
+          <div>
+            <LineChart data={chartData} />
+          </div>
         </div>
-        <div>
-          <span>Search wih Date</span>
-          <input ref={dateFilterRef} type="text" onChange={filterByDate} />
+        <div className={styles.filter}>
+          <div>
+            <span>Search wih service name</span>
+            <input
+              ref={serviceFilterRef}
+              type="text"
+              onChange={filterByServiceName}
+            />
+          </div>
+          <div>
+            <span>Search wih Date</span>
+            <input ref={dateFilterRef} type="text" onChange={filterByDate} />
+          </div>
         </div>
-      </div>
-      {isLoading ? (
-        <h1>Loading...</h1>
-      ) : isError ? (
-        <h1>Please reload Error occured</h1>
-      ) : (
         <div className={styles.list}>
           {interactions.map((el: interaction, index: number) => {
             return (
@@ -108,7 +129,6 @@ export const Donations = () => {
             );
           })}
         </div>
-      )}
-    </div>
-  );
+      </div>
+    );
 };

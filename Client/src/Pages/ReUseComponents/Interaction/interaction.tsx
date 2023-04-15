@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import styles from "./interaction.module.css";
-import backArrow from "../../assets/images/arrow-left-solid.svg";
-import { interaction } from "../../utils/types";
+import backArrow from "../../../assets/images/arrow-left-solid.svg";
+import { interaction } from "../../../utils/types";
 import { useNavigate, useParams } from "react-router-dom";
 import { motion as m } from "framer-motion";
 import { useEffect } from "react";

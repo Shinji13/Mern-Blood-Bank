@@ -1,11 +1,8 @@
 import styles from "./donor.module.css";
-import { useState } from "react";
-import { Outlet, useNavigate, Link } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
 import { motion as m } from "framer-motion";
 
 export default function Donor() {
-  const [activity, changeActivity] = useState<number>(0);
-  const navegate = useNavigate();
   return (
     <div className={styles.entry}>
       <div className={styles.nav}>

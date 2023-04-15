@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import Loading from "../../ReUseComponents/Loading";
+import Loading from "../../ReUseComponents/Loading/Loading";
 import Donor from "./Donor";
 import { getDonorInfo } from "../../../utils/apiFunctions";
 

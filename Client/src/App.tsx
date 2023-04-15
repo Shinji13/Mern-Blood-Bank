@@ -11,7 +11,9 @@ import SecureRoute from "./Pages/ReUseComponents/SecureRoute";
 import DonorProxy from "./Pages/DonorDashBoard/entry/DonorProxy";
 import DonorProfile from "./Pages/DonorDashBoard/profile/DonorProfile";
 import { Donations } from "./Pages/DonorDashBoard/donations/donation";
-import Interaction from "./Pages/ReUseComponents/interaction";
+import Interaction from "./Pages/ReUseComponents/Interaction/interaction";
+import { Posts } from "./Pages/DonorDashBoard/posts/Posts";
+import Post from "./Pages/ReUseComponents/Post/Post";
 
 function App() {
   let location = useLocation();
@@ -19,20 +21,23 @@ function App() {
     <AnimatePresence mode={"wait"}>
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Intial />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/home">
+          <Route index element={<Home />} />
+          <Route
+            path="/home/manager"
+            element={<ProgramExtended whichProgram={0} />}
+          />
+          <Route
+            path="/home/doctor"
+            element={<ProgramExtended whichProgram={1} />}
+          />
+          <Route
+            path="/home/donor"
+            element={<ProgramExtended whichProgram={2} />}
+          />
+        </Route>
         <Route path="/interactions/:id" element={<Interaction />} />
-        <Route
-          path="/home/manager"
-          element={<ProgramExtended whichProgram={0} />}
-        />
-        <Route
-          path="/home/doctor"
-          element={<ProgramExtended whichProgram={1} />}
-        />
-        <Route
-          path="/home/donor"
-          element={<ProgramExtended whichProgram={2} />}
-        />
+        <Route path="/Posts/:id/:serviceName" element={<Post />} />
         <Route path="/login" element={<Login />} />
         <Route path="/sign" element={<Sign />} />
         <Route
@@ -43,6 +48,7 @@ function App() {
         >
           <Route index element={<DonorProfile />} />
           <Route path="/donor/donations" element={<Donations />} />
+          <Route path="/donor/posts" element={<Posts />} />
         </Route>
         <Route
           path="/doctor"
