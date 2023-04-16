@@ -6,8 +6,6 @@ import { fetchAppointements, fetchServices } from "../../../utils/apiFunctions";
 import { donorInfo } from "../../../utils/valtioStore";
 import Loading from "../../ReUseComponents/Loading/Loading";
 import Form from "./form";
-import { appointement } from "../../../utils/types";
-import { error } from "console";
 import { useState } from "react";
 
 export default function Appointement() {

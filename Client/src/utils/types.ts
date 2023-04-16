@@ -68,3 +68,11 @@ export type appointement = {
     | "Red Cells"
     | "not Set";
 };
+
+export type updatedDonor = {
+  fullName: string;
+  tel: string;
+  address: string;
+  lastDonation: string;
+  profileImgPath: string;
+};

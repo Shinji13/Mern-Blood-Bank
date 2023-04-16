@@ -7,7 +7,6 @@ import makeAnimated from "react-select/animated";
 import { addAppointement } from "../../../utils/apiFunctions";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { setOptions } from "react-chartjs-2/dist/utils";
 import { isGoodToDonate } from "../../../utils/utilFunctions";
 
 export default function Form({
@@ -59,23 +58,25 @@ export default function Form({
       0
     );
     newAppointement.current.date = myToday.toString();
-    if (
-      isGoodToDonate(
-        myToday,
-        new Date(user.user.lastDonation),
-        newAppointement.current.appointmentType
-      )
-    ) {
+    const donationAbility = isGoodToDonate(
+      myToday,
+      new Date(user.user.lastDonation),
+      newAppointement.current.appointmentType
+    );
+    if (donationAbility.isable) {
       mutate();
       ErrorHandler("");
-    } else ErrorHandler(`You last donated ${user.user.lastDonation}`);
+    } else
+      ErrorHandler(
+        `You last donated ${user.user.lastDonation} and ${newAppointement.current.appointmentType} needs ${donationAbility.nextDonationDate} days to do donate again`
+      );
   };
-
   return (
     <div className={styles.form}>
       <div className={styles.service}>
         <span>Select Service</span>
         <input
+          onFocus={() => ErrorHandler("")}
           value={selectedService}
           onChange={(evt) => {
             const options =
@@ -110,6 +111,7 @@ export default function Form({
       <div className={styles.donationType}>
         <span>Donation Type</span>
         <Select
+          onFocus={() => ErrorHandler("")}
           options={[
             { label: "Red Cells", value: "Red Cells" },
             { label: "Plasma", value: "Plasma" },
@@ -161,9 +163,10 @@ export default function Form({
         <div>
           <span>Day</span>
           <Select
+            onFocus={() => ErrorHandler("")}
             options={(() => {
               const options: { label: string; value: string }[] = [];
-              for (let i = 1; i <= 30; i++) {
+              for (let i = new Date().getDay(); i <= 30; i++) {
                 options.push({ label: `${i}`, value: `${i}` });
               }
               return options;
@@ -209,6 +212,7 @@ export default function Form({
         <div>
           <span>Hour</span>
           <Select
+            onFocus={() => ErrorHandler("")}
             options={(() => {
               const options: { label: string; value: string }[] = [];
               for (let i = 9; i <= 16; i++) {

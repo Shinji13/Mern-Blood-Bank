@@ -2,7 +2,7 @@
 import axios from "axios";
 import { CustomAxios } from "./axios";
 import { sessionInfo, donorInfo } from "./valtioStore";
-import { appointement, donorSignUpInfo } from "./types";
+import { appointement, donorSignUpInfo, updatedDonor } from "./types";
 export const LoginHandler = async (email: string, password: string) => {
   let data = { status: 201, userType: "default" };
   try {
@@ -91,4 +91,26 @@ export const addAppointement = async (
       navigate: navigate,
     }
   );
+};
+
+export const updateDonor = async (
+  Img: File | null,
+  navigate: any,
+  update: updatedDonor
+) => {
+  const fd = new FormData();
+  if (Img) fd.append("image", Img, update.profileImgPath);
+  fd.append("update", JSON.stringify(update));
+  return CustomAxios.put("/api/donator", fd, {
+    navigate: navigate,
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  }).then(() => {
+    donorInfo.user.address = update.address;
+    donorInfo.user.fullName = update.fullName;
+    donorInfo.user.lastDonation = update.lastDonation;
+    donorInfo.user.tel = update.tel;
+    donorInfo.user.profileImgPath = update.profileImgPath;
+  });
 };

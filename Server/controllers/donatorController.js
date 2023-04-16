@@ -30,7 +30,6 @@ export const updateProfile = (req, res) => {
         address: parsedUpdate.address,
         tel: parsedUpdate.tel,
         profileImgPath: parsedUpdate.profileImgPath,
-        age: parsedUpdate.age,
         lastDonation: parsedUpdate.lastDonation,
       },
     })
