@@ -31,6 +31,7 @@ export const updateProfile = (req, res) => {
         tel: parsedUpdate.tel,
         profileImgPath: parsedUpdate.profileImgPath,
         age: parsedUpdate.age,
+        lastDonation: parsedUpdate.lastDonation,
       },
     })
     .then((donor) => res.status(200).send(donor))
@@ -53,7 +54,7 @@ export const getAppointments = async (req, res) => {
 
 export const addAppointment = (req, res) => {
   const userId = req.userId;
-  const newAppointment = new appointmentModel(req.body);
+  const newAppointment = new appointmentModel(req.body.appointment);
   newAppointment
     .save()
     .then((apt) => {

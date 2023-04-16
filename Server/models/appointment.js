@@ -20,7 +20,7 @@ const appointmentSchema = new mongoose.Schema({
   },
   appointmentType: {
     type: String,
-    enum: ["plasma", "red_cells", "platelets", "full_blood"],
+    enum: ["Plasma", "Red Cells", "Platelets", "Full Blood"],
     require: true,
   },
 });

@@ -7,7 +7,11 @@ import authRoute from "./routes/authenticateRoute.js";
 import { verify } from "./middlewares/verify.js";
 import donatorRoute from "./routes/donatorRoute.js";
 import doctorRoute from "./routes/doctorRoute.js";
-import { getUserInteraction, getDonators } from "./utils/globalApiHandlers.js";
+import {
+  getUserInteraction,
+  getDonators,
+  getServcies,
+} from "./utils/globalApiHandlers.js";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 
@@ -66,3 +70,5 @@ app.use("/api/doctor", verify, doctorRoute); //tested
 app.post("/api/userInteraction", verify, getUserInteraction); //tested
 
 app.get("/api/donators/all", verify, getDonators); //tested
+
+app.get("/api/services", verify, getServcies); //tested

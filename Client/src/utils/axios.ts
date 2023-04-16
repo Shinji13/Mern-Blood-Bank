@@ -12,6 +12,12 @@ CustomAxios.interceptors.request.use(async (req) => {
   return req;
 });
 
+CustomAxios.defaults.headers = {
+  "Cache-Control": "no-cache",
+  Pragma: "no-cache",
+  Expires: "0",
+};
+
 export const refreshToken = async (navigate) => {
   let newtoken: string = sessionInfo.accessToken;
   if (sessionInfo.hasExpired(sessionInfo.accessToken)) {

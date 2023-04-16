@@ -1,3 +1,12 @@
+@keyframes coloring {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
 .interactions {
   width: 100%;
   height: fit-content;
@@ -24,7 +33,19 @@
       align-self: center;
       font-family: metafiz-bold;
       font-size: var(--font-size-lg);
-      color: var(--primary-color-600);
+      background: linear-gradient(
+        to left,
+        #f8c4c4,
+        #d52816 2%,
+        #dd5244,
+        #ebaca4,
+        #f8c4c4
+      );
+      background-size: 200%;
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      animation: coloring 2s linear 0.5s infinite normal forwards;
     }
     & > div:last-child {
       width: 100%;

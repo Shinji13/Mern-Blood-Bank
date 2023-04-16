@@ -47,6 +47,10 @@ const donatorSchema = new mongoose.Schema({
     type: [mongoose.Types.ObjectId],
     default: [],
   },
+  lastDonation: {
+    type: String,
+    default: () => new Date(),
+  },
 });
 
 export default mongoose.model("donator", donatorSchema);

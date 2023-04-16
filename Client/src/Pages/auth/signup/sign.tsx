@@ -48,8 +48,11 @@ export default function Sign() {
             value: current.bloodtype,
             label: current.bloodtype,
           }}
-          options={bloodTypes}
           styles={{
+            indicatorSeparator: (base, props) => ({
+              ...base,
+              display: "none",
+            }),
             control: (baseStyles, state) => ({
               ...baseStyles,
               borderRadius: "22px",
@@ -65,6 +68,7 @@ export default function Sign() {
               ...baseStyles,
               height: "fit-content",
               borderRight: "12px",
+              width: "100%",
             }),
             container: (baseStyles, state) => ({
               ...baseStyles,
@@ -72,6 +76,7 @@ export default function Sign() {
               zIndex: 3,
             }),
           }}
+          options={bloodTypes}
           components={makeAnimated()}
           onChange={(optionSelected) => {
             const val = optionSelected as { label: string; value: string };

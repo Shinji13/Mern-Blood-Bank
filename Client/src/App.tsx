@@ -14,6 +14,7 @@ import { Donations } from "./Pages/DonorDashBoard/donations/donation";
 import Interaction from "./Pages/ReUseComponents/Interaction/interaction";
 import { Posts } from "./Pages/DonorDashBoard/posts/Posts";
 import Post from "./Pages/ReUseComponents/Post/Post";
+import Appointement from "./Pages/DonorDashBoard/appointements/appointement";
 
 function App() {
   let location = useLocation();
@@ -49,6 +50,7 @@ function App() {
           <Route index element={<DonorProfile />} />
           <Route path="/donor/donations" element={<Donations />} />
           <Route path="/donor/posts" element={<Posts />} />
+          <Route path="/donor/appointements" element={<Appointement />} />
         </Route>
         <Route
           path="/doctor"

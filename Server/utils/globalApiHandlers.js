@@ -54,3 +54,12 @@ export const getDonators = async (req, res) => {
     })
     .catch((err) => res.status(503).send(err));
 };
+
+export const getServcies = async (req, res) => {
+  serviceModel
+    .find({}, { name: 1, address: 1, _id: 0 })
+    .then((services) => {
+      res.status(200).send({ services });
+    })
+    .catch((err) => res.status(503).send(err));
+};

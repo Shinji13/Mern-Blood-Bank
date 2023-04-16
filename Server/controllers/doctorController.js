@@ -120,6 +120,7 @@ const addInteractionToDonor = (interaction, res) => {
     .then((donor) => {
       if (donor) {
         donor.interactions.push(interaction._id);
+        donor.lastDonation = new Date();
         donor
           .save()
           .then((donor) => res.status(201).send(donor))
@@ -134,6 +135,7 @@ const addInteractionToDonor = (interaction, res) => {
             address: "default",
             bloodtype: interaction.EndNationalId.bloodtype,
             age: 21,
+            lastDonation: new Date(),
             interactions: [interaction._id],
           })
           .then((donor) => res.status(201).send(donor))

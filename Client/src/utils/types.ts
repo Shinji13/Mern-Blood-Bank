@@ -26,6 +26,7 @@ export interface donor {
   interactions: string[];
   appointments: string[];
   tel: string;
+  lastDonation: string;
 }
 
 export type interaction = {
@@ -54,3 +55,16 @@ export type ServicePosts = {
 };
 
 export type post = { message: string; date: string; _id: string };
+
+export type appointement = {
+  Service: string;
+  donor: string;
+  date: string;
+  status: number;
+  appointmentType:
+    | "Plasma"
+    | "Full Blood"
+    | "Platelets"
+    | "Red Cells"
+    | "not Set";
+};

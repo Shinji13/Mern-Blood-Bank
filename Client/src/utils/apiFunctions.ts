@@ -2,7 +2,7 @@
 import axios from "axios";
 import { CustomAxios } from "./axios";
 import { sessionInfo, donorInfo } from "./valtioStore";
-import { donorSignUpInfo } from "./types";
+import { appointement, donorSignUpInfo } from "./types";
 export const LoginHandler = async (email: string, password: string) => {
   let data = { status: 201, userType: "default" };
   try {
@@ -69,4 +69,26 @@ export const fetchPosts = async (navigate: any) => {
   return CustomAxios.get("/api/donator/posts", {
     navigate: navigate,
   });
+};
+export const fetchServices = async (navigate: any) => {
+  return CustomAxios.get("/api/services", {
+    navigate: navigate,
+  });
+};
+export const fetchAppointements = async (navigate: any, nationalId: string) => {
+  return CustomAxios.get(`/api/donator/appointment/${nationalId}`, {
+    navigate: navigate,
+  });
+};
+export const addAppointement = async (
+  navigate: any,
+  appointment: appointement
+) => {
+  return CustomAxios.post(
+    `/api/donator/appointment`,
+    { appointment },
+    {
+      navigate: navigate,
+    }
+  );
 };
