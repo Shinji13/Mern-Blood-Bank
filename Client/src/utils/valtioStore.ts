@@ -1,7 +1,6 @@
 import { proxy } from "valtio";
 import jwtDecode from "jwt-decode";
-import { sessionIF, donor } from "./types";
-import { QueryClient } from "@tanstack/react-query";
+import { sessionIF, donor, stuffUser } from "./types";
 
 export const sessionInfo = proxy<sessionIF>({
   userType: "undefined",
@@ -23,6 +22,19 @@ export const donorInfo = proxy<{ user: donor }>({
     profileImgPath: "",
     interactions: [],
     appointments: [],
+    lastDonation: "",
     tel: "",
+  },
+});
+
+export const StuffInfo = proxy<{ user: stuffUser }>({
+  user: {
+    fullName: "",
+    nationalId: "",
+    email: "",
+    password: "",
+    profileImgPath: "",
+    serviceName: "",
+    stuffType: 0,
   },
 });

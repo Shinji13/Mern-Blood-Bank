@@ -5,7 +5,7 @@ import appointmentModel from "../models/appointment.js";
 export const getDonatorInfo = (req, res) => {
   const Id = req.userId;
   donorModel
-    .findOne({ _id: Id }, { password: 0, _id: 0 })
+    .findOne({ _id: Id }, { password: 0, _id: 0, _v: 0 })
     .then((user) => res.status(200).send(user))
     .catch((err) => res.status(503).send(err));
 };

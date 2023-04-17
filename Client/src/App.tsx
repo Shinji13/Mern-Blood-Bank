@@ -5,7 +5,6 @@ import ProgramExtended from "./Pages/home/ProgramExtended/ProgramExtended";
 import Login from "./Pages/auth/login/login";
 import Sign from "./Pages/auth/signup/sign";
 import Intial from "./intial";
-import Doctor from "./Pages/DoctorDashBoard/Doctor";
 import Manager from "./Pages/ManagerDashBoard/Manager";
 import SecureRoute from "./Pages/ReUseComponents/SecureRoute";
 import DonorProxy from "./Pages/DonorDashBoard/entry/DonorProxy";
@@ -15,6 +14,10 @@ import Interaction from "./Pages/ReUseComponents/Interaction/interaction";
 import { Posts } from "./Pages/DonorDashBoard/posts/Posts";
 import Post from "./Pages/ReUseComponents/Post/Post";
 import Appointement from "./Pages/DonorDashBoard/appointements/appointement";
+import DoctorProxy from "./Pages/DoctorDashBoard/entry/DoctorProxy";
+import ServiceInteractions from "./Pages/DoctorDashBoard/interactions/ServiceInteractions";
+import Patients from "./Pages/DoctorDashBoard/Patients/Patients";
+import DonorsSearch from "./Pages/ReUseComponents/DonorsSearch/DonorsSearch";
 
 function App() {
   let location = useLocation();
@@ -54,8 +57,15 @@ function App() {
         </Route>
         <Route
           path="/doctor"
-          element={<SecureRoute dashBoardName="doctor" children={<Doctor />} />}
-        />
+          element={
+            <SecureRoute dashBoardName="doctor" children={<DoctorProxy />} />
+          }
+        >
+          <Route index path="/doctor" element={<ServiceInteractions />} />
+          <Route path="/doctor/donors" element={<DonorsSearch />} />
+          <Route path="/doctor/patients" element={<Patients />} />
+        </Route>
+
         <Route
           path="/manager"
           element={

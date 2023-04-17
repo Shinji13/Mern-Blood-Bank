@@ -27,8 +27,8 @@ const doctorInteractions = (serviceName, doctorId, res) => {
 };
 
 export const getUserInteraction = async (req, res) => {
-  const userType = req.userType;
-  if (userType == "doctor") {
+  const userType = req.body.userType;
+  if (userType == "stuff") {
     const serviceName = req.body.serviceName;
     const doctorId = req.body.doctorId;
     doctorInteractions(serviceName, doctorId, res);

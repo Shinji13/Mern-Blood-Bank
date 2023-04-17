@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useRef, useState } from "react";
 import { fetchPosts } from "../../../utils/apiFunctions";
 import { ServicePosts } from "../../../utils/types";
-import { BarChart } from "../../../assets/Components/Charts";
+import { BarChart } from "../../ReUseComponents/Charts";
 import Loading from "../../ReUseComponents/Loading/Loading";
 import { compareDates } from "../../../utils/utilFunctions";
 

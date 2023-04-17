@@ -17,14 +17,6 @@ const serviceStuffSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
-  tel: {
-    type: String,
-    default: "0x1",
-  },
-  profileImgPath: {
-    type: String,
-    default: "default.jpg",
-  },
   serviceName: {
     type: String,
     require: true,

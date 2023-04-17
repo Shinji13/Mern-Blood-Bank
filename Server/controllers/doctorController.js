@@ -6,29 +6,25 @@ import donorModel from "../models/donator.js";
 export const getDoctorInfo = (req, res) => {
   const userId = req.userId;
   stuffModel
-    .findById(userId, { stuffType: 0, password: 0, _id: 0 })
+    .findById(userId, { password: 0, _id: 0, _v: 0 })
     .then((user) => res.status(200).send(user))
     .catch((err) => res.status(503).send(err));
 };
-export const updateProfile = (req, res) => {
-  const update = req.body.update || "{}";
-  const parsedUpdate = JSON.parse(update);
-  const userId = req.userId;
-  stuffModel
-    .findByIdAndUpdate(
-      userId,
-      {
-        $set: {
-          fullName: parsedUpdate.fullName,
-          tel: parsedUpdate.tel,
-          profileImgPath: parsedUpdate.profileImgPath,
-        },
-      },
-      { new: true }
-    )
-    .then((user) => res.status(200).send(user))
-    .catch((err) => res.status(503).send(err));
-};
+// export const updateProfile = (req, res) => {
+//   const userId = req.userId;
+//   stuffModel
+//     .findByIdAndUpdate(
+//       userId,
+//       {
+//         $set: {
+//           profileImgPath: req.body.path,
+//         },
+//       },
+//       { new: true }
+//     )
+//     .then((user) => res.status(200).send(user))
+//     .catch((err) => res.status(503).send(err));
+// };
 export const getInteractions = (req, res) => {
   const serviceName = req.params.serviceName;
   interactionModel

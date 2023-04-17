@@ -3,6 +3,7 @@ import axios from "axios";
 import { CustomAxios } from "./axios";
 import { sessionInfo, donorInfo } from "./valtioStore";
 import { appointement, donorSignUpInfo, updatedDonor } from "./types";
+import { StuffInfo } from "./valtioStore";
 export const LoginHandler = async (email: string, password: string) => {
   let data = { status: 201, userType: "default" };
   try {
@@ -53,13 +54,14 @@ export const getDonorInfo = async (navigate: any) => {
 
 export const fetchInteractions = async (
   navigate: any,
+  userType: string,
   interactions?: readonly string[],
   serviceName?: string,
   doctorId?: string
 ) => {
   return CustomAxios.post(
     "/api/userInteraction",
-    { serviceName, doctorId, interactions },
+    { serviceName, doctorId, interactions, userType },
     {
       navigate: navigate,
     }
@@ -112,5 +114,28 @@ export const updateDonor = async (
     donorInfo.user.lastDonation = update.lastDonation;
     donorInfo.user.tel = update.tel;
     donorInfo.user.profileImgPath = update.profileImgPath;
+  });
+};
+
+export const getStuffInfo = async (navigate: any, stuffType: boolean) => {
+  try {
+    const response = await CustomAxios.get(
+      `/api/${stuffType ? "manager" : "doctor"}`,
+      {
+        navigate: navigate,
+      }
+    );
+    StuffInfo.user = response.data;
+  } catch (error) {
+    navigate("/", { state: true });
+  }
+};
+
+export const getServiceInteractions = async (
+  navigate: any,
+  serviceName: string
+) => {
+  return CustomAxios.get(`/api/doctor/interactions/${serviceName}`, {
+    navigate: navigate,
   });
 };

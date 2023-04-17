@@ -76,3 +76,12 @@ export type updatedDonor = {
   lastDonation: string;
   profileImgPath: string;
 };
+
+export type stuffUser = {
+  fullName: string;
+  nationalId: string;
+  email: string;
+  profileImgPath: string;
+  serviceName: string;
+  stuffType: 0 | 1;
+};
