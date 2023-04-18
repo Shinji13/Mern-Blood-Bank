@@ -63,11 +63,11 @@ export const Interactions = ({ data }: { data: interaction[] }) => {
               <span>{index + 1}</span>
               <div>
                 <span>Service Name</span>
-                <span>{el.serviceName}</span>
+                <span>{el.serviceName.substring(0, 16)}</span>
               </div>
               <div>
                 <span>Doctor Name</span>
-                <span>{el.doctor.name}</span>
+                <span>{el.doctor.name.substring(0, 16)}</span>
               </div>
               <div>
                 <span>Donation Type</span>
