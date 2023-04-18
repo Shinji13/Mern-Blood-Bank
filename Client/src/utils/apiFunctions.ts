@@ -2,7 +2,13 @@
 import axios from "axios";
 import { CustomAxios } from "./axios";
 import { sessionInfo, donorInfo } from "./valtioStore";
-import { appointement, donorSignUpInfo, updatedDonor } from "./types";
+import {
+  appointement,
+  donorSignUpInfo,
+  interaction,
+  updatedDonor,
+  user,
+} from "./types";
 import { StuffInfo } from "./valtioStore";
 export const LoginHandler = async (email: string, password: string) => {
   let data = { status: 201, userType: "default" };
@@ -72,12 +78,12 @@ export const fetchPosts = async (navigate: any) => {
     navigate: navigate,
   });
 };
-export const fetchServices = async (navigate: any) => {
+export const fetchServices = (navigate: any) => {
   return CustomAxios.get("/api/services", {
     navigate: navigate,
   });
 };
-export const fetchAppointements = async (navigate: any, nationalId: string) => {
+export const fetchAppointements = (navigate: any, nationalId: string) => {
   return CustomAxios.get(`/api/donator/appointment/${nationalId}`, {
     navigate: navigate,
   });
@@ -95,7 +101,7 @@ export const addAppointement = async (
   );
 };
 
-export const updateDonor = async (
+export const updateDonor = (
   Img: File | null,
   navigate: any,
   update: updatedDonor
@@ -131,11 +137,55 @@ export const getStuffInfo = async (navigate: any, stuffType: boolean) => {
   }
 };
 
-export const getServiceInteractions = async (
-  navigate: any,
-  serviceName: string
-) => {
+export const getServiceInteractions = (navigate: any, serviceName: string) => {
   return CustomAxios.get(`/api/doctor/interactions/${serviceName}`, {
     navigate: navigate,
   });
+};
+
+export const addInteraction = (navigate: any, interaction: interaction) => {
+  return CustomAxios.post(
+    "/api/doctor/interactions",
+    { interaction },
+    {
+      navigate: navigate,
+    }
+  ).then(() => navigate("/doctor"));
+};
+
+export const getDonors = (navigate: any) => {
+  return CustomAxios.get("/api/donators/all", {
+    navigate: navigate,
+  });
+};
+
+export const getPatients = (navigate: any, serviceName: string) => {
+  return CustomAxios.get(`/api/doctor/patient/${serviceName}`, {
+    navigate: navigate,
+  });
+};
+
+export const addUser = (
+  navigate: any,
+  user: user,
+  userType: 0 | 1,
+  serviceName: string
+) => {
+  if (userType == 0) {
+    return CustomAxios.post(
+      "/api/doctor/donor",
+      { user },
+      {
+        navigate: navigate,
+      }
+    ).then(() => navigate("/doctor"));
+  } else {
+    return CustomAxios.post(
+      `/api/doctor/patient/${serviceName}`,
+      { user },
+      {
+        navigate: navigate,
+      }
+    ).then(() => navigate("/doctor"));
+  }
 };

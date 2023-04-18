@@ -9,11 +9,13 @@ export type donorSignUpInfo = {
   age: Number;
 };
 
-export interface sessionIF {
-  userType: "doctor" | "manager" | "donor" | "undefined";
-  accessToken: string;
-  hasExpired: (token: string) => boolean;
-}
+export type updatedDonor = {
+  fullName: string;
+  tel: string;
+  address: string;
+  lastDonation: string;
+  profileImgPath: string;
+};
 
 export interface donor {
   fullName: string;
@@ -22,11 +24,17 @@ export interface donor {
   age: number;
   bloodtype: string;
   address: string;
-  profileImgPath: string;
   interactions: string[];
-  appointments: string[];
+  profileImgPath: string;
+  appointments?: string[];
   tel: string;
   lastDonation: string;
+}
+
+export interface sessionIF {
+  userType: "doctor" | "manager" | "donor" | "undefined";
+  accessToken: string;
+  hasExpired: (token: string) => boolean;
 }
 
 export type interaction = {
@@ -35,7 +43,7 @@ export type interaction = {
   EndNationalId: {
     name: string;
     nationalId: string;
-    bloodType: string;
+    bloodtype: string;
   };
   doctor: {
     name: string;
@@ -45,7 +53,7 @@ export type interaction = {
   bloodtype: string;
   exchangeType: number;
   interactionNotice: string;
-  _id: string;
+  _id?: string;
 };
 
 export type ServicePosts = {
@@ -69,14 +77,6 @@ export type appointement = {
     | "not Set";
 };
 
-export type updatedDonor = {
-  fullName: string;
-  tel: string;
-  address: string;
-  lastDonation: string;
-  profileImgPath: string;
-};
-
 export type stuffUser = {
   fullName: string;
   nationalId: string;
@@ -84,4 +84,17 @@ export type stuffUser = {
   profileImgPath: string;
   serviceName: string;
   stuffType: 0 | 1;
+};
+
+export type user = {
+  fullName: string;
+  nationalId: string;
+  age: number;
+  bloodtype: string;
+  address: string;
+  interactions?: string[];
+  profileImgPath?: string;
+  tel: string;
+  lastDonation?: string;
+  healthStatus?: string;
 };

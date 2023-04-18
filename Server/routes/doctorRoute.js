@@ -10,13 +10,15 @@ doctorRoute.get("/interactions/:serviceName", doctorController.getInteractions);
 
 doctorRoute.get("/patient/:serviceName", doctorController.getPatients); //done tested
 
-doctorRoute.post("/interactions", doctorController.addInteraction); //done tested
-
 doctorRoute.post(
-  "/patient/:serviceName",
-  upload.single("image"),
-  doctorController.addPatient
+  "/interactions",
+  doctorController.addInteraction,
+  doctorController.storeNewInteraction
 ); //done tested
+
+doctorRoute.post("/donor", doctorController.addDonor);
+
+doctorRoute.post("/patient/:serviceName", doctorController.addPatient); //done tested
 
 doctorRoute.put(
   "/patient/:serviceName",

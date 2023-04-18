@@ -10,14 +10,16 @@ import SecureRoute from "./Pages/ReUseComponents/SecureRoute";
 import DonorProxy from "./Pages/DonorDashBoard/entry/DonorProxy";
 import DonorProfile from "./Pages/DonorDashBoard/profile/DonorProfile";
 import { Donations } from "./Pages/DonorDashBoard/donations/donation";
-import Interaction from "./Pages/ReUseComponents/Interaction/interaction";
+import Interaction from "./Pages/ReUseComponents/UniqueInteraction/interaction";
 import { Posts } from "./Pages/DonorDashBoard/posts/Posts";
 import Post from "./Pages/ReUseComponents/Post/Post";
 import Appointement from "./Pages/DonorDashBoard/appointements/appointement";
 import DoctorProxy from "./Pages/DoctorDashBoard/entry/DoctorProxy";
 import ServiceInteractions from "./Pages/DoctorDashBoard/interactions/ServiceInteractions";
-import Patients from "./Pages/DoctorDashBoard/Patients/Patients";
-import DonorsSearch from "./Pages/ReUseComponents/DonorsSearch/DonorsSearch";
+import AddInteraction from "./Pages/DoctorDashBoard/addInteraction/AddInteraction";
+import ShowDonors from "./Pages/ReUseComponents/users/showDonors/ShowDonors";
+import ShowPatients from "./Pages/ReUseComponents/users/showPatients/ShowPatients";
+import AddUser from "./Pages/DoctorDashBoard/addUser/addUser";
 
 function App() {
   let location = useLocation();
@@ -62,10 +64,33 @@ function App() {
           }
         >
           <Route index path="/doctor" element={<ServiceInteractions />} />
-          <Route path="/doctor/donors" element={<DonorsSearch />} />
-          <Route path="/doctor/patients" element={<Patients />} />
+          <Route path="/doctor/donors" element={<ShowDonors />} />
+          <Route path="/doctor/patients" element={<ShowPatients />} />
         </Route>
-
+        <Route
+          path="/addInteraction"
+          element={
+            <SecureRoute dashBoardName="doctor" children={<AddInteraction />} />
+          }
+        />
+        <Route
+          path="/addDonor"
+          element={
+            <SecureRoute
+              dashBoardName="doctor"
+              children={<AddUser userType={0} />}
+            />
+          }
+        />
+        <Route
+          path="/addPatient"
+          element={
+            <SecureRoute
+              dashBoardName="doctor"
+              children={<AddUser userType={1} />}
+            />
+          }
+        />
         <Route
           path="/manager"
           element={

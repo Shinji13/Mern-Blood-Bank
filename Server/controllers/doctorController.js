@@ -71,46 +71,75 @@ export const modifeyPatient = (req, res) => {
     .catch((err) => res.status(503).send(err));
 };
 
+export const addDonor = async (req, res) => {
+  const newDonor = req.body.user;
+  donorModel
+    .create({
+      fullName: newDonor.fullName,
+      email: "default",
+      password: "default",
+      nationalId: newDonor.nationalId,
+      address: newDonor.address,
+      bloodtype: newDonor.bloodtype,
+      tel: newDonor.tel,
+      age: newDonor.age,
+    })
+    .then((donor) => res.status(201).send(donor))
+    .catch((err) => res.status(503).send(err));
+};
+
 export const addPatient = (req, res) => {
-  const newPatient = req.body.newPatient || "{}";
-  const parsedPatient = JSON.parse(newPatient);
-  console.log(parsedPatient);
+  const newPatient = req.body.user;
   const serviceName = req.params.serviceName;
   serviceModel
     .findOneAndUpdate(
       { name: serviceName },
       {
-        $push: { patients: parsedPatient },
+        $push: {
+          patients: {
+            ...newPatient,
+            interactions: [],
+            healthStatus: "default",
+          },
+        },
       }
     )
     .then((service) => res.status(201).send(service))
     .catch((err) => res.status(503).send(err));
 };
 
-export const addInteraction = (req, res) => {
-  interactionModel
-    .create(req.body)
-    .then((interaction) => {
+export const addInteraction = (req, res, next) => {
+  const interaction = new interactionModel(req.body.interaction);
+  if (interaction.exchangeType === 0) {
+    addInteractionToDonor(interaction, req, res, next);
+  } else {
+    addInteractionToPatient(interaction, req, res, next);
+  }
+};
+
+export const storeNewInteraction = (req, res) => {
+  const interaction = req.interaction;
+  interaction
+    .save()
+    .then(() =>
       serviceModel
         .findOneAndUpdate(
-          { name: req.body.serviceName },
+          { name: interaction.serviceName },
           {
             $push: { interactions: interaction._id },
           }
         )
-        .then((service) => {
-          if (interaction.exchangeType === 0) {
-            addInteractionToDonor(interaction, res);
-          } else {
-            addInteractionToPatient(interaction, res);
-          }
-        })
-        .catch((err) => res.status(503).send(err));
-    })
+        .then((service) =>
+          res
+            .status(201)
+            .send({ message: "interaction is created successfully" })
+        )
+        .catch((err) => res.status(503).send(err))
+    )
     .catch((err) => res.status(503).send(err));
 };
 
-const addInteractionToDonor = (interaction, res) => {
+const addInteractionToDonor = (interaction, req, res, next) => {
   donorModel
     .findOne({ nationalId: interaction.EndNationalId.nationalId })
     .then((donor) => {
@@ -119,36 +148,30 @@ const addInteractionToDonor = (interaction, res) => {
         donor.lastDonation = new Date();
         donor
           .save()
-          .then((donor) => res.status(201).send(donor))
-          .catch((err) => res.status(503).send(err));
-      } else {
-        donorModel
-          .create({
-            fullName: interaction.EndNationalId.name,
-            email: "default",
-            password: "default",
-            nationalId: interaction.EndNationalId.nationalId,
-            address: "default",
-            bloodtype: interaction.EndNationalId.bloodtype,
-            age: 21,
-            lastDonation: new Date(),
-            interactions: [interaction._id],
+          .then((donor) => {
+            interaction.EndNationalId.bloodtype = donor.bloodtype;
+            req.interaction = interaction;
+            next();
           })
-          .then((donor) => res.status(201).send(donor))
-          .catch((err) => res.status(503).send(err));
-      }
+          .catch((err) => {
+            console.log(err);
+            res.status(503).send(err);
+          });
+      } else res.status(403).send("donor doenst exist");
     })
     .catch((err) => res.status(503).send(err));
 };
 
-const addInteractionToPatient = (interaction, res) => {
+const addInteractionToPatient = (interaction, req, res, next) => {
   serviceModel.findOne({ name: interaction.serviceName }).then((service) => {
     let exist = false;
+    let bloodtype = interaction.EndNationalId.bloodtype;
     for (let i = 0; i < service.patients.length; i++) {
       if (
         service.patients[i].nationalId === interaction.EndNationalId.nationalId
       ) {
         exist = true;
+        bloodtype = service.patients[i].bloodtype;
         service.patients[i].interactions.push(interaction._id);
         break;
       }
@@ -157,7 +180,11 @@ const addInteractionToPatient = (interaction, res) => {
     else
       service
         .save()
-        .then((service) => res.status(201).send(service))
+        .then((service) => {
+          interaction.EndNationalId.bloodtype = bloodtype;
+          req.interaction = interaction;
+          next();
+        })
         .catch((err) => res.status(503).send(err));
   });
 };

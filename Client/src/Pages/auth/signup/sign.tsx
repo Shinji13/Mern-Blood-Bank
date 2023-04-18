@@ -5,6 +5,7 @@ import { SignHandler } from "../../../utils/apiFunctions";
 import { useSignUp } from "../../../utils/hooks";
 import { useState } from "react";
 import axios from "axios";
+
 const bloodTypes = [
   { value: "A+", label: "A+" },
   { value: "A-", label: "A-" },

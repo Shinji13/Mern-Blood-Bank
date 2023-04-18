@@ -48,7 +48,7 @@ export const getUserInteraction = async (req, res) => {
 };
 export const getDonators = async (req, res) => {
   donorModel
-    .find({}, { password: 0, appointments: 0 })
+    .find({}, { password: 0, appointments: 0, _id: 0, _v: 0 })
     .then((donors) => {
       res.status(200).send({ donors });
     })

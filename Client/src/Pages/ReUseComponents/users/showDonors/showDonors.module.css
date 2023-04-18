@@ -1,0 +1,31 @@
+.donors {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+  gap: 30px;
+  & > .middleLayer {
+    height: 300px;
+    width: 100%;
+    background-image: url("C:/Users/hp/Documents/study/OwnStudy/Projects/BloodBank/Client/src/assets/images/donorImg.jpg");
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    overflow: visible;
+
+    & > h1 {
+      position: absolute;
+      right: 2.5%;
+      top: -22%;
+      width: 50%;
+      text-align: center;
+      padding-bottom: 3px;
+      font-family: metafiz-bold;
+      font-size: var(--font-size-xxxl);
+      -webkit-text-stroke-width: 2px;
+      -webkit-text-stroke-color: var(--primary-black);
+      color: transparent;
+    }
+  }
+}

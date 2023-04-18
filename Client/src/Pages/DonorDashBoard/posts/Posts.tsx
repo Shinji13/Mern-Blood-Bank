@@ -60,7 +60,7 @@ export const Posts = () => {
           ServiceA.posts.filter((post) => compareDates(post.date)).length -
           ServiceB.posts.filter((post) => compareDates(post.date)).length
       )
-      .slice(-10)
+      .filter((post: any) => !compareDates(post.date))
       .map((Service: ServicePosts) => Service.name),
     datasets: [
       {
@@ -105,8 +105,8 @@ export const Posts = () => {
           </div>
         </div>
         <div className={styles.list}>
-          {posts.map((el: ServicePosts) =>
-            el.posts.map((post, index) => {
+          {posts.map((el: ServicePosts) => {
+            return el.posts.map((post, index) => {
               return !compareDates(post.date) ? (
                 <div
                   className={styles.post}
@@ -130,8 +130,8 @@ export const Posts = () => {
               ) : (
                 ""
               );
-            })
-          )}
+            });
+          })}
         </div>
       </div>
     );

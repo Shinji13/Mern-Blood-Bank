@@ -79,7 +79,7 @@ export default function Interaction() {
             </div>
             <div>
               <span>Blood Type</span>
-              <span>{interaction?.EndNationalId.bloodType}</span>
+              <span>{interaction?.EndNationalId.bloodtype}</span>
             </div>
           </div>
         </div>

@@ -10,6 +10,44 @@
   position: relative;
   overflow-x: hidden;
 
+  & .menu {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    position: fixed;
+    bottom: 1%;
+    right: 2%;
+    cursor: pointer;
+    z-index: 4;
+
+    & > i {
+      font-size: 3rem;
+      color: var(--secondary-color);
+    }
+
+    & > span {
+      font-weight: bold;
+      background-color: var(--secondary-color);
+      border-radius: 22px;
+      padding-block: 5px;
+      padding-inline: 8px;
+      font-family: metafiz-bold;
+      font-size: var(--font-size-base);
+      color: var(--primary-black);
+    }
+  }
+
+  & #add {
+    font-size: 3rem;
+    color: var(--secondary-color);
+    cursor: pointer;
+    position: fixed;
+    bottom: 1%;
+    right: 2%;
+    z-index: 4;
+  }
+
   & > div:first-child {
     width: 80%;
     display: flex;
@@ -18,6 +56,7 @@
     margin-bottom: 30px;
 
     & span {
+      font-weight: bold;
       font-family: metafiz-bold;
       font-size: var(--font-size-md);
       color: var(--primary-color-400);
