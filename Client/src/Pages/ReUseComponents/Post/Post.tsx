@@ -6,17 +6,21 @@ import { useNavigate, useParams } from "react-router-dom";
 import { motion as m } from "framer-motion";
 import { useEffect } from "react";
 import { animateScroll } from "react-scroll";
+import { ServiceInfo } from "../../../utils/valtioStore";
 
 export default function Posts() {
   const navigate = useNavigate();
   const { id, serviceName } = useParams();
   const Client = useQueryClient();
-  const service = Client.getQueryData<{
-    data: { services: ServicePosts[] };
-  }>(["posts"])?.data.services.filter(
-    (service) => service.name == serviceName
-  )[0];
-  const post = service?.posts.filter((post) => post._id == id)[0];
+  const service =
+    ServiceInfo.service._id === ""
+      ? Client.getQueryData<{
+          data: { services: ServicePosts[] };
+        }>(["posts"])?.data.services.filter(
+          (service) => service.name == serviceName
+        )[0]
+      : ServiceInfo.service;
+  const post = service?.posts.filter((post) => post.id == id)[0];
 
   useEffect(() => {
     animateScroll.scrollToTop({

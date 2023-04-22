@@ -54,6 +54,10 @@ export const bloodTypesQunatity = new mongoose.Schema(
 
 export const post = new mongoose.Schema(
   {
+    id: {
+      type: "string",
+      require: true,
+    },
     date: {
       type: String,
       default: () => new Date(),

@@ -71,8 +71,8 @@ export const Posts = () => {
               return !compareDates(post.date) ? (
                 <div
                   className={styles.post}
-                  key={post._id}
-                  onClick={() => navigate(`/Posts/${post._id}/${el.name}`)}
+                  key={post.id}
+                  onClick={() => navigate(`/Posts/${post.id}/${el.name}`)}
                 >
                   <span>{index}</span>
                   <div>

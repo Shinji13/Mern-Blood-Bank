@@ -37,8 +37,8 @@ export default function MangerProxy() {
           ></i>
         ) : (
           <div className={styles.menu}>
-            <span onClick={() => navigate("/addDonor")}>Create new post</span>
-            <span onClick={() => navigate("/addPatient")}>
+            <span onClick={() => navigate("/addPost")}>Create new post</span>
+            <span onClick={() => navigate("/addRequest")}>
               Create new request
             </span>
             <span onClick={() => navigate("/addInteraction")}>

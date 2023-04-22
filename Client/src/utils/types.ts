@@ -64,7 +64,7 @@ export type ServicePosts = {
   address: string;
 };
 
-export type post = { message: string; date: string; _id: string };
+export type post = { message: string; date: string; id: string };
 
 export type appointement = {
   Service: string;
@@ -129,4 +129,5 @@ export type service = {
   requests: string[];
   interactions: string[];
   appointments: string[];
+  _id: string;
 };

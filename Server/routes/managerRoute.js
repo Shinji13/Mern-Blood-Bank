@@ -4,18 +4,22 @@ import * as managerController from "../controllers/managerController.js";
 
 const managerRoute = Router();
 
-managerRoute.get("/", managerController.getmanagerInfo);
+managerRoute.get("/", managerController.getmanagerInfo); //done and tested
 
-managerRoute.put("/bank/:serviceName", managerController.updateQuantity);
+managerRoute.put("/bank/:id", managerController.updateQuantity); //done and tested
 
-// managerRoute.get("/posts", managerController.getPosts);
+managerRoute.post("/post/:id", managerController.addPost); //done and tested
 
-// managerRoute.put("/", upload.single("image"), managerController.updateProfile);
+managerRoute.get(
+  "/appointment/:serviceName",
+  managerController.getAppointments
+);
 
-// managerRoute.post("/", managerController.addPost);
+managerRoute.get("/doctors/:serviceName", managerController.getDoctors);
 
-// managerRoute.get("/doctors", managerController.getDoctors);
+managerRoute.get("request/:serviceName", managerController.getRequests);
 
+managerRoute.put("/appointment/:id", managerController.updateAppointmentStatus);
 // managerRoute.post(
 //   "/doctors",
 //   upload.single("image"),
@@ -24,19 +28,10 @@ managerRoute.put("/bank/:serviceName", managerController.updateQuantity);
 
 // managerRoute.put("/doctors/nationalId", managerController.resetDoctorPassword);
 
-// managerRoute.get("request", managerController.getRequests);
-
 // managerRoute.post("/request", managerController.addNewRequest);
 
 // managerRoute.put("/request/:id", managerController.respondToRequest);
 
 // managerRoute.put("/request/:id", managerController.fulFillRequest);
-
-// managerRoute.get(
-//   "/appointment/:serviceName",
-//   managerController.getAppointments
-// );
-
-// managerRoute.put("/appointment", managerController.updateAppointmentStatus);
 
 export default managerRoute;

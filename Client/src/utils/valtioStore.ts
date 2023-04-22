@@ -70,5 +70,6 @@ export const ServiceInfo = proxy<{ service: service }>({
     requests: [],
     interactions: [],
     appointments: [],
+    _id: "",
   },
 });

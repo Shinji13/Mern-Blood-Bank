@@ -7,11 +7,13 @@ import {
   appointement,
   donorSignUpInfo,
   interaction,
+  post,
   update,
   user,
 } from "./types";
 import { StuffInfo } from "./valtioStore";
 import { ServiceInfo } from "./valtioStore";
+
 export const LoginHandler = async (email: string, password: string) => {
   let data = { status: 201, userType: "default" };
   try {
@@ -220,18 +222,46 @@ export const updatePatient = (
 };
 export const updateBank = (
   navigate: any,
-  serviceName: string,
   bloodtype: "A+" | "A-" | "B+" | "B-" | "O+" | "O-" | "AB+" | "AB-",
   type: "Full Blood" | "Red Cells" | "Plasma" | "Platelets",
   quantity: Quantity
 ) => {
   return CustomAxios.put(
-    `/api/manager/bank/${serviceName}`,
+    `/api/manager/bank/${ServiceInfo.service_id}`,
     { quantity, bloodtype, type },
     {
       navigate: navigate,
     }
   ).then((data) => {
     ServiceInfo.service = data.data.service;
+  });
+};
+
+export const addPost = (post: post, navigate: any) => {
+  return CustomAxios.post(
+    `/api/manager/post/${ServiceInfo.service._id}`,
+    { post },
+    { navigate: navigate }
+  ).then((data) => {
+    ServiceInfo.service = data.data.service;
+  });
+};
+
+export const getAppointments = (navigate: any) => {
+  return CustomAxios.get(
+    `/api/manager/appointment/${ServiceInfo.service.name}`,
+    { navigate: navigate }
+  );
+};
+
+export const getDoctors = (navigate: any) => {
+  return CustomAxios.get(`/api/manager/doctors/${ServiceInfo.service.name}`, {
+    navigate: navigate,
+  });
+};
+
+export const getRequests = (navigate: any) => {
+  return CustomAxios.get(`/api/manager/request/${ServiceInfo.service.name}`, {
+    navigate: navigate,
   });
 };

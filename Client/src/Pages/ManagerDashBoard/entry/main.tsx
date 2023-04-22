@@ -13,9 +13,13 @@ import { interaction, Quantity } from "../../../utils/types";
 import styles from "./main.module.css";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../ReUseComponents/Loading/Loading";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
+import Appointements from "../appointements/Appointements";
+import ServicePosts from "../posts/servicePosts";
+import Doctors from "../doctors/Doctors";
+import Requests from "../requests/Requests";
 
 const bloodTypes = [
   { value: "A+", label: "A+" },
@@ -34,6 +38,13 @@ const storageTypes: ["Full Blood", "Red Cells", "Plasma", "Platelets"] = [
   "Platelets",
 ];
 
+const activities = [
+  <Appointements />,
+  <ServicePosts />,
+  <Doctors />,
+  <Requests />,
+];
+
 export default function Main() {
   const [popUp, showPopUp] = useState<
     "none" | "Full Blood" | "Red Cells" | "Plasma" | "Platelets"
@@ -48,6 +59,7 @@ export default function Main() {
       cacheTime: Infinity,
     }
   );
+  const [activityCode, setActivity] = useState<0 | 1 | 2 | 3>(0);
   if (isLoading) return <Loading />;
   return (
     <div className={styles.main}>
@@ -95,6 +107,33 @@ export default function Main() {
         )}
       </div>
       <h1>Activities</h1>
+      <div className={styles.activities}>
+        <span
+          className={activityCode == 0 ? styles.active : ""}
+          onClick={() => setActivity(0)}
+        >
+          Appointements
+        </span>
+        <span
+          className={activityCode == 1 ? styles.active : ""}
+          onClick={() => setActivity(1)}
+        >
+          Posts
+        </span>
+        <span
+          className={activityCode == 2 ? styles.active : ""}
+          onClick={() => setActivity(2)}
+        >
+          Doctors
+        </span>
+        <span
+          className={activityCode == 3 ? styles.active : ""}
+          onClick={() => setActivity(3)}
+        >
+          Requests
+        </span>
+      </div>
+      {activities[activityCode]}
     </div>
   );
 }
@@ -118,8 +157,7 @@ const PopUp = ({
     getQuantity(type, bloodType)
   );
   const { mutate } = useMutation({
-    mutationFn: () =>
-      updateBank(navigate, ServiceInfo.service.name, bloodType, type, Quantity),
+    mutationFn: () => updateBank(navigate, bloodType, type, Quantity),
   });
   return (
     <div className={styles.popUp}>
