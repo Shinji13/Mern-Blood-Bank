@@ -26,7 +26,6 @@ export const updateProfile = (req, res) => {
   donorModel
     .findByIdAndUpdate(userId, {
       $set: {
-        fullName: parsedUpdate.fullName,
         address: parsedUpdate.address,
         tel: parsedUpdate.tel,
         profileImgPath: parsedUpdate.profileImgPath,

@@ -16,35 +16,35 @@ export const quantity = new mongoose.Schema(
 
 export const bloodTypesQunatity = new mongoose.Schema(
   {
-    "a+": {
+    "A+": {
       type: quantity,
       require: true,
     },
-    "a-": {
+    "A-": {
       type: quantity,
       require: true,
     },
-    "b+": {
+    "B+": {
       type: quantity,
       require: true,
     },
-    "b-": {
+    "B-": {
       type: quantity,
       require: true,
     },
-    "ab+": {
+    "AB+": {
       type: quantity,
       require: true,
     },
-    "ab-": {
+    "AB-": {
       type: quantity,
       require: true,
     },
-    "o+": {
+    "O+": {
       type: quantity,
       require: true,
     },
-    "o-": {
+    "O-": {
       type: quantity,
       require: true,
     },

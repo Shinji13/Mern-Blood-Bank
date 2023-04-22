@@ -2,6 +2,22 @@ import donorModel from "../models/donator.js";
 import interactionModel from "../models/interaction.js";
 import serviceModel from "../models/serviceModel.js";
 
+export const getServiceInteractions = (req, res) => {
+  const serviceName = req.params.serviceName;
+  interactionModel
+    .find({})
+    .then((interactions) => {
+      const filterdInteractions = [];
+      for (let int of interactions) {
+        if (int.serviceName === serviceName) {
+          filterdInteractions.push(int);
+        }
+      }
+      res.status(200).send({ interactions: filterdInteractions });
+    })
+    .catch((err) => res.status(503).send(err));
+};
+
 const doctorInteractions = (serviceName, doctorId, res) => {
   console.log(serviceName, doctorId);
   serviceModel

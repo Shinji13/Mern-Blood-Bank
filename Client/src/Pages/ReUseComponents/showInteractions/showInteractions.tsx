@@ -1,57 +1,27 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router";
 import { interaction } from "../../../utils/types";
 import styles from "./showInteractions.module.css";
+import { sessionInfo } from "../../../utils/valtioStore";
+import { InteractionFilter } from "../Filters/filter";
 
-export const Interactions = ({ data }: { data: interaction[] }) => {
+export const Interactions = ({
+  data,
+  isService,
+}: {
+  isService: boolean;
+  data: interaction[];
+}) => {
   const [interactions, changeInteractions] = useState<interaction[]>(data);
-  const serviceFilterRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
-  const dateFilterRef = useRef<HTMLInputElement>(null);
-  const filterByServiceName = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    if (
-      evt.target.value.length === 0 &&
-      dateFilterRef.current?.value.length === 0
-    )
-      changeInteractions(data);
-    else {
-      const filteredInteractions = data.filter(
-        (int: interaction) =>
-          int.serviceName.includes(evt.target.value, 0) &&
-          int.date.includes(dateFilterRef.current?.value as string, 0)
-      );
-      changeInteractions(filteredInteractions);
-    }
-  };
-  const filterByDate = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    if (evt.target.value === "" && serviceFilterRef.current?.value === "")
-      changeInteractions(data);
-    else {
-      const filteredInteractions = data.filter(
-        (int: interaction) =>
-          int.date.includes(evt.target.value, 0) &&
-          int.date.includes(serviceFilterRef.current?.value as string, 0)
-      );
-      changeInteractions(filteredInteractions);
-    }
-  };
-
   return (
     <div className={styles.secondLayer}>
-      <div className={styles.filter}>
-        <div>
-          <span>Search wih service name</span>
-          <input
-            ref={serviceFilterRef}
-            type="text"
-            onChange={filterByServiceName}
-          />
-        </div>
-        <div>
-          <span>Search wih Date</span>
-          <input ref={dateFilterRef} type="text" onChange={filterByDate} />
-        </div>
-      </div>
+      <InteractionFilter
+        isService={isService}
+        data={data}
+        stateHandler={changeInteractions}
+        styles={styles}
+      />
       <div className={styles.list}>
         {interactions.map((el: interaction, index: number) => {
           return (
@@ -62,8 +32,16 @@ export const Interactions = ({ data }: { data: interaction[] }) => {
             >
               <span>{index + 1}</span>
               <div>
-                <span>Service Name</span>
-                <span>{el.serviceName.substring(0, 16)}</span>
+                <span>
+                  {sessionInfo.userType == "doctor"
+                    ? "User name"
+                    : "Service Name"}
+                </span>
+                <span>
+                  {sessionInfo.userType == "doctor"
+                    ? el.EndNationalId.name
+                    : el.serviceName.substring(0, 16)}
+                </span>
               </div>
               <div>
                 <span>Doctor Name</span>

@@ -5,7 +5,6 @@ import ProgramExtended from "./Pages/home/ProgramExtended/ProgramExtended";
 import Login from "./Pages/auth/login/login";
 import Sign from "./Pages/auth/signup/sign";
 import Intial from "./intial";
-import Manager from "./Pages/ManagerDashBoard/Manager";
 import SecureRoute from "./Pages/ReUseComponents/SecureRoute";
 import DonorProxy from "./Pages/DonorDashBoard/entry/DonorProxy";
 import DonorProfile from "./Pages/DonorDashBoard/profile/DonorProfile";
@@ -17,9 +16,13 @@ import Appointement from "./Pages/DonorDashBoard/appointements/appointement";
 import DoctorProxy from "./Pages/DoctorDashBoard/entry/DoctorProxy";
 import ServiceInteractions from "./Pages/DoctorDashBoard/interactions/ServiceInteractions";
 import AddInteraction from "./Pages/DoctorDashBoard/addInteraction/AddInteraction";
-import ShowDonors from "./Pages/ReUseComponents/users/showDonors/ShowDonors";
-import ShowPatients from "./Pages/ReUseComponents/users/showPatients/ShowPatients";
+import ShowDonors from "./Pages/DoctorDashBoard/users/showDonors/ShowDonors";
+import ShowPatients from "./Pages/DoctorDashBoard/users/showPatients/ShowPatients";
 import AddUser from "./Pages/DoctorDashBoard/addUser/addUser";
+import UniqueUser from "./Pages/ReUseComponents/UniqueUser/UniqueUser";
+import UpdatePatient from "./Pages/ReUseComponents/UniqueUser/UpdatePatient";
+import MangerProxy from "./Pages/ManagerDashBoard/entry/MangerProxy";
+import Main from "./Pages/ManagerDashBoard/entry/main";
 
 function App() {
   let location = useLocation();
@@ -58,6 +61,27 @@ function App() {
           <Route path="/donor/appointements" element={<Appointement />} />
         </Route>
         <Route
+          path="/donors/:id"
+          element={
+            <SecureRoute
+              dashBoardName="doctor"
+              children={<UniqueUser userType="donors" />}
+            />
+          }
+        />
+        <Route path="/patients/:id">
+          <Route
+            index
+            element={
+              <SecureRoute
+                dashBoardName="doctor"
+                children={<UniqueUser userType="patients" />}
+              />
+            }
+          />
+        </Route>
+        <Route path="/patients/:id/update" element={<UpdatePatient />} />
+        <Route
           path="/doctor"
           element={
             <SecureRoute dashBoardName="doctor" children={<DoctorProxy />} />
@@ -94,9 +118,11 @@ function App() {
         <Route
           path="/manager"
           element={
-            <SecureRoute dashBoardName="manager" children={<Manager />} />
+            <SecureRoute dashBoardName="manager" children={<MangerProxy />} />
           }
-        />
+        >
+          <Route index element={<Main />} />
+        </Route>
       </Routes>
     </AnimatePresence>
   );

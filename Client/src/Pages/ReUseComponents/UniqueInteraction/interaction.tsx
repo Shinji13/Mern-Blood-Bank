@@ -23,7 +23,6 @@ export default function Interaction() {
       smooth: true,
     });
   }, []);
-
   return (
     <m.div
       initial={{ opacity: 0 }}
@@ -36,7 +35,7 @@ export default function Interaction() {
         <img src={backArrow} onClick={() => navigate(-1)} />
       </div>
       <div className={styles.middleLayer}>
-        <h1>Donations</h1>
+        <h1>Blood Exchange</h1>
       </div>
       <div className={styles.content}>
         <div className={styles.doctor}>

@@ -30,9 +30,9 @@ export default function AddInteraction() {
     date: "",
     serviceName: user.user.serviceName,
     EndNationalId: {
-      name: "",
+      name: "default",
       nationalId: "",
-      bloodtype: "",
+      bloodtype: "a+",
     },
     doctor: {
       name: "",
@@ -47,19 +47,14 @@ export default function AddInteraction() {
   const { mutate } = useMutation({
     mutationFn: () => addInteraction(navigate, newInteraction.current),
     onError: (error, variables, context) => {
-      console.log(error);
       setError("You have to create user first.");
     },
   });
 
   const createHandler = () => {
     //error handling
-    if (
-      newInteraction.current.EndNationalId.name == "" ||
-      newInteraction.current.EndNationalId.bloodtype == "" ||
-      newInteraction.current.EndNationalId.nationalId == ""
-    ) {
-      setError("Please enter user information");
+    if (newInteraction.current.EndNationalId.nationalId == "") {
+      setError("Please enter user national identifier");
       return;
     }
     if (
@@ -113,16 +108,6 @@ export default function AddInteraction() {
           </h3>
           <div>
             <div>
-              <span>Name</span>
-              <input
-                onFocus={() => setError("")}
-                type="text"
-                onChange={(evt) =>
-                  (newInteraction.current.EndNationalId.name = evt.target.value)
-                }
-              />
-            </div>
-            <div>
               <span>National identificateur</span>
               <input
                 onFocus={() => setError("")}
@@ -131,49 +116,6 @@ export default function AddInteraction() {
                   (newInteraction.current.EndNationalId.nationalId =
                     evt.target.value)
                 }
-              />
-            </div>
-            <div>
-              <span>Blood type</span>
-              <Select
-                onFocus={() => setError("")}
-                styles={{
-                  indicatorSeparator: (base, props) => ({
-                    ...base,
-                    display: "none",
-                  }),
-                  control: (baseStyles, state) => ({
-                    ...baseStyles,
-                    borderRadius: "22px",
-                    height: "45px",
-                    border: "2px solid #121212",
-                  }),
-                  menu: (baseStyles, state) => ({
-                    ...baseStyles,
-                    borderRadius: "12px",
-                    backgroundColor: "#ebaca4",
-                  }),
-                  option: (baseStyles, state) => ({
-                    ...baseStyles,
-                    height: "fit-content",
-                    borderRight: "12px",
-                    width: "100%",
-                  }),
-                  container: (baseStyles, state) => ({
-                    ...baseStyles,
-                    width: "100%",
-                    zIndex: 5,
-                  }),
-                }}
-                options={bloodTypes}
-                components={makeAnimated()}
-                onChange={(optionSelected) => {
-                  const opt = optionSelected as {
-                    label: string;
-                    value: string;
-                  };
-                  newInteraction.current.EndNationalId.bloodtype = opt.value;
-                }}
               />
             </div>
           </div>

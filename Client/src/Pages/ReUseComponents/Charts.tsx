@@ -25,7 +25,14 @@ ChartJs.register(
 );
 
 export function LineChart({ data }: { data: any }) {
-  return <Line data={data} options={{ responsive: true }} />;
+  return (
+    <Line
+      data={data}
+      options={{
+        responsive: true,
+      }}
+    />
+  );
 }
 export function BarChart({ data }: { data: any }) {
   return <Bar data={data} options={{ responsive: true }} />;

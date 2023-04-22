@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 import { getPatients } from "../../../../utils/apiFunctions";
-import Loading from "../../Loading/Loading";
+import Loading from "../../../ReUseComponents/Loading/Loading";
 import Users from "../usersSearch/Users";
 import { StuffInfo } from "../../../../utils/valtioStore";
 import styles from "./showPatients.module.css";

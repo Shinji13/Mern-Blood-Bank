@@ -3,13 +3,15 @@ import axios from "axios";
 import { CustomAxios } from "./axios";
 import { sessionInfo, donorInfo } from "./valtioStore";
 import {
+  Quantity,
   appointement,
   donorSignUpInfo,
   interaction,
-  updatedDonor,
+  update,
   user,
 } from "./types";
 import { StuffInfo } from "./valtioStore";
+import { ServiceInfo } from "./valtioStore";
 export const LoginHandler = async (email: string, password: string) => {
   let data = { status: 201, userType: "default" };
   try {
@@ -104,7 +106,7 @@ export const addAppointement = async (
 export const updateDonor = (
   Img: File | null,
   navigate: any,
-  update: updatedDonor
+  update: update
 ) => {
   const fd = new FormData();
   if (Img) fd.append("image", Img, update.profileImgPath);
@@ -123,22 +125,30 @@ export const updateDonor = (
   });
 };
 
-export const getStuffInfo = async (navigate: any, stuffType: boolean) => {
+export const getDoctorInfo = async (navigate: any) => {
   try {
-    const response = await CustomAxios.get(
-      `/api/${stuffType ? "manager" : "doctor"}`,
-      {
-        navigate: navigate,
-      }
-    );
+    const response = await CustomAxios.get(`/api/doctor`, {
+      navigate: navigate,
+    });
     StuffInfo.user = response.data;
+  } catch (error) {
+    navigate("/", { state: true });
+  }
+};
+export const getManagerInfo = async (navigate: any) => {
+  try {
+    const response = await CustomAxios.get(`/api/manager`, {
+      navigate: navigate,
+    });
+    StuffInfo.user = response.data.user;
+    ServiceInfo.service = response.data.service;
   } catch (error) {
     navigate("/", { state: true });
   }
 };
 
 export const getServiceInteractions = (navigate: any, serviceName: string) => {
-  return CustomAxios.get(`/api/doctor/interactions/${serviceName}`, {
+  return CustomAxios.get(`/api/serviceInteractions/${serviceName}`, {
     navigate: navigate,
   });
 };
@@ -168,8 +178,8 @@ export const getPatients = (navigate: any, serviceName: string) => {
 export const addUser = (
   navigate: any,
   user: user,
-  userType: 0 | 1,
-  serviceName: string
+  serviceName: string,
+  userType: 0 | 1
 ) => {
   if (userType == 0) {
     return CustomAxios.post(
@@ -188,4 +198,40 @@ export const addUser = (
       }
     ).then(() => navigate("/doctor"));
   }
+};
+
+export const updatePatient = (
+  navigate: any,
+  Img: File | null,
+  update: update,
+  serviceName: string,
+  nationalId: string
+) => {
+  const fd = new FormData();
+  if (Img) fd.append("image", Img, update.profileImgPath);
+  fd.append("update", JSON.stringify(update));
+  fd.append("nationalId", nationalId);
+  return CustomAxios.put(`/api/doctor/patient/${serviceName}`, fd, {
+    navigate: navigate,
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  }).then(() => navigate(-1));
+};
+export const updateBank = (
+  navigate: any,
+  serviceName: string,
+  bloodtype: "A+" | "A-" | "B+" | "B-" | "O+" | "O-" | "AB+" | "AB-",
+  type: "Full Blood" | "Red Cells" | "Plasma" | "Platelets",
+  quantity: Quantity
+) => {
+  return CustomAxios.put(
+    `/api/manager/bank/${serviceName}`,
+    { quantity, bloodtype, type },
+    {
+      navigate: navigate,
+    }
+  ).then((data) => {
+    ServiceInfo.service = data.data.service;
+  });
 };

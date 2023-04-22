@@ -7,6 +7,7 @@ import { ServicePosts } from "../../../utils/types";
 import { BarChart } from "../../ReUseComponents/Charts";
 import Loading from "../../ReUseComponents/Loading/Loading";
 import { compareDates } from "../../../utils/utilFunctions";
+import { PostFilter } from "../../ReUseComponents/Filters/filter";
 
 export const Posts = () => {
   const [posts, changePosts] = useState<ServicePosts[]>([]);
@@ -25,33 +26,6 @@ export const Posts = () => {
       cacheTime: Infinity,
     }
   );
-
-  const serviceFilterRef = useRef<HTMLInputElement>(null);
-  const addressFilterRef = useRef<HTMLInputElement>(null);
-  const filterByServiceName = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    if (evt.target.value === "" && addressFilterRef.current?.value === "")
-      changePosts(data?.data.services);
-    else {
-      const filteredPosts = data?.data.services.filter(
-        (service: ServicePosts) =>
-          service.name.includes(evt.target.value, 0) &&
-          service.address.includes(addressFilterRef.current?.value as string, 0)
-      );
-      changePosts(filteredPosts);
-    }
-  };
-  const filterByAddress = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    if (evt.target.value === "" && serviceFilterRef.current?.value === "")
-      changePosts(data?.data.services);
-    else {
-      const filteredPosts = data?.data.services.filter(
-        (service: ServicePosts) =>
-          service.address.includes(evt.target.value, 0) &&
-          service.name.includes(serviceFilterRef.current?.value as string, 0)
-      );
-      changePosts(filteredPosts);
-    }
-  };
 
   const chartData = {
     labels: data?.data.services
@@ -86,24 +60,11 @@ export const Posts = () => {
             <BarChart data={chartData} />
           </div>
         </div>
-        <div className={styles.filter}>
-          <div>
-            <span>Search wih service name</span>
-            <input
-              ref={serviceFilterRef}
-              type="text"
-              onChange={filterByServiceName}
-            />
-          </div>
-          <div>
-            <span>Search wih address</span>
-            <input
-              ref={addressFilterRef}
-              type="text"
-              onChange={filterByAddress}
-            />
-          </div>
-        </div>
+        <PostFilter
+          data={data.data.services}
+          styles={styles}
+          stateHandler={changePosts}
+        />
         <div className={styles.list}>
           {posts.map((el: ServicePosts) => {
             return el.posts.map((post, index) => {

@@ -1,4 +1,13 @@
 import { interaction } from "./types";
+import { ServiceInfo } from "./valtioStore";
+
+export const getQuantity = (
+  type: "Full Blood" | "Red Cells" | "Plasma" | "Platelets",
+  bloodtype: "A+" | "A-" | "B+" | "B-" | "O+" | "O-" | "AB+" | "AB-"
+) => {
+  if (type == "Plasma" || type == "Platelets") return ServiceInfo.service[type];
+  else return ServiceInfo.service[type][bloodtype];
+};
 
 export const compareDates = (date: string) => {
   const currentDate = new Date();
@@ -25,10 +34,13 @@ export const isGoodToDonate = (
   };
 };
 
-export const serviceInteractionChart = (data: any) => {
+export const serviceInteractionChart = (
+  interactions: interaction[],
+  color: string
+) => {
   let dupl: string = "";
   let map = new Map<string, number>();
-  data?.data.interactions
+  interactions
     .sort((a: interaction, b: interaction) => {
       const dateA = new Date(a.date);
       const dateB = new Date(b.date);
@@ -39,7 +51,7 @@ export const serviceInteractionChart = (data: any) => {
       map.set(int.date.substring(0, 15), dupl + 1);
     });
   return {
-    labels: data?.data.interactions
+    labels: interactions
       .sort((a: interaction, b: interaction) => {
         const dateA = new Date(a.date);
         const dateB = new Date(b.date);
@@ -57,7 +69,7 @@ export const serviceInteractionChart = (data: any) => {
         label: "Number of interactions relative to date",
         fill: true,
         lineTension: 0.5,
-        backgroundColor: "#d52816",
+        backgroundColor: `${color}`,
         borderColor: "rgba(0,0,0,1)",
         borderWidth: 2,
         data: [...map.values()],

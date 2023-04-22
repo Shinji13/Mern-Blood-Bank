@@ -1,3 +1,5 @@
+import { type } from "os";
+
 export type donorSignUpInfo = {
   fullName: string;
   nationalId: string;
@@ -9,12 +11,12 @@ export type donorSignUpInfo = {
   age: Number;
 };
 
-export type updatedDonor = {
-  fullName: string;
+export type update = {
   tel: string;
   address: string;
-  lastDonation: string;
   profileImgPath: string;
+  lastDonation?: string;
+  healthStatus?: string;
 };
 
 export interface donor {
@@ -97,4 +99,34 @@ export type user = {
   tel: string;
   lastDonation?: string;
   healthStatus?: string;
+};
+
+export type Quantity = {
+  currentQunatity: Number;
+  miniumQuantity: Number;
+};
+export type bloodTypesQunatity = {
+  "A+": Quantity;
+  "A-": Quantity;
+  "B+": Quantity;
+  "B-": Quantity;
+  "AB+": Quantity;
+  "AB-": Quantity;
+  "O+": Quantity;
+  "O-": Quantity;
+};
+
+export type service = {
+  name: string;
+  address: string;
+  manageNationalId: string;
+  doctors: string[];
+  "Red Cells": bloodTypesQunatity;
+  "Full Blood": bloodTypesQunatity;
+  Plasma: Quantity;
+  Platelets: Quantity;
+  posts: post[];
+  requests: string[];
+  interactions: string[];
+  appointments: string[];
 };

@@ -2,8 +2,8 @@ import styles from "./showDonors.module.css";
 import { getDonors } from "../../../../utils/apiFunctions";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
-import Loading from "../../Loading/Loading";
 import Users from "../usersSearch/Users";
+import Loading from "../../../ReUseComponents/Loading/Loading";
 
 export default function ShowDonors() {
   const navigate = useNavigate();

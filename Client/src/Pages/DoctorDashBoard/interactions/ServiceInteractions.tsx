@@ -30,14 +30,19 @@ export default function ServiceInteractions() {
       <div className={styles.SVI}>
         <div>
           <div>
-            <h1>{user.user.serviceName}</h1>
-            <h1>Interactions</h1>
+            <h1>Service</h1>
+            <h1>Blood Exchanges</h1>
           </div>
           <div>
-            <LineChart data={serviceInteractionChart(data)} />
+            <LineChart
+              data={serviceInteractionChart(data.data.interactions, "#d52816")}
+            />
           </div>
         </div>
-        <Interactions data={data.data.interactions as interaction[]} />
+        <Interactions
+          data={data.data.interactions as interaction[]}
+          isService={false}
+        />
       </div>
     );
 }

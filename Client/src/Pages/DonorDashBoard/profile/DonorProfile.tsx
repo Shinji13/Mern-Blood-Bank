@@ -3,7 +3,7 @@ import { motion as m } from "framer-motion";
 import React, { useRef, useState } from "react";
 import { useSnapshot } from "valtio";
 import { updateDonor } from "../../../utils/apiFunctions";
-import { updatedDonor } from "../../../utils/types";
+import { update } from "../../../utils/types";
 import { donorInfo } from "../../../utils/valtioStore";
 import { UUID } from "uuidjs";
 import { useMutation } from "@tanstack/react-query";
@@ -88,9 +88,7 @@ const StaticTemplate = ({
           initial={{ width: "0%" }}
           animate={{ width: "90%" }}
           transition={{ duration: 1.4, ease: "linear" }}
-          src={`/api/static/images/${
-            user.user.profileImgPath
-          }?${new Date().getTime()}`}
+          src={`/api/static/images/${user.user.profileImgPath}`}
         />
       </div>
     </div>
@@ -109,8 +107,7 @@ const ModifyTemplate = ({
   const [ImgSrc, changeSrc] = useState<string>(
     `/api/static/images/${user.user.profileImgPath}?${new Date().getTime()}`
   );
-  const UpdateRef = useRef<updatedDonor>({
-    fullName: user.user.fullName,
+  const UpdateRef = useRef<update>({
     tel: user.user.tel,
     address: user.user.address,
     lastDonation: user.user.lastDonation,
@@ -122,14 +119,6 @@ const ModifyTemplate = ({
   return (
     <div className={styles.modify}>
       <div className={styles.leftSide}>
-        <div>
-          <span>Full Name</span>
-          <input
-            defaultValue={user.user.fullName}
-            type="text"
-            onChange={(evt) => (UpdateRef.current.fullName = evt.target.value)}
-          />
-        </div>
         <div>
           <span>Address</span>
           <div className={styles.address}>

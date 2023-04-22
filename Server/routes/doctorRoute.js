@@ -6,8 +6,6 @@ const doctorRoute = Router();
 
 doctorRoute.get("/", doctorController.getDoctorInfo); //done tested
 
-doctorRoute.get("/interactions/:serviceName", doctorController.getInteractions); //done tested
-
 doctorRoute.get("/patient/:serviceName", doctorController.getPatients); //done tested
 
 doctorRoute.post(

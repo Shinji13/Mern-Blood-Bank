@@ -8,9 +8,9 @@ import { StuffInfo } from "../../../utils/valtioStore";
 import styles from "./addUser.module.css";
 import backArrow from "../../../assets/images/arrow-left-solid.svg";
 import { motion as m } from "framer-motion";
-import makeAnimated from "react-select/animated";
-import Select from "react-select";
 import axios from "axios";
+import Select from "react-select";
+import makeAnimated from "react-select/animated";
 
 const bloodTypes = [
   { value: "A+", label: "A+" },
@@ -38,7 +38,7 @@ export default function AddUser({ userType }: { userType: 0 | 1 }) {
   const [AddressOptions, SetOptions] = useState<string[]>([]);
   const { mutate } = useMutation({
     mutationFn: () =>
-      addUser(navigate, newUser.current, userType, StuffInfo.user.serviceName),
+      addUser(navigate, newUser.current, StuffInfo.user.serviceName, userType),
     onError: (error, variables, context) => {
       setError("Your Fields are invalid for a user ");
     },

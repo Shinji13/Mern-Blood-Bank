@@ -35,9 +35,8 @@
       gap: 20px;
       font-family: metafiz-bold;
       font-size: var(--font-size-lg);
-      color: var(--primary-color-600);
+      color: var(--primary-color-400);
       text-transform: capitalize;
-      animation: coloring 2s linear 0.5s infinite normal forwards;
     }
   }
 }

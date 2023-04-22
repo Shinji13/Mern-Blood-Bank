@@ -54,7 +54,7 @@ export default function Doctor() {
               add Patient User
             </span>
             <span onClick={() => navigate("/addInteraction")}>
-              add Interaction
+              add Blood exchange
             </span>
             <i
               className="fas fa-times-circle"

@@ -1,47 +1,42 @@
 import { Router } from "express";
 import { upload } from "../middlewares/multer.js";
+import * as managerController from "../controllers/managerController.js";
 
 const managerRoute = Router();
 
 managerRoute.get("/", managerController.getmanagerInfo);
 
-managerRoute.get("/posts", managerController.getPosts);
+managerRoute.put("/bank/:serviceName", managerController.updateQuantity);
 
-managerRoute.put("/", upload.single("image"), managerController.updateProfile);
+// managerRoute.get("/posts", managerController.getPosts);
 
-managerRoute.post("/", managerController.addPost);
+// managerRoute.put("/", upload.single("image"), managerController.updateProfile);
 
-managerRoute.get("/doctors", managerController.getDoctors);
+// managerRoute.post("/", managerController.addPost);
 
-managerRoute.post(
-  "/doctors",
-  upload.single("image"),
-  managerController.addDoctor
-);
+// managerRoute.get("/doctors", managerController.getDoctors);
 
-managerRoute.put("/doctors/nationalId", managerController.resetDoctorPassword);
+// managerRoute.post(
+//   "/doctors",
+//   upload.single("image"),
+//   managerController.addDoctor
+// );
 
-managerRoute.get("request", managerController.getRequests);
+// managerRoute.put("/doctors/nationalId", managerController.resetDoctorPassword);
 
-managerRoute.post("/request", managerController.addNewRequest);
+// managerRoute.get("request", managerController.getRequests);
 
-managerRoute.put("/request/:id", managerController.respondToRequest);
+// managerRoute.post("/request", managerController.addNewRequest);
 
-managerRoute.put("/request/:id", managerController.fulFillRequest);
+// managerRoute.put("/request/:id", managerController.respondToRequest);
 
-managerRoute.put("/bank/plasma", managerController.updatePlasmaQuantity);
+// managerRoute.put("/request/:id", managerController.fulFillRequest);
 
-managerRoute.put("bank/platelets", managerController.updatePlateletsQuantity);
+// managerRoute.get(
+//   "/appointment/:serviceName",
+//   managerController.getAppointments
+// );
 
-managerRoute.put("bank/redCells", managerController.updateRedCellsQuantity);
-
-managerRoute.put("bank/redCells", managerController.updatefullBloodQuantity);
-
-managerRoute.get(
-  "/appointment/:serviceName",
-  managerController.getAppointments
-);
-
-managerRoute.put("/appointment", managerController.updateAppointmentStatus);
+// managerRoute.put("/appointment", managerController.updateAppointmentStatus);
 
 export default managerRoute;
