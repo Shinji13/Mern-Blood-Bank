@@ -71,9 +71,9 @@ export const getAppointments = async (req, res) => {
   const serviceName = req.params.serviceName;
   try {
     let appointments = [];
-    const allAppointments = appointmentModel.find({});
+    const allAppointments = await appointmentModel.find({});
     for (const appointment of allAppointments)
-      if (appointment.Service === serviceName) appointment.push(appointment);
+      if (appointment.Service === serviceName) appointments.push(appointment);
     res.status(200).send({ appointments });
   } catch (error) {
     res.status(503).send(error);
@@ -84,7 +84,7 @@ export const getDoctors = async (req, res) => {
   const serviceName = req.params.serviceName;
   try {
     let doctors = [];
-    const allStuff = stuffModel.find({});
+    const allStuff = await stuffModel.find({});
     for (const user of allStuff)
       if (user.serviceName === serviceName) doctors.push(user);
     res.status(200).send({ doctors });

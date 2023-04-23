@@ -71,6 +71,7 @@ export type appointement = {
   donor: string;
   date: string;
   status: number;
+  _id?: string;
   appointmentType:
     | "Plasma"
     | "Full Blood"

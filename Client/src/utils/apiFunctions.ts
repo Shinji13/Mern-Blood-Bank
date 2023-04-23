@@ -265,3 +265,15 @@ export const getRequests = (navigate: any) => {
     navigate: navigate,
   });
 };
+
+export const updateAppointementStatus = (
+  navigate: any,
+  id: string,
+  newStatus: 1 | 2
+) => {
+  return CustomAxios.put(
+    `/api/manager/appointment/${id}`,
+    { status: newStatus },
+    { navigate: navigate }
+  );
+};
