@@ -1,4 +1,4 @@
-.serviceApt {
+.doctors {
   width: 100%;
   display: flex;
   align-items: center;
@@ -8,7 +8,7 @@
   & > div {
     cursor: pointer;
     position: relative;
-    width: 60%;
+    width: 50%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -26,28 +26,7 @@
       -webkit-text-stroke-color: var(--primary-black);
     }
 
-    & > div:nth-of-type(5) {
-      position: absolute;
-      top: 50%;
-      right: 1%;
-      transform: translateY(-50%);
-      display: flex;
-      gap: 10px;
-      & > i:first-of-type {
-        position: relative;
-        font-size: 1.6rem;
-        color: #0ed138;
-      }
-      & > i:last-of-type {
-        font-size: 1.6rem;
-        color: rgb(216, 18, 18);
-      }
-    }
-
-    & > div:nth-of-type(1),
-    & > div:nth-of-type(2),
-    & > div:nth-of-type(3),
-    & > div:nth-of-type(4) {
+    & > div {
       display: flex;
       flex-direction: column;
       gap: 6px;

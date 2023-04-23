@@ -20,11 +20,8 @@ managerRoute.get("/doctors/:serviceName", managerController.getDoctors);
 managerRoute.get("request/:serviceName", managerController.getRequests);
 
 managerRoute.put("/appointment/:id", managerController.updateAppointmentStatus);
-// managerRoute.post(
-//   "/doctors",
-//   upload.single("image"),
-//   managerController.addDoctor
-// );
+
+managerRoute.post("/doctors", managerController.addDoctor);
 
 // managerRoute.put("/doctors/nationalId", managerController.resetDoctorPassword);
 

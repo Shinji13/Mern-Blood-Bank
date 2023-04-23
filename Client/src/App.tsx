@@ -24,6 +24,8 @@ import UpdatePatient from "./Pages/ReUseComponents/UniqueUser/UpdatePatient";
 import MangerProxy from "./Pages/ManagerDashBoard/entry/MangerProxy";
 import Main from "./Pages/ManagerDashBoard/entry/main";
 import AddPost from "./Pages/ManagerDashBoard/posts/addPost";
+import AddDoctor from "./Pages/ManagerDashBoard/doctors/addDoctor";
+import UniqueDoctor from "./Pages/ManagerDashBoard/doctors/uniqueDoctor";
 
 function App() {
   let location = useLocation();
@@ -120,6 +122,18 @@ function App() {
           path="/addPost"
           element={
             <SecureRoute dashBoardName="manager" children={<AddPost />} />
+          }
+        />
+        <Route
+          path="/addDoctor"
+          element={
+            <SecureRoute dashBoardName="manager" children={<AddDoctor />} />
+          }
+        />
+        <Route
+          path="/doctors/:id/:name"
+          element={
+            <SecureRoute dashBoardName="manager" children={<UniqueDoctor />} />
           }
         />
         <Route

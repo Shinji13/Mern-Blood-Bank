@@ -54,7 +54,7 @@ export default function Appointements() {
                     mutate({
                       id: evt.currentTarget.parentElement?.parentElement
                         ?.dataset.id as string,
-                      status: 1,
+                      status: 2,
                     });
                   }}
                   className="fa-solid fa-circle-check"
@@ -64,7 +64,7 @@ export default function Appointements() {
                     mutate({
                       id: evt.currentTarget.parentElement?.parentElement
                         ?.dataset.id as string,
-                      status: 2,
+                      status: 1,
                     });
                   }}
                   className="fa-solid fa-circle-xmark"

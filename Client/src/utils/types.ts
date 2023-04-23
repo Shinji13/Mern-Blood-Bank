@@ -84,8 +84,8 @@ export type stuffUser = {
   fullName: string;
   nationalId: string;
   email: string;
-  profileImgPath: string;
   serviceName: string;
+  password?: string;
   stuffType: 0 | 1;
 };
 

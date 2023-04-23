@@ -19,7 +19,6 @@ export const getServiceInteractions = (req, res) => {
 };
 
 const doctorInteractions = (serviceName, doctorId, res) => {
-  console.log(serviceName, doctorId);
   serviceModel
     .findOne({ name: serviceName }, { interactions: 1, _id: 0 })
     .then(async (service) => {

@@ -2,6 +2,8 @@ import stuffModel from "../models/serviceStuff.js";
 import serviceModel from "../models/serviceModel.js";
 import appointmentModel from "../models/appointment.js";
 import requestModel from "../models/serviceRequests.js";
+import bcrypt from "bcrypt";
+import mongoose from "mongoose";
 
 export const getmanagerInfo = (req, res) => {
   const userId = req.userId;
@@ -86,7 +88,8 @@ export const getDoctors = async (req, res) => {
     let doctors = [];
     const allStuff = await stuffModel.find({});
     for (const user of allStuff)
-      if (user.serviceName === serviceName) doctors.push(user);
+      if (user.serviceName === serviceName && user.stuffType == 1)
+        doctors.push(user);
     res.status(200).send({ doctors });
   } catch (error) {
     res.status(503).send(error);
@@ -106,6 +109,27 @@ export const getRequests = async (req, res) => {
     }
     res.status(200).send({ requestsRecieved, requestsSent });
   } catch (error) {
+    res.status(503).send(error);
+  }
+};
+
+export const addDoctor = async (req, res) => {
+  const doctor = req.body.doctor;
+  try {
+    const hashPassword = await bcrypt.hash(doctor.password, 10);
+    const { _id } = await stuffModel.create({
+      ...doctor,
+      password: hashPassword,
+    });
+    const service = await serviceModel.findOneAndUpdate(
+      { name: doctor.serviceName },
+      {
+        $push: { doctors: _id },
+      }
+    );
+    res.status(201).send({ service });
+  } catch (error) {
+    console.log(error);
     res.status(503).send(error);
   }
 };

@@ -41,9 +41,7 @@ export default function MangerProxy() {
             <span onClick={() => navigate("/addRequest")}>
               Create new request
             </span>
-            <span onClick={() => navigate("/addInteraction")}>
-              Add new doctor
-            </span>
+            <span onClick={() => navigate("/addDoctor")}>Add new doctor</span>
             <i
               className="fas fa-times-circle"
               onClick={() => setMenu(false)}

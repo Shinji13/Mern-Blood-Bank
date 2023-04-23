@@ -8,6 +8,7 @@ import {
   donorSignUpInfo,
   interaction,
   post,
+  stuffUser,
   update,
   user,
 } from "./types";
@@ -276,4 +277,17 @@ export const updateAppointementStatus = (
     { status: newStatus },
     { navigate: navigate }
   );
+};
+
+export const addDoctor = (navigate: any, doctor: stuffUser) => {
+  return CustomAxios.post(
+    "/api/manager/doctors",
+    { doctor },
+    {
+      navigate: navigate,
+    }
+  ).then((data) => {
+    ServiceInfo.service = data.data.service;
+    navigate("/manager");
+  });
 };
