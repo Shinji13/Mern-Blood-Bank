@@ -38,14 +38,14 @@ export default function AddDoctor() {
       setError("please enter national identifier");
       return;
     }
-    if (
-      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
-        newDoctorRef.current.password!
-      )
-    ) {
-      setError("please enter strong password");
-      return;
-    }
+    // if (
+    //   !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+    //     newDoctorRef.current.password!
+    //   )
+    // ) {
+    //   setError("please enter strong password");
+    //   return;
+    // }
     setError("");
     mutate();
   };

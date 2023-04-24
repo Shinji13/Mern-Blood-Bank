@@ -3,7 +3,6 @@ import serviceModel from "../models/serviceModel.js";
 import appointmentModel from "../models/appointment.js";
 import requestModel from "../models/serviceRequests.js";
 import bcrypt from "bcrypt";
-import mongoose from "mongoose";
 
 export const getmanagerInfo = (req, res) => {
   const userId = req.userId;
@@ -36,6 +35,7 @@ export const updateQuantity = async (req, res) => {
       .then((service) => res.status(200).send({ service }))
       .catch((err) => res.status(503).send(err));
   } catch (error) {
+    console.log(error);
     res.status(503).send(error);
   }
 };
@@ -128,6 +128,41 @@ export const addDoctor = async (req, res) => {
       }
     );
     res.status(201).send({ service });
+  } catch (error) {
+    res.status(503).send(error);
+  }
+};
+
+export const resetDoctorPassword = async (req, res) => {
+  const { newPassword, doctorId } = req.body;
+  try {
+    const hashPassword = await bcrypt.hash(newPassword, 10);
+    await stuffModel.findOneAndUpdate(
+      { nationalId: doctorId },
+      {
+        $set: { password: hashPassword },
+      }
+    );
+    res.status(200).send();
+  } catch (error) {
+    res.status(503).send(error);
+  }
+};
+
+export const deleteDoctor = async (req, res) => {
+  const { doctorId, serviceName } = req.params;
+  try {
+    const doctor = await stuffModel.findOneAndDelete({ nationalId: doctorId });
+    const service = await serviceModel.findOneAndUpdate(
+      { name: serviceName },
+      {
+        $pull: { doctors: { $eq: doctor._id } },
+      },
+      {
+        new: true,
+      }
+    );
+    res.status(200).send(service);
   } catch (error) {
     console.log(error);
     res.status(503).send(error);

@@ -23,7 +23,12 @@ managerRoute.put("/appointment/:id", managerController.updateAppointmentStatus);
 
 managerRoute.post("/doctors", managerController.addDoctor);
 
-// managerRoute.put("/doctors/nationalId", managerController.resetDoctorPassword);
+managerRoute.put("/doctors/reset", managerController.resetDoctorPassword);
+
+managerRoute.delete(
+  "/doctors/:doctorId/:serviceName",
+  managerController.deleteDoctor
+);
 
 // managerRoute.post("/request", managerController.addNewRequest);
 

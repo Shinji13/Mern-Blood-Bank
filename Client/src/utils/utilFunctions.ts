@@ -20,6 +20,8 @@ export const isGoodToDonate = (
   lastDonationDate: Date,
   donationType: "Plasma" | "Full Blood" | "Platelets" | "Red Cells"
 ) => {
+  if (Number.isNaN(lastDonationDate.getDay()))
+    return { isable: true, nextDonationDate: 0 };
   const donationTypeMap = new Map<string, number>([
     ["Full Blood", 56],
     ["Plasma", 28],

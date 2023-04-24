@@ -2,8 +2,12 @@ import { useNavigate, useParams } from "react-router";
 import styles from "./uniqueDoctor.module.css";
 import backArrow from "../../../assets/images/arrow-left-solid.svg";
 import { useRef, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { fetchInteractions } from "../../../utils/apiFunctions";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import {
+  deleteDoctor,
+  fetchInteractions,
+  resetDoctorPassword,
+} from "../../../utils/apiFunctions";
 import { ServiceInfo } from "../../../utils/valtioStore";
 import { interaction } from "../../../utils/types";
 import Loading from "../../ReUseComponents/Loading/Loading";
@@ -25,6 +29,14 @@ export default function UniqueDoctor() {
       id
     )
   );
+  const { mutate: remove } = useMutation({
+    mutationFn: () => deleteDoctor(navigate, id!),
+  });
+  const { mutate: resetPassword } = useMutation({
+    mutationFn: (newPassword: string) => {
+      return resetDoctorPassword(navigate, id!, newPassword);
+    },
+  });
   return (
     <div className={styles.doctor}>
       <div className={styles.firstLayer}>
@@ -36,7 +48,7 @@ export default function UniqueDoctor() {
         {!updateMode ? (
           <div className={styles.mode1}>
             <button onClick={() => changeMode(true)}>Reset Password</button>
-            <button>Delete</button>
+            <button onClick={() => remove()}>Delete</button>
           </div>
         ) : (
           <div className={styles.mode2}>
@@ -46,7 +58,14 @@ export default function UniqueDoctor() {
               placeholder="Reset password"
             />
             <button onClick={() => changeMode(false)}>Cancel</button>
-            <button>Confirm</button>
+            <button
+              onClick={() => {
+                resetPassword(newPassRef.current?.value!);
+                changeMode(false);
+              }}
+            >
+              Confirm
+            </button>
           </div>
         )}
       </div>

@@ -228,7 +228,7 @@ export const updateBank = (
   quantity: Quantity
 ) => {
   return CustomAxios.put(
-    `/api/manager/bank/${ServiceInfo.service_id}`,
+    `/api/manager/bank/${ServiceInfo.service._id}`,
     { quantity, bloodtype, type },
     {
       navigate: navigate,
@@ -290,4 +290,32 @@ export const addDoctor = (navigate: any, doctor: stuffUser) => {
     ServiceInfo.service = data.data.service;
     navigate("/manager");
   });
+};
+
+export const deleteDoctor = (navigate: any, doctorId: string) => {
+  return CustomAxios.delete(
+    `/api/manager/doctors/${doctorId}/${ServiceInfo.service.name}`,
+    {
+      navigate: navigate,
+    }
+  ).then((data) => {
+    ServiceInfo.service = data.data.service;
+    navigate("/manager");
+  });
+};
+
+export const resetDoctorPassword = (
+  navigate: any,
+  doctorId: string,
+  newPassword: string
+) => {
+  console.log("the call", newPassword);
+  return CustomAxios.put(
+    "/api/manager/doctors/reset",
+    {
+      doctorId,
+      newPassword,
+    },
+    { navigate: navigate }
+  );
 };

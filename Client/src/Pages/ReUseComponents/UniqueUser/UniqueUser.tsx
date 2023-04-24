@@ -28,7 +28,7 @@ export default function UniqueUser({ userType }: Props) {
   const { isLoading, data } = useQuery<{
     data: { interactions: interaction[] };
   }>(
-    ["interactions"],
+    ["interactions", user.nationalId],
     () => {
       return fetchInteractions(navigate, "donor", user.interactions);
     },
