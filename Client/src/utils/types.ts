@@ -1,5 +1,3 @@
-import { type } from "os";
-
 export type donorSignUpInfo = {
   fullName: string;
   nationalId: string;
@@ -132,3 +130,37 @@ export type service = {
   appointments: string[];
   _id: string;
 };
+
+export type request = {
+  senderService: string;
+  recieverService: string;
+  requestMessage: string;
+  respondMessage?: string;
+  date?: string;
+  requestStatus?: 0 | 1 | 2 | 3;
+};
+
+// export type requestBlood = {
+//   Plasma: Number;
+//   Platelets: Number;
+//   "Red Cells": {
+//     "A+": Number;
+//     "A-": Number;
+//     "B+": Number;
+//     "B-": Number;
+//     "O+": Number;
+//     "O-": Number;
+//     "AB+": Number;
+//     "AB-": Number;
+//   };
+//   "Full Blood": {
+//     "A+": Number;
+//     "A-": Number;
+//     "B+": Number;
+//     "B-": Number;
+//     "O+": Number;
+//     "O-": Number;
+//     "AB+": Number;
+//     "AB-": Number;
+//   };
+// };

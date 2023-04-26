@@ -1,5 +1,38 @@
 import mongoose from "mongoose";
 
+export const requestBlood = new mongoose.Schema({
+  Plasma: {
+    type: Number,
+  },
+  Platelets: {
+    type: Number,
+  },
+  "Red Cells": {
+    type: {
+      "A+": Number,
+      "A-": Number,
+      "B+": Number,
+      "B-": Number,
+      "O+": Number,
+      "O-": Number,
+      "AB+": Number,
+      "AB-": Number,
+    },
+  },
+  "Full Blood": {
+    type: {
+      "A+": Number,
+      "A-": Number,
+      "B+": Number,
+      "B-": Number,
+      "O+": Number,
+      "O-": Number,
+      "AB+": Number,
+      "AB-": Number,
+    },
+  },
+});
+
 export const quantity = new mongoose.Schema(
   {
     currentQunatity: {

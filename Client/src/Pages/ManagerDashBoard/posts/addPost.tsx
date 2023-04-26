@@ -23,18 +23,20 @@ export default function AddPost() {
         <h1>Bloodify</h1>
         <img src={backArrow} onClick={() => navigate(-1)} />
       </div>
-      <h1>New Post</h1>
-      <textarea
-        onChange={(evt) => (postRef.current.message = evt.target.value)}
-      ></textarea>
-      <button
-        onClick={() => {
-          mutate();
-          navigate(-1);
-        }}
-      >
-        Create
-      </button>
+      <div>
+        <h1>New Post</h1>
+        <textarea
+          onChange={(evt) => (postRef.current.message = evt.target.value)}
+        ></textarea>
+        <button
+          onClick={() => {
+            mutate();
+            navigate(-1);
+          }}
+        >
+          Create
+        </button>
+      </div>
     </div>
   );
 }

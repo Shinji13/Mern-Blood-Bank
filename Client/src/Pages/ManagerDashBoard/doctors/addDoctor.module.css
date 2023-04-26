@@ -106,7 +106,7 @@
     font-family: metafiz-bold;
     font-size: var(--font-size-xl);
     text-transform: capitalize;
-    color: var(--primary-color-400);
+    color: var(--primary-black);
     margin-left: 12%;
   }
 

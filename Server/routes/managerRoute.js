@@ -30,9 +30,9 @@ managerRoute.delete(
   managerController.deleteDoctor
 );
 
-// managerRoute.post("/request", managerController.addNewRequest);
+managerRoute.post("/requests", managerController.addNewRequest);
 
-// managerRoute.put("/request/:id", managerController.respondToRequest);
+managerRoute.put("/requests/:id", managerController.respondToRequest);
 
 // managerRoute.put("/request/:id", managerController.fulFillRequest);
 

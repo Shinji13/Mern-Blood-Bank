@@ -8,6 +8,7 @@ import {
   donorSignUpInfo,
   interaction,
   post,
+  request,
   stuffUser,
   update,
   user,
@@ -261,12 +262,6 @@ export const getDoctors = (navigate: any) => {
   });
 };
 
-export const getRequests = (navigate: any) => {
-  return CustomAxios.get(`/api/manager/request/${ServiceInfo.service.name}`, {
-    navigate: navigate,
-  });
-};
-
 export const updateAppointementStatus = (
   navigate: any,
   id: string,
@@ -318,4 +313,21 @@ export const resetDoctorPassword = (
     },
     { navigate: navigate }
   );
+};
+
+export const getRequests = (navigate: any) => {
+  return CustomAxios.get(`/api/manager/request/${ServiceInfo.service.name}`, {
+    navigate: navigate,
+  });
+};
+
+export const addRequest = (navigate: any, newRequest: request) => {
+  return CustomAxios.post(
+    "/api/manager/requests",
+    { request: newRequest },
+    { navigate: navigate }
+  ).then((data) => {
+    ServiceInfo.service = data.data.service;
+    navigate("/manager");
+  });
 };

@@ -96,23 +96,6 @@ export const getDoctors = async (req, res) => {
   }
 };
 
-export const getRequests = async (req, res) => {
-  const serviceName = req.params.serviceName;
-  try {
-    let requestsSent = [];
-    let requestsRecieved = [];
-    const allRequests = await requestModel.find({});
-    for (const request of allRequests) {
-      if (request.senderService === serviceName) requestsSent.push(request);
-      else if (request.recieverService === serviceName)
-        requestsRecieved.push(request);
-    }
-    res.status(200).send({ requestsRecieved, requestsSent });
-  } catch (error) {
-    res.status(503).send(error);
-  }
-};
-
 export const addDoctor = async (req, res) => {
   const doctor = req.body.doctor;
   try {
@@ -163,6 +146,65 @@ export const deleteDoctor = async (req, res) => {
       }
     );
     res.status(200).send(service);
+  } catch (error) {
+    console.log(error);
+    res.status(503).send(error);
+  }
+};
+
+export const getRequests = async (req, res) => {
+  const serviceName = req.params.serviceName;
+  try {
+    let requestsSent = [];
+    let requestsRecieved = [];
+    const allRequests = await requestModel.find({});
+    for (const request of allRequests) {
+      if (request.senderService === serviceName) requestsSent.push(request);
+      else if (request.recieverService === serviceName)
+        requestsRecieved.push(request);
+    }
+    res.status(200).send({ requestsRecieved, requestsSent });
+  } catch (error) {
+    res.status(503).send(error);
+  }
+};
+
+export const addNewRequest = async (req, res) => {
+  const rawRequest = req.body.request;
+  try {
+    const createdRequest = await requestModel.create(rawRequest);
+    const services = await Promise.all([
+      serviceModel.findOneAndUpdate(
+        { name: createdRequest.senderService },
+        {
+          $push: { requests: createdRequest._id },
+        },
+        {
+          new: true,
+        }
+      ),
+      serviceModel.findOneAndUpdate(
+        { name: createdRequest.recieverService },
+        {
+          $push: { requests: createdRequest._id },
+        }
+      ),
+    ]);
+
+    res.status(201).send({ service: services[0] });
+  } catch (error) {
+    console.log(error);
+    res.status(503).send(error);
+  }
+};
+
+export const respondToRequest = async (req, res) => {
+  const { requestId, respondMessage, requestStatus } = req.body;
+  try {
+    await requestModel.findByIdAndUpdate(requestId, {
+      $set: { respondMessage: respondMessage, requestStatus: requestStatus },
+    });
+    res.status(200).send();
   } catch (error) {
     console.log(error);
     res.status(503).send(error);
