@@ -132,6 +132,7 @@ export type service = {
 };
 
 export type request = {
+  _id?: string;
   senderService: string;
   recieverService: string;
   requestMessage: string;

@@ -316,7 +316,7 @@ export const resetDoctorPassword = (
 };
 
 export const getRequests = (navigate: any) => {
-  return CustomAxios.get(`/api/manager/request/${ServiceInfo.service.name}`, {
+  return CustomAxios.get(`/api/manager/requests/${ServiceInfo.service.name}`, {
     navigate: navigate,
   });
 };
@@ -328,6 +328,23 @@ export const addRequest = (navigate: any, newRequest: request) => {
     { navigate: navigate }
   ).then((data) => {
     ServiceInfo.service = data.data.service;
+    navigate("/manager");
+  });
+};
+
+export const respondRequest = (
+  navigate: any,
+  requestId: string,
+  requestStatus: 1 | 2,
+  respondMessage: string
+) => {
+  return CustomAxios.put(
+    "/api/manager/requests",
+    { requestId, requestStatus, respondMessage },
+    {
+      navigate: navigate,
+    }
+  ).then((data) => {
     navigate("/manager");
   });
 };

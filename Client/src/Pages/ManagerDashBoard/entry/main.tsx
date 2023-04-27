@@ -13,13 +13,15 @@ import { interaction, Quantity } from "../../../utils/types";
 import styles from "./main.module.css";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../ReUseComponents/Loading/Loading";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
-import Appointements from "../appointements/Appointements";
-import ServicePosts from "../posts/servicePosts";
-import Doctors from "../doctors/Doctors";
-import Requests from "../requests/Requests";
+import { lazy } from "react";
+
+const Doctors = lazy(() => import("../doctors/Doctors"));
+const Requests = lazy(() => import("../requests/Requests"));
+const Appointements = lazy(() => import("../appointements/Appointements"));
+const ServicePosts = lazy(() => import("../posts/servicePosts"));
 
 const bloodTypes = [
   { value: "A+", label: "A+" },
@@ -133,7 +135,9 @@ export default function Main() {
           Requests
         </span>
       </div>
-      {activities[activityCode]}
+      <Suspense fallback={<h1>Loading ...</h1>}>
+        {activities[activityCode]}
+      </Suspense>
     </div>
   );
 }

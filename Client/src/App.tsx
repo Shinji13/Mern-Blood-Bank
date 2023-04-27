@@ -27,6 +27,7 @@ import AddPost from "./Pages/ManagerDashBoard/posts/addPost";
 import AddDoctor from "./Pages/ManagerDashBoard/doctors/addDoctor";
 import UniqueDoctor from "./Pages/ManagerDashBoard/doctors/uniqueDoctor";
 import AddRequest from "./Pages/ManagerDashBoard/requests/addRequest";
+import UniqueRequest from "./Pages/ManagerDashBoard/requests/UniqueRequest";
 
 function App() {
   let location = useLocation();
@@ -141,6 +142,12 @@ function App() {
           path="/doctors/:id/:name"
           element={
             <SecureRoute dashBoardName="manager" children={<UniqueDoctor />} />
+          }
+        />
+        <Route
+          path="/requests/:id/:type"
+          element={
+            <SecureRoute children={<UniqueRequest />} dashBoardName="manager" />
           }
         />
         <Route

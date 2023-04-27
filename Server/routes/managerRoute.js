@@ -17,7 +17,7 @@ managerRoute.get(
 
 managerRoute.get("/doctors/:serviceName", managerController.getDoctors);
 
-managerRoute.get("request/:serviceName", managerController.getRequests);
+managerRoute.get("/requests/:serviceName", managerController.getRequests);
 
 managerRoute.put("/appointment/:id", managerController.updateAppointmentStatus);
 
@@ -32,8 +32,6 @@ managerRoute.delete(
 
 managerRoute.post("/requests", managerController.addNewRequest);
 
-managerRoute.put("/requests/:id", managerController.respondToRequest);
-
-// managerRoute.put("/request/:id", managerController.fulFillRequest);
+managerRoute.put("/requests", managerController.respondToRequest);
 
 export default managerRoute;

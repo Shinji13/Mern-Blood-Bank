@@ -9,10 +9,10 @@ import { ServiceInfo } from "../../../utils/valtioStore";
 
 export default function AddRequest() {
   const [selectedService, changeSelectedService] = useState("");
+  const navigate = useNavigate();
   const { isLoading: LoadingServices, data: ServicesData } = useQuery<{
     data: { services: service[] };
   }>(["services"], () => fetchServices(navigate));
-  const navigate = useNavigate();
   const [errorMessage, SetErrorMessage] = useState<string>("");
   const [options, SetOptions] = useState<string[]>([]);
   const newRequestRef = useRef<request>({
