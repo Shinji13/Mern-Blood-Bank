@@ -4,6 +4,7 @@
   margin-left: 12%;
   margin-bottom: 30px;
   flex-direction: column;
+  overflow-y: scroll;
   gap: 20px;
 
   & > .filter {
@@ -19,7 +20,7 @@
       width: 50vw;
       position: absolute;
       left: 50%;
-      top: 70%;
+      top: 60%;
       transform: translate(-50%, -50%);
       z-index: 3;
       display: grid;

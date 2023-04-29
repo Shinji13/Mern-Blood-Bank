@@ -58,6 +58,10 @@ export default function AddUser({ userType }: { userType: 0 | 1 }) {
       setError("Please enter personal information");
       return;
     }
+    if (userType == 0 && newUser.current.age < 18) {
+      setError("Donor must be at least 18 years old");
+      return;
+    }
     mutate();
   };
 

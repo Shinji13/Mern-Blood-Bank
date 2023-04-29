@@ -14,7 +14,7 @@
 
     & > div {
       cursor: pointer;
-      width: 60%;
+      width: 65%;
       display: flex;
       padding-left: 10%;
       gap: 20px;
@@ -34,6 +34,7 @@
 
       & > div {
         display: flex;
+        width: 20%;
         flex-direction: column;
         gap: 6px;
         & > span {

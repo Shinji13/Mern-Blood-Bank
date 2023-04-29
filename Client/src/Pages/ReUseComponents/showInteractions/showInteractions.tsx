@@ -53,7 +53,7 @@ export const Interactions = ({
               </div>
               <div>
                 <span>Date of Exchange</span>
-                <span>{el.date.substring(0, 24)}</span>
+                <span>{el.date.substring(0, 16)}</span>
               </div>
             </div>
           );
