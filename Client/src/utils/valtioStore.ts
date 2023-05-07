@@ -32,7 +32,6 @@ export const StuffInfo = proxy<{ user: stuffUser }>({
     fullName: "",
     nationalId: "",
     email: "",
-    profileImgPath: "",
     serviceName: "",
     stuffType: 0,
   },

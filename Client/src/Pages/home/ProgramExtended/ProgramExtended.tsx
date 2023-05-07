@@ -25,11 +25,6 @@ const programs: program[] = [
           "Service managers will be responsible for adding new doctor from their service to manage blood exchanges ,also they reset the password in case of forgoting it or delete the doctor.They can browse doctors and check the blood exchanges that they controlled.",
       },
       {
-        title: "Browse donors",
-        description:
-          "Also they can browse donors that exist in the system and check someone profile information like tel , gmail ,address ,full name and most notably their old blood exchanges that helps him get picture about the donor and try communicate with gmail or telephone number also the search can be filtered by national ids or address or name or age and blood type.",
-      },
-      {
         title: "Creating Posts",
         description:
           "Service managers can add blood demand posts for donors and that help them give message about their blood need.",
@@ -63,7 +58,7 @@ const programs: program[] = [
       {
         title: "Browse donors",
         description:
-          "Doctor can browse donors that exist in the system and check someone profile information like tel , gmail ,address ,full name and most notably their old blood exchanges that helps him get picture about the donor without condacting tests also the search can be filtered by national ids or address or name or age and blood type.",
+          "Doctor can browse donors that exist in the system and check someone profile information like tel , gmail ,address ,full name and most notably their old blood exchanges that helps him get picture about the donor without condacting tests also the search can be filtered by national ids or address or name or age and blood type,doctor can also add a donor if he does not exist.",
       },
       {
         title: "Patient Management",

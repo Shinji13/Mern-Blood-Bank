@@ -47,6 +47,9 @@ export default function Form({
     } else if (time.current.hour === "") {
       ErrorHandler("Please insert the hour of appointement");
       return;
+    } else if (+time.current.day <= new Date().getDay()) {
+      ErrorHandler("You must insert a day thats after the current day");
+      return;
     }
     let today = new Date();
     let myToday = new Date(
@@ -68,7 +71,9 @@ export default function Form({
       ErrorHandler("");
     } else
       ErrorHandler(
-        `You last donated ${user.user.lastDonation} and ${newAppointement.current.appointmentType} needs ${donationAbility.nextDonationDate} days to do donate again`
+        `You last donated ${user.user.lastDonation.substring(0, 16)} and ${
+          newAppointement.current.appointmentType
+        } needs ${donationAbility.nextDonationDate} days to do donate again`
       );
   };
   return (

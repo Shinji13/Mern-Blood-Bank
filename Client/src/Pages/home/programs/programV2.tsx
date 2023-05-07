@@ -16,12 +16,12 @@ type program = {
 const programs: program[] = [
   {
     title: "Service Manager program",
-    intialContent: `Managers control their service blood-bank from managing quantities to managing posts and requests furthermore they manage doctors accounts of his service and responding to donors appointments.`,
+    intialContent: `Managers control their service blood-bank from managing quantities to managing posts and requests from other services furthermore they manage doctors accounts of his service and responding to donors appointments.`,
     image: img,
   },
   {
     title: "Doctors program",
-    intialContent: ` Doctors has responsibility to manage blood exchange in the service and contol patient accounts`,
+    intialContent: ` Doctors has responsibility to manage blood exchange in the service and have the possibility to add either a donor or patient.`,
     image: img2,
   },
   {

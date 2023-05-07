@@ -187,9 +187,15 @@ const ModifyTemplate = ({
           <button onClick={() => templateHandler(false)}>Cancel</button>
           <button
             onClick={() => {
+              //this is important line of code to optimize image storing and preventing duplicates
               if (Img && UpdateRef.current.profileImgPath === "default.jpg")
                 UpdateRef.current.profileImgPath =
                   UUID.genV4().toString() + "." + Img?.name.split(".")[1];
+              if (
+                new Date(UpdateRef.current.lastDonation!).getTime() >
+                new Date().getTime()
+              )
+                UpdateRef.current.lastDonation = new Date().toString();
               mutate();
               templateHandler(false);
             }}
