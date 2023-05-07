@@ -6,10 +6,12 @@ export default function SecureRoute({
   dashBoardName,
 }: {
   children: JSX.Element;
-  dashBoardName: string;
+  dashBoardName: string | string[];
 }) {
+  let checkingDigest =
+    typeof dashBoardName === "string" ? dashBoardName : dashBoardName.join(".");
   if (sessionInfo.accessToken === "") return <Navigate to="/" />;
-  if (dashBoardName === sessionInfo.userType) return children;
+  if (checkingDigest.includes(sessionInfo.userType)) return children;
   else {
     if (sessionInfo.userType === "manager") return <Navigate to="/manager" />;
     if (sessionInfo.userType === "doctor") return <Navigate to="/doctor" />;

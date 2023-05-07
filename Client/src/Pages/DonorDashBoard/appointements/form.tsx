@@ -19,10 +19,9 @@ export default function Form({
   ErrorHandler: React.Dispatch<React.SetStateAction<string>>;
 }) {
   const navigate = useNavigate();
-  const [selectedService, changeSelectedService] = useState("");
+  const [WrittenService, changeWrittenService] = useState("");
   const user = useSnapshot(donorInfo);
   const [options, SetOptions] = useState<string[]>([]);
-  const time = useRef<{ day: string; hour: string }>({ day: "", hour: "" });
   const newAppointement = useRef<appointement>({
     appointmentType: "not Set",
     date: "",
@@ -41,28 +40,21 @@ export default function Form({
     } else if (newAppointement.current.appointmentType == "not Set") {
       ErrorHandler("Please insert the appointement type");
       return;
-    } else if (time.current.day === "") {
-      ErrorHandler("Please insert the day of appointement");
+    } else if (newAppointement.current.date == "") {
+      ErrorHandler(`Please insert a date`);
       return;
-    } else if (time.current.hour === "") {
-      ErrorHandler("Please insert the hour of appointement");
-      return;
-    } else if (+time.current.day <= new Date().getDay()) {
-      ErrorHandler("You must insert a day thats after the current day");
+    } else if (
+      new Date(newAppointement.current.date).getTime() < new Date().getTime()
+    ) {
+      ErrorHandler(
+        `Please insert a date that after ${new Date()
+          .toString()
+          .substring(0, 16)}`
+      );
       return;
     }
-    let today = new Date();
-    let myToday = new Date(
-      today.getFullYear(),
-      today.getMonth(),
-      +time.current.day,
-      +time.current.hour,
-      0,
-      0
-    );
-    newAppointement.current.date = myToday.toString();
     const donationAbility = isGoodToDonate(
-      myToday,
+      new Date(newAppointement.current.date),
       new Date(user.user.lastDonation),
       newAppointement.current.appointmentType
     );
@@ -82,19 +74,20 @@ export default function Form({
         <span>Select Service</span>
         <input
           onFocus={() => ErrorHandler("")}
-          value={selectedService}
+          value={WrittenService}
           onChange={(evt) => {
             const options =
               evt.target.value === ""
                 ? []
                 : ServicesData.filter(
                     (service: { name: string; address: string }) => {
-                      return service.name.includes(evt.target.value, 0);
+                      return service.name.startsWith(evt.target.value, 0);
                     }
                   ).map(
                     (service: { name: string; address: string }) => service.name
                   );
             SetOptions(options);
+            changeWrittenService(evt.target.value);
           }}
         />
         <ul>
@@ -103,7 +96,7 @@ export default function Form({
               onClick={(evt) => {
                 newAppointement.current.Service =
                   evt.currentTarget.textContent || "";
-                changeSelectedService(evt.currentTarget.textContent || "");
+                changeWrittenService(evt.currentTarget.textContent || "");
                 SetOptions([]);
               }}
               key={el}
@@ -165,104 +158,15 @@ export default function Form({
         />
       </div>
       <div className={styles.time}>
-        <div>
-          <span>Day</span>
-          <Select
-            onFocus={() => ErrorHandler("")}
-            options={(() => {
-              const options: { label: string; value: string }[] = [];
-              for (let i = new Date().getDay(); i <= 30; i++) {
-                options.push({ label: `${i}`, value: `${i}` });
-              }
-              return options;
-            })()}
-            styles={{
-              indicatorSeparator: (base, props) => ({
-                ...base,
-                display: "none",
-              }),
-              control: (baseStyles, state) => ({
-                ...baseStyles,
-                borderRadius: "22px",
-                height: "45px",
-                border: "2px solid #121212",
-              }),
-              menu: (baseStyles, state) => ({
-                ...baseStyles,
-                borderRadius: "12px",
-                backgroundColor: "#ebaca4",
-              }),
-              option: (baseStyles, state) => ({
-                ...baseStyles,
-                height: "fit-content",
-                width: "100%",
-                borderRight: "12px",
-              }),
-              container: (baseStyles, state) => ({
-                ...baseStyles,
-                width: "100%",
-                zIndex: 3,
-              }),
-            }}
-            components={makeAnimated()}
-            onChange={(optionSelected) => {
-              const val = optionSelected as {
-                label: string;
-                value: string;
-              };
-              time.current.day = val.value;
-            }}
-          />
-        </div>
-        <div>
-          <span>Hour</span>
-          <Select
-            onFocus={() => ErrorHandler("")}
-            options={(() => {
-              const options: { label: string; value: string }[] = [];
-              for (let i = 9; i <= 16; i++) {
-                options.push({ label: `${i}`, value: `${i}` });
-              }
-              return options;
-            })()}
-            styles={{
-              indicatorSeparator: (base, props) => ({
-                ...base,
-                display: "none",
-              }),
-              control: (baseStyles, state) => ({
-                ...baseStyles,
-                borderRadius: "22px",
-                height: "45px",
-                border: "2px solid #121212",
-              }),
-              menu: (baseStyles, state) => ({
-                ...baseStyles,
-                borderRadius: "12px",
-                backgroundColor: "#ebaca4",
-              }),
-              option: (baseStyles, state) => ({
-                ...baseStyles,
-                height: "fit-content",
-                width: "100%",
-                borderRight: "12px",
-              }),
-              container: (baseStyles, state) => ({
-                ...baseStyles,
-                width: "100%",
-                zIndex: 3,
-              }),
-            }}
-            components={makeAnimated()}
-            onChange={(optionSelected) => {
-              const val = optionSelected as {
-                label: string;
-                value: string;
-              };
-              time.current.hour = val.value;
-            }}
-          />
-        </div>
+        <span>Date of the appointement</span>
+        <input
+          type="date"
+          onChange={(e) =>
+            (newAppointement.current.date = new Date(
+              e.currentTarget.value
+            ).toString())
+          }
+        />
       </div>
       <button onClick={createHandler}>Create</button>
     </div>

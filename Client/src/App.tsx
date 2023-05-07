@@ -69,7 +69,7 @@ function App() {
           path="/donors/:id"
           element={
             <SecureRoute
-              dashBoardName="doctor"
+              dashBoardName={["doctor", "manager"]}
               children={<UniqueUser userType="donors" />}
             />
           }
@@ -157,6 +157,7 @@ function App() {
           }
         >
           <Route index element={<Main />} />
+          <Route path="/manager/donors" element={<ShowDonors />} />
         </Route>
       </Routes>
     </AnimatePresence>

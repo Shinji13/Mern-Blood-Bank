@@ -30,7 +30,7 @@ export const isGoodToDonate = (
   ]);
   return {
     isable:
-      wantedDate.getDay() - lastDonationDate.getDay() >=
+      (wantedDate.getTime() - lastDonationDate.getTime()) * 1000 * 3600 * 24 >=
       donationTypeMap.get(donationType)!,
     nextDonationDate: donationTypeMap.get(donationType) || 0,
   };

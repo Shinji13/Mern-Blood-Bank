@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ServicePosts, interaction, user } from "../../../utils/types";
 import axios from "axios";
 import Select from "react-select";
@@ -38,11 +38,11 @@ export function InteractionFilter({
       const filteredInteractions = data.filter(
         (int: interaction) =>
           (isService
-            ? int.serviceName.includes(
+            ? int.serviceName.startsWith(
                 contextFilterRef.current?.value as string,
                 0
               )
-            : int.EndNationalId.name.includes(
+            : int.EndNationalId.name.startsWith(
                 contextFilterRef.current?.value as string,
                 0
               )) && int.date.includes(dateFilterRef.current?.value as string, 0)
@@ -74,58 +74,54 @@ export function UserFilter({
   stateHandler: React.Dispatch<React.SetStateAction<user[]>>;
 }) {
   const [advanceSearch, showAdvanceSearch] = useState<boolean>(false);
-  const [address, changeAddress] = useState<string>("");
+  const [address, changeAddress] = useState("");
   const [AddressOptions, SetOptions] = useState<string[]>([]);
-  const filterRef = useRef<{
-    bloodType: string;
-    address: string;
-    name: string;
-    nationalId: string;
-    age: number;
-  }>({
+  const [filterState, changeFilterState] = useState({
     nationalId: "",
     bloodType: "",
-    address: "",
     name: "",
     age: -1,
+    address: "",
   });
 
   const filter = () => {
     const filtredUsers = data.filter((user) => {
       if (
-        filterRef.current.nationalId != "" &&
-        !user.nationalId.includes(filterRef.current.nationalId, 0)
+        filterState.nationalId != "" &&
+        !user.nationalId.startsWith(filterState.nationalId, 0)
       )
         return false;
       if (
-        filterRef.current.name !== "" &&
-        !user.fullName.includes(filterRef.current.name, 0)
+        filterState.name !== "" &&
+        !user.fullName.startsWith(filterState.name, 0)
       )
         return false;
       if (
-        filterRef.current.address !== "" &&
-        !user.address.includes(filterRef.current.address, 0)
+        filterState.address !== "" &&
+        !filterState.address.includes(filterState.address, 0)
       )
         return false;
       if (
-        filterRef.current.bloodType !== "" &&
-        user.bloodtype !== filterRef.current.bloodType
+        filterState.bloodType !== "" &&
+        user.bloodtype !== filterState.bloodType
       )
         return false;
-      if (filterRef.current.age !== -1 && user.age !== filterRef.current.age)
-        return false;
+      if (filterState.age != -1 && user.age !== filterState.age) return false;
       return true;
     });
     stateHandler(filtredUsers);
   };
+
+  useEffect(() => {
+    filter();
+  }, [filterState]);
   return (
     <div className={styles.filter}>
       <input
         type="text"
         placeholder="Search By name"
         onChange={(evt) => {
-          filterRef.current.name = evt.target.value;
-          filter();
+          changeFilterState({ ...filterState, name: evt.target.value });
         }}
       />
       <div>
@@ -146,8 +142,10 @@ export function UserFilter({
             <input
               type="number"
               onChange={(evt) => {
-                filterRef.current.nationalId = evt.target.value;
-                filter();
+                changeFilterState({
+                  ...filterState,
+                  nationalId: evt.target.value,
+                });
               }}
             />
           </div>
@@ -183,10 +181,11 @@ export function UserFilter({
                 {AddressOptions.map((el) => (
                   <li
                     onClick={(evt) => {
-                      filterRef.current.address =
-                        evt.currentTarget.textContent || "";
-                      changeAddress(evt.currentTarget.textContent || "");
-                      filter();
+                      changeAddress(evt.currentTarget.textContent!);
+                      changeFilterState({
+                        ...filterState,
+                        address: evt.currentTarget.textContent!,
+                      });
                       SetOptions([]);
                     }}
                     key={el}
@@ -235,8 +234,7 @@ export function UserFilter({
                   label: string;
                   value: string;
                 };
-                filterRef.current.bloodType = opt.value;
-                filter();
+                changeFilterState({ ...filterState, bloodType: opt.value });
               }}
             />
           </div>
@@ -245,7 +243,7 @@ export function UserFilter({
             <input
               type="number"
               onChange={(evt) => {
-                filterRef.current.age =
+                filterState.age =
                   evt.target.value == "" ? -1 : +evt.target.value;
                 filter();
               }}

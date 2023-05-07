@@ -26,8 +26,8 @@ export default function Appointements() {
           <div key={el._id} data-id={el._id}>
             <span>{index}</span>
             <div>
-              <span>Service name</span>
-              <span>{el.Service}</span>
+              <span>Donor national Id</span>
+              <span>{el.donor}</span>
             </div>
             <div>
               <span>Donation Type</span>

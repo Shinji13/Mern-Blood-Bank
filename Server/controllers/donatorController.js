@@ -1,6 +1,7 @@
 import donorModel from "../models/donator.js";
 import serviceModle from "../models/serviceModel.js";
 import appointmentModel from "../models/appointment.js";
+import mongoose from "mongoose";
 
 export const getDonatorInfo = (req, res) => {
   const Id = req.userId;
@@ -59,18 +60,20 @@ export const addAppointment = (req, res) => {
       serviceModle
         .findOne({ name: newAppointment.Service })
         .then((service) => {
-          service.appointments.push(newAppointment._id);
+          service.appointments.push(apt._id);
           service
             .save()
-            .then((service) => {
+            .then(() => {
               donorModel
                 .findByIdAndUpdate(userId, {
-                  $push: { appointments: newAppointment._id },
+                  $push: { appointments: apt._id },
                 })
-                .then(() => res.status(201).send(apt))
+                .then(() => res.status(201).send())
                 .catch((err) => res.status(503).send(err));
             })
-            .catch((err) => res.status(503).send(err));
+            .catch((err) => {
+              res.status(503).send(err);
+            });
         })
         .catch((err) => res.status(503).send(err));
     })

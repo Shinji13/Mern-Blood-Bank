@@ -179,7 +179,9 @@ const ModifyTemplate = ({
               .getMonth()
               .toString()}/${new Date().getDay().toString()}`}
             onChange={(evt) =>
-              (UpdateRef.current.lastDonation = evt.target.value)
+              (UpdateRef.current.lastDonation = new Date(
+                evt.target.value
+              ).toString())
             }
           />
         </div>

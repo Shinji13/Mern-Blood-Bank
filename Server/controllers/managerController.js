@@ -24,16 +24,19 @@ export const getmanagerInfo = (req, res) => {
 };
 
 export const updateQuantity = async (req, res) => {
-  const id = req.params.id;
+  const name = req.params.name;
   const { type, quantity, bloodtype } = req.body;
   try {
-    const service = await serviceModel.findById(id);
+    const service = await serviceModel.findOne({ name: name });
     if (type == "Plasma" || type == "Platelets") service[type] = quantity;
     else service[type][bloodtype] = quantity;
     service
       .save()
       .then((service) => res.status(200).send({ service }))
-      .catch((err) => res.status(503).send(err));
+      .catch((err) => {
+        console.log(err);
+        res.status(503).send(err);
+      });
   } catch (error) {
     console.log(error);
     res.status(503).send(error);

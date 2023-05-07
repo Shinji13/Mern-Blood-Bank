@@ -56,27 +56,28 @@ export default function AddInteraction() {
     if (newInteraction.current.EndNationalId.nationalId == "") {
       setError("Please enter user national identifier");
       return;
-    }
-    if (
+    } else if (
       newInteraction.current.doctor.name == "" ||
       newInteraction.current.doctor.nationalId == ""
     ) {
       setError("Please enter doctor information");
       return;
-    }
-    if (
+    } else if (
       newInteraction.current.Quantity == -1 ||
       newInteraction.current.bloodtype == "" ||
       newInteraction.current.date == ""
     ) {
       setError("Please enter interaction information");
       return;
-    }
-    if (newInteraction.current.exchangeType == 3) {
+    } else if (
+      new Date(newInteraction.current.date).getTime() > new Date().getTime()
+    ) {
+      setError(`Please enter a date befor ${new Date().toString()}`);
+      return;
+    } else if (newInteraction.current.exchangeType == 3) {
       setError("Please enter type of operation");
       return;
-    }
-    if (newInteraction.current.interactionNotice.length < 20) {
+    } else if (newInteraction.current.interactionNotice.length < 20) {
       setError("Please enter a note with at least 20 characters");
       return;
     }

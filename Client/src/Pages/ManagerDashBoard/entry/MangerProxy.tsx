@@ -9,6 +9,7 @@ export default function MangerProxy() {
   const [Menu, setMenu] = useState<boolean>(false);
   const navigate = useNavigate();
   const [isLoading, SetLoading] = useState(true);
+  const [navView, showFullNav] = useState(false);
   const intialFetch = async () => {
     await getManagerInfo(navigate);
     SetLoading(false);
@@ -48,6 +49,24 @@ export default function MangerProxy() {
             ></i>
           </div>
         )}
+      </div>
+      <div
+        className={styles.nav}
+        onMouseEnter={() => showFullNav(true)}
+        onMouseLeave={() => showFullNav(false)}
+      >
+        <Link to={"/manager"} className={styles.link}>
+          <i className="fa-solid fa-hand-holding-medical"></i>
+          <span style={{ display: navView ? "inline-block" : "none" }}>
+            Main
+          </span>
+        </Link>
+        <Link to={"/manager/donors"} className={styles.link}>
+          <i className="fa-solid fa-handshake-angle"></i>
+          <span style={{ display: navView ? "inline-block" : "none" }}>
+            Donors
+          </span>
+        </Link>
       </div>
       <Outlet />
     </div>

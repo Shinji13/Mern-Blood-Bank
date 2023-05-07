@@ -30,7 +30,6 @@ const serviceSchema = new mongoose.Schema({
       "AB-": { currentQunatity: 0, miniumQuantity: 0 },
     },
     type: bloodTypesQunatity,
-    patient,
   },
   "Full Blood": {
     default: {
@@ -44,7 +43,6 @@ const serviceSchema = new mongoose.Schema({
       "AB-": { currentQunatity: 0, miniumQuantity: 0 },
     },
     type: bloodTypesQunatity,
-    patient,
   },
   Plasma: {
     type: quantity,

@@ -229,7 +229,7 @@ export const updateBank = (
   quantity: Quantity
 ) => {
   return CustomAxios.put(
-    `/api/manager/bank/${ServiceInfo.service._id}`,
+    `/api/manager/bank/${ServiceInfo.service.name}`,
     { quantity, bloodtype, type },
     {
       navigate: navigate,

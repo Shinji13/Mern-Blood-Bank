@@ -6,7 +6,7 @@ const managerRoute = Router();
 
 managerRoute.get("/", managerController.getmanagerInfo); //done and tested
 
-managerRoute.put("/bank/:id", managerController.updateQuantity); //done and tested
+managerRoute.put("/bank/:name", managerController.updateQuantity); //done and tested
 
 managerRoute.post("/post/:id", managerController.addPost); //done and tested
 
